@@ -5,12 +5,21 @@
 
 trigger:
 - master
+- dev
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
 - script: | 
-    apt install libsdl2-dev
+    sudo apt-get update
+    sudo apt-get install build-essential
+    sudo apt install libsdl2-dev
+    sudo apt install libsdl2-image-dev
+    sudo apt install libsdl2-ttf-dev
+    sudo apt install libsdl2-mixer-dev
+    sudo apt install liblua5.3-dev
+    sudo apt-get install libboost-all-dev
     make
-  displayName: 'make'
+  displayName: 'installing libs'
+

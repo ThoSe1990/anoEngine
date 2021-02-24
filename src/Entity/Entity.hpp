@@ -6,6 +6,9 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
+
+#include "Constants.hpp"
 
 #include "Entity/EntityManager.hpp"
 #include "Components/Component.hpp"
@@ -17,14 +20,15 @@ class Entity
 {
 private:
     EntityManager& entityManager;
-    bool isActive;
+    bool isActive;    
     std::vector<Component*> components;
     std::map<const std::type_info*, Component*> componentTypes;
 
 public:
+    Layer layer_;
 
     Entity(EntityManager& manager);
-    Entity(EntityManager& manager, std::string name);
+    Entity(EntityManager& manager, std::string name, Layer layer);
 
     void Update(float deltaTime);
     void Render();

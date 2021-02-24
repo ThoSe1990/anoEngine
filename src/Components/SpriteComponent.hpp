@@ -13,6 +13,7 @@ private:
     SDL_Texture* texture;
     SDL_Rect sourceRectangle;
     SDL_Rect destinationRectangle;
+    
 
 public:
     SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
@@ -38,8 +39,8 @@ public:
 
     void Update(float deltaTime) override 
     {
-        destinationRectangle.x = static_cast<int>(transform->position.x);
-        destinationRectangle.y = static_cast<int>(transform->position.y);
+        destinationRectangle.x = static_cast<int>(transform->ActPosition.x);
+        destinationRectangle.y = static_cast<int>(transform->ActPosition.y);
         destinationRectangle.w = transform->width_ * transform->scale_;
         destinationRectangle.h = transform->height_ * transform->scale_;
     }

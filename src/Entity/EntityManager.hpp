@@ -3,7 +3,6 @@
 
 #include "Entity/Entity.hpp"
 #include "Components/Component.hpp"
-
 #include <vector>
 
 
@@ -22,7 +21,8 @@ public:
     void ListAllEntities() const;
 
     std::vector<Entity*> GetEntities() const;
-    Entity& AddEntity(std::string entityName);
+    std::vector<Entity*> GetEntities(Layer layer) const;
+    Entity& AddEntity(std::string entityName, Layer layer);
 
 
 };
