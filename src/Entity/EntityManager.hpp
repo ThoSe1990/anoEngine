@@ -22,8 +22,9 @@ public:
 
     std::vector<Entity*> GetEntities() const;
     std::vector<Entity*> GetEntities(Layer layer) const;
+    
+    Entity& AddEntity(std::string entityName);
     Entity& AddEntity(std::string entityName, Layer layer);
-
 
 };
 

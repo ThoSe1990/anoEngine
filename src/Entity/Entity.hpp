@@ -28,6 +28,7 @@ public:
     Layer layer_;
 
     Entity(EntityManager& manager);
+    Entity(EntityManager& manager, std::string name);
     Entity(EntityManager& manager, std::string name, Layer layer);
 
     void Update(float deltaTime);
@@ -53,6 +54,11 @@ public:
         return static_cast<T*>(componentTypes[&typeid(T)]);
     }
 
+    template <typename T>
+    bool HasComponent() const 
+    {
+        return componentTypes.count(&typeid(T));
+    }
     std::string name;
 };
 

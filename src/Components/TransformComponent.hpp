@@ -21,6 +21,8 @@ class TransformComponent : public Component
 public:
     glm::vec2 ActPosition;
     glm::vec2 velocity;
+    std::string square;
+
     int width_;
     int height_;
     int scale_;
@@ -45,7 +47,12 @@ public:
         { }
 
 
-    void Initialize() override { }
+    void Initialize() override 
+    { 
+        square = chessBoard->GetSquareTitleByCoordinates(ActPosition);
+        Logger::Log(logging::trivial::debug, log_location, "creating: ", Owner->name , " at " , square);
+    }
+
 
     void Update(float deltaTime) override 
     {
@@ -58,26 +65,28 @@ public:
 
     void SetPosition(int x, int y)
     {
-        setPosition_internal(glm::vec2(x,y));
+        setPosition_internal(glm::vec2(x,y), chessBoard->GetSquareTitleByCoordinates(glm::vec2(x,y)));
     }
 
     void SetPosition(glm::vec2 newPosition)
     {
-        setPosition_internal(newPosition);
+        setPosition_internal(newPosition, chessBoard->GetSquareTitleByCoordinates(newPosition));
     }
 
     void SetPosition(std::string title)
     {
-        setPosition_internal( chessBoard->GetCoordinatesFromSquare(title) );
+        setPosition_internal( chessBoard->GetCoordinatesFromSquare(title), title );
     }
 
 
 private: 
     glm::vec2 setPosition;
 
-    void setPosition_internal(glm::vec2 position)
+    void setPosition_internal(glm::vec2 position, std::string title)
     {
+        Logger::Log(logging::trivial::debug, log_location, Owner->name  , ": " , square, "->" , title);
         setPosition = position + glm::vec2(offset_, offset_);
+        square = title; 
     }
 
     int calculateVelocity(int position_set, int position_act)

@@ -38,6 +38,7 @@ public:
     
     glm::vec2 GetCoordinatesFromSquare(std::string title);
     std::string GetSquareTitleByCoordinates(glm::vec2 coordinates);
+
     const std::map<std::string, glm::vec2>& GetSquareCoordinates()  const;
 
 

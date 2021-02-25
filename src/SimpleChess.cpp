@@ -9,10 +9,9 @@
 #include "AssetManager.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/SpriteComponent.hpp"
-#include "Components/ControlComponent.hpp"
 
 #include "ChessBoard.hpp"
-
+#include "ChessController.hpp"
 
 const int Constants::chessfigures_sidelength = 60;
 const int Constants::chessboard_square_sidelength = 70;
@@ -22,6 +21,7 @@ const int Constants::chessfigures_velocity = 500;
 
 EntityManager manager;
 ChessBoard* chessBoard;
+ChessController* chessController;
 
 SDL_Event SimpleChess::event;
 AssetManager* SimpleChess::assetManager = new AssetManager(&manager);
@@ -102,10 +102,11 @@ void SimpleChess::LoadBoard()
     chessBoard = new ChessBoard("board_squares", 1, Constants::chessboard_square_sidelength, 40);
     chessBoard->LoadBoard();
 
+
     glm::vec2 coordinates = chessBoard->GetCoordinatesFromSquare(std::string("B8"));
     
     
-    Entity& white_pawn1(manager.AddEntity("white_pawn", Layer::chess_figure));
+    Entity& white_pawn1(manager.AddEntity("white_pawn", Layer::chess_piece));
     white_pawn1.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chessfigures_sidelength, Constants::chessfigures_sidelength, 1, Constants::offset_figures_squares);
     white_pawn1.AddComponent<SpriteComponent>("white_pawn");
 
@@ -116,13 +117,14 @@ void SimpleChess::LoadBoard()
 
 
     coordinates = chessBoard->GetCoordinatesFromSquare(std::string("D4"));
-    Entity& newEntity (manager.AddEntity("black_king", Layer::chess_figure));
+    Entity& newEntity (manager.AddEntity("black_king", Layer::chess_piece));
     newEntity.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chessfigures_sidelength, Constants::chessfigures_sidelength, 1, Constants::offset_figures_squares);
     newEntity.AddComponent<SpriteComponent>("black_king");
-    newEntity.AddComponent<ControlComponent>();
 
-    auto move_king = newEntity.GetComponent<TransformComponent>();
-    move_king->SetPosition("G7");
+
+
+    // chesscontroller after chesspieces!
+    chessController = new ChessController( manager.GetEntities(Layer::chess_piece) ) ;
 
 }
 
@@ -172,6 +174,9 @@ void SimpleChess::Update()
     ticksLastFrame = SDL_GetTicks();
 
     manager.Update(deltaTime);
+
+    chessController->UpdateGame();
+
 }
 
 

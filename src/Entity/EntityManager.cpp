@@ -41,10 +41,10 @@ std::vector<Entity*> EntityManager::GetEntities() const
 std::vector<Entity*> EntityManager::GetEntities(Layer layer) const
 {
     std::vector<Entity*> selectedEntities;
-    for (auto& entity: entities) {
-        if (entity->layer_ == layer) {
+    for (auto& entity: entities) 
+    {
+        if (entity->layer_ == layer) 
             selectedEntities.emplace_back(entity);
-        }
     }
     return selectedEntities;
 }
@@ -60,9 +60,18 @@ void EntityManager::ListAllEntities() const
     }
 }
 
+
+Entity& EntityManager::AddEntity(std::string entityName) 
+{
+    Entity *entity = new Entity(*this, entityName);
+    entities.emplace_back(entity);
+    return *entity;
+}
+
 Entity& EntityManager::AddEntity(std::string entityName, Layer layer) 
 {
     Entity *entity = new Entity(*this, entityName, layer);
     entities.emplace_back(entity);
     return *entity;
 }
+

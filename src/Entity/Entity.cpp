@@ -7,6 +7,11 @@ Entity::Entity(EntityManager& manager): entityManager(manager)
     this->isActive = true;
 }
 
+Entity::Entity(EntityManager& manager, std::string name): entityManager(manager), name(name)
+{
+    this->isActive = true;
+}
+
 Entity::Entity(EntityManager& manager, std::string name, Layer layer): entityManager(manager), name(name), layer_(layer)
 {
     this->isActive = true;

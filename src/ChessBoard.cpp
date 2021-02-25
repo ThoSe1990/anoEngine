@@ -79,7 +79,8 @@ std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
         auto squareCenter = current_item.second + glm::vec2(Constants::chessboard_square_sidelength/2.0, Constants::chessboard_square_sidelength/2.0);
         auto distanceCenterToClick = abs(squareCenter - coordinates);
         auto squareCenterToBorder = Constants::chessboard_square_sidelength / 2.0;
-        return (distanceCenterToClick.x < squareCenterToBorder && distanceCenterToClick.y < squareCenterToBorder) ? true : false;
+        return (distanceCenterToClick.x <= squareCenterToBorder && distanceCenterToClick.y <= squareCenterToBorder) ? true : false;
+
     };
 
     auto it = std::find_if(std::begin(squareCoordinates),std::end(squareCoordinates), lambda);

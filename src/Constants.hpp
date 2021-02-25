@@ -20,7 +20,7 @@ public:
 enum class Layer
 {
     square = 0,
-    chess_figure = 1,
+    chess_piece = 1,
     validation = 2
 
 };
