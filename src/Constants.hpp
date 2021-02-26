@@ -15,6 +15,9 @@ public:
     static const int chessboard_square_sidelength;
     static const int offset_figures_squares;
     static const int chessfigures_velocity;
+    static const int chessboard_offset;
+    static const int number_of_squares_per_row;
+    static const int number_of_squares_per_col;
 };
 
 enum class Layer

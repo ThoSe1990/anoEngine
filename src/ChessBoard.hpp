@@ -18,8 +18,6 @@ private:
     const int blackSquare = 0;
     const int whiteSquare = 1;
 
-    const int boardSize = 8;
-
     const char* numbers = "87654321";
     const char* letters = "ABCDEFGH";
 

@@ -33,10 +33,10 @@ ChessBoard::~ChessBoard()
 void ChessBoard::LoadBoard()
 {
     int currentSquare = whiteSquare;
-    for (int rows = 0 ; rows < boardSize ; rows++)
+    for (int rows = 0 ; rows < Constants::number_of_squares_per_row ; rows++)
     {
         currentSquare = toggleSquareColor(currentSquare);
-        for (int cols = 0 ; cols < boardSize ; cols++)
+        for (int cols = 0 ; cols < Constants::number_of_squares_per_row ; cols++)
         {
             std::string title = "";
             title += letters[cols];
@@ -72,20 +72,19 @@ glm::vec2 ChessBoard::GetCoordinatesFromSquare(std::string title)
 }
 
 std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
-{
+{   
 
-    auto lambda =[&coordinates](auto current_item)
-    {
-        auto squareCenter = current_item.second + glm::vec2(Constants::chessboard_square_sidelength/2.0, Constants::chessboard_square_sidelength/2.0);
-        auto distanceCenterToClick = abs(squareCenter - coordinates);
-        auto squareCenterToBorder = Constants::chessboard_square_sidelength / 2.0;
-        return (distanceCenterToClick.x <= squareCenterToBorder && distanceCenterToClick.y <= squareCenterToBorder) ? true : false;
+    if ( (coordinates.x < Constants::chessboard_offset) ||
+        (coordinates.x > (Constants::chessboard_square_sidelength * Constants::number_of_squares_per_col) + Constants::chessboard_offset) ||
+        (coordinates.y < Constants::chessboard_offset) ||
+        (coordinates.y > (Constants::chessboard_square_sidelength * Constants::number_of_squares_per_row) + Constants::chessboard_offset) )
+            return "00"; //click outside of chess board
+    
+    int x = (coordinates.x - Constants::chessboard_offset) / Constants::chessboard_square_sidelength ;
+    int y = (coordinates.y - Constants::chessboard_offset) / Constants::chessboard_square_sidelength ;
 
-    };
-
-    auto it = std::find_if(std::begin(squareCoordinates),std::end(squareCoordinates), lambda);
-
-    if ( it != std::end(squareCoordinates) )    
-        return it->first;
-    else return std::string("not found ... ");
+    std::string title = "";
+    title += letters[x];
+    title += numbers[y];    
+    return title;
 }

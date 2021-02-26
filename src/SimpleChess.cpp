@@ -17,7 +17,9 @@ const int Constants::chessfigures_sidelength = 60;
 const int Constants::chessboard_square_sidelength = 70;
 const int Constants::offset_figures_squares = (Constants::chessboard_square_sidelength - Constants::chessfigures_sidelength) / 2 ;
 const int Constants::chessfigures_velocity = 500;
-
+const int Constants::chessboard_offset = 40;
+const int Constants::number_of_squares_per_row = 8;
+const int Constatns::number_of_squares_per_col = 8;
 
 EntityManager manager;
 ChessBoard* chessBoard;
@@ -99,7 +101,7 @@ void SimpleChess::LoadBoard()
     assetManager->AddTexture("board_squares", "./assets/images/board_squares.png");
 
     
-    chessBoard = new ChessBoard("board_squares", 1, Constants::chessboard_square_sidelength, 40);
+    chessBoard = new ChessBoard("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
     chessBoard->LoadBoard();
 
 
