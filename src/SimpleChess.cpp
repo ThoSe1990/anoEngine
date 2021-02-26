@@ -19,7 +19,7 @@ const int Constants::offset_figures_squares = (Constants::chessboard_square_side
 const int Constants::chessfigures_velocity = 500;
 const int Constants::chessboard_offset = 40;
 const int Constants::number_of_squares_per_row = 8;
-const int Constatns::number_of_squares_per_col = 8;
+const int Constants::number_of_squares_per_col = 8;
 
 EntityManager manager;
 ChessBoard* chessBoard;
