@@ -73,13 +73,13 @@ std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
 {   
 
     if ( (coordinates.x < Constants::chessboard_offset) ||
-        (coordinates.x > (Constants::chessboard_square_sidelength * Constants::number_of_squares_per_col) + Constants::chessboard_offset) ||
+        (coordinates.x > (Constants::square_sidelength * Constants::number_of_squares_per_col) + Constants::chessboard_offset) ||
         (coordinates.y < Constants::chessboard_offset) ||
-        (coordinates.y > (Constants::chessboard_square_sidelength * Constants::number_of_squares_per_row) + Constants::chessboard_offset) )
+        (coordinates.y > (Constants::square_sidelength * Constants::number_of_squares_per_row) + Constants::chessboard_offset) )
             return "00"; //click outside of chess board
     
-    int x = (coordinates.x - Constants::chessboard_offset) / Constants::chessboard_square_sidelength ;
-    int y = (coordinates.y - Constants::chessboard_offset) / Constants::chessboard_square_sidelength ;
+    int x = (coordinates.x - Constants::chessboard_offset) / Constants::square_sidelength ;
+    int y = (coordinates.y - Constants::chessboard_offset) / Constants::square_sidelength ;
 
     std::string title = "";
     title += letters[x];

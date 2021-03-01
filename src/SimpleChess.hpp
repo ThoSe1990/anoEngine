@@ -7,6 +7,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h> 
 
+#include "lua/sol.hpp"
 
 #include "Entity/Entity.hpp"
 #include "Entity/EntityManager.hpp"
@@ -20,6 +21,8 @@ private:
     bool isRunning;
     SDL_Window* window;
 
+    sol::state lua;
+
 public:
     SimpleChess();
     ~SimpleChess();
@@ -28,7 +31,9 @@ public:
     bool IsRunning() const;
     void Initialize(int width, int height);
 
+    void InitializeLua();
     void LoadBoard();
+
 
     void ProcessInput();
     void Update();

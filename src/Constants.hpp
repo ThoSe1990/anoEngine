@@ -11,13 +11,15 @@ const unsigned int FRAME_TARGET_TIME = 1000 / FPS;
 class Constants
 {
 public:
-    static const int chessfigures_sidelength;
-    static const int chessboard_square_sidelength;
+    static const int chesspiece_sidelength;
+    static const int square_sidelength;
     static const int offset_figures_squares;
-    static const int chessfigures_velocity;
-    static const int chessboard_offset;
     static const int number_of_squares_per_row;
     static const int number_of_squares_per_col;
+
+    static int chespieces_velocity;
+    static int chessboard_offset;
+
 };
 
 enum class Layer

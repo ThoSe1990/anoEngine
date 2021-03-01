@@ -4,7 +4,6 @@
 #include "Constants.hpp"
 #include "SimpleChess.hpp"
 
-#include "lua/sol.hpp"
 #include "glm/glm.hpp"
 
 #include "AssetManager.hpp"
@@ -15,14 +14,14 @@
 
 #include "Log.hpp"
 
-const int Constants::chessfigures_sidelength = 60;
-const int Constants::chessboard_square_sidelength = 70;
-const int Constants::offset_figures_squares = (Constants::chessboard_square_sidelength - Constants::chessfigures_sidelength) / 2 ;
-const int Constants::chessfigures_velocity = 500;
-const int Constants::chessboard_offset = 40;
+const int Constants::chesspiece_sidelength = 60;
+const int Constants::square_sidelength = 70;
+const int Constants::offset_figures_squares = (Constants::square_sidelength - Constants::chesspiece_sidelength) / 2 ;
 const int Constants::number_of_squares_per_row = 8;
 const int Constants::number_of_squares_per_col = 8;
 
+int Constants::chespieces_velocity = 500;
+int Constants::chessboard_offset = 40;
 
 
 EntityManager manager;
@@ -84,6 +83,7 @@ void SimpleChess::Initialize(int width, int height)
         return;
     }
 
+    InitializeLua();
     LoadBoard();
 
     isRunning = true;
@@ -91,14 +91,27 @@ void SimpleChess::Initialize(int width, int height)
 
 }
 
+void SimpleChess::InitializeLua()
+{
+    lua.open_libraries(sol::lib::base, sol::lib::os, sol::lib::math);
+    lua.script_file("./assets/scripts/config.lua");
+
+    sol::optional<int> chespieces_velocity_exists = lua["config"]["chespieces_velocity"];
+    Constants::chespieces_velocity = (chespieces_velocity_exists == sol::nullopt) ? Constants::chespieces_velocity : lua["config"]["chespieces_velocity"];
+    Logger::Log(logging::trivial::debug, log_location, "loading chespieces_velocity: " , Constants::chespieces_velocity);
+
+    sol::optional<int> chessboard_offset_exists = lua["config"]["chessboard_offset"];
+    Constants::chessboard_offset = (chessboard_offset_exists == sol::nullopt) ? Constants::chessboard_offset : lua["config"]["chessboard_offset"];
+    Logger::Log(logging::trivial::debug, log_location, "loading chessboard_offset: " , Constants::chessboard_offset);
+    
+}
+
 void SimpleChess::LoadBoard() 
 {
 
-    sol::state lua;
-    lua.open_libraries(sol::lib::base, sol::lib::os, sol::lib::math);
-
     lua.script_file("./assets/scripts/assets.lua");
     sol::table chessboardAssets = lua["chessboard_assets"];
+
 
 
     unsigned int index = 0;
@@ -120,7 +133,7 @@ void SimpleChess::LoadBoard()
     }
 
 
-    chessBoard = std::make_shared<ChessBoard>("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
+    chessBoard = std::make_shared<ChessBoard>("board_squares", 1, Constants::square_sidelength, Constants::chessboard_offset);
     chessBoard->LoadBoard();
 
 
@@ -128,7 +141,7 @@ void SimpleChess::LoadBoard()
     
     
     Entity& white_pawn1(manager.AddEntity("white_pawn", Layer::chess_piece));
-    white_pawn1.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chessfigures_sidelength, Constants::chessfigures_sidelength, 1, Constants::offset_figures_squares);
+    white_pawn1.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1, Constants::offset_figures_squares);
     white_pawn1.AddComponent<SpriteComponent>("white_pawn");
 
 
@@ -139,7 +152,7 @@ void SimpleChess::LoadBoard()
 
     coordinates = chessBoard->GetCoordinatesFromSquare(std::string("D4"));
     Entity& newEntity (manager.AddEntity("black_king", Layer::chess_piece));
-    newEntity.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chessfigures_sidelength, Constants::chessfigures_sidelength, 1, Constants::offset_figures_squares);
+    newEntity.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1, Constants::offset_figures_squares);
     newEntity.AddComponent<SpriteComponent>("black_king");
 
     chessController = std::make_shared<ChessController>( manager.GetEntities(Layer::chess_piece) ) ;
@@ -178,7 +191,6 @@ void SimpleChess::ProcessInput()
             case SDL_MOUSEMOTION:
             {
                 chessController->SetMousePosition( static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
-
                 break;
             }
             default: 

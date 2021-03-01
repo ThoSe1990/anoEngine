@@ -28,6 +28,21 @@ public:
     int offset_;
 
     TransformComponent(
+        std::string positionSquare,
+        int width,
+        int height,
+        int scale,
+        int offset) :
+        ActPosition(chessBoard->GetCoordinatesFromSquare(std::string(positionSquare))),
+        setPosition(ActPosition),
+        velocity(glm::vec2(0,0)),
+        width_(width),
+        height_(height),
+        scale_(scale) ,
+        offset_(offset) 
+        {}
+
+    TransformComponent(
         int pos_x, 
         int pos_y, 
         int vel_x, 
@@ -91,9 +106,9 @@ private:
     int calculateVelocity(int position_set, int position_act)
     {
         if (position_set - position_act > 0)
-            return Constants::chessfigures_velocity;
+            return Constants::chespieces_velocity;
         else if (position_set - position_act < 0)
-            return (-1 * Constants::chessfigures_velocity);
+            return (-1 * Constants::chespieces_velocity);
         else return 0;
     }
 
