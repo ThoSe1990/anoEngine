@@ -50,7 +50,6 @@ public:
                 if (tc->square.compare(square) == 0)
                 {
                     selectedPiece = piece;
-                    Logger::Log(logging::trivial::debug, log_location, "selected piece: ", selectedPiece->name);
                     return;
                 }
             }    

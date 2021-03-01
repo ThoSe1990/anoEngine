@@ -17,6 +17,7 @@
 const int Constants::chesspiece_sidelength = 60;
 const int Constants::square_sidelength = 70;
 const int Constants::offset_figures_squares = (Constants::square_sidelength - Constants::chesspiece_sidelength) / 2 ;
+const glm::vec2 Constants::offset_figures_squares_vec2 = glm::vec2(Constants::offset_figures_squares, Constants::offset_figures_squares);
 const int Constants::number_of_squares_per_row = 8;
 const int Constants::number_of_squares_per_col = 8;
 
@@ -30,7 +31,6 @@ EntityManager manager;
 std::shared_ptr<ChessBoard> chessBoard;
 std::shared_ptr<ChessController> chessController;
 std::shared_ptr<AssetManager> SimpleChess::assetManager = std::make_shared<AssetManager>(&manager);
-
 
 
 SDL_Event SimpleChess::event;
@@ -84,12 +84,21 @@ void SimpleChess::Initialize(int width, int height)
     }
 
     InitializeLua();
-    LoadBoard();
 
+    LoadAssets();   
+
+    chessBoard = std::make_shared<ChessBoard>("board_squares", 1, Constants::square_sidelength, Constants::chessboard_offset);
+    chessBoard->LoadBoard();
+
+    LoadBoardSetup();
+
+    chessController = std::make_shared<ChessController>( manager.GetEntities(Layer::chess_piece) ) ;
+    
     isRunning = true;
     return;
 
 }
+
 
 void SimpleChess::InitializeLua()
 {
@@ -105,14 +114,10 @@ void SimpleChess::InitializeLua()
     Logger::Log(logging::trivial::debug, log_location, "loading chessboard_offset: " , Constants::chessboard_offset);
     
 }
-
-void SimpleChess::LoadBoard() 
+void SimpleChess::LoadAssets()
 {
-
     lua.script_file("./assets/scripts/assets.lua");
     sol::table chessboardAssets = lua["chessboard_assets"];
-
-
 
     unsigned int index = 0;
     while (true)
@@ -131,33 +136,31 @@ void SimpleChess::LoadBoard()
         }
         index++;
     }
-
-
-    chessBoard = std::make_shared<ChessBoard>("board_squares", 1, Constants::square_sidelength, Constants::chessboard_offset);
-    chessBoard->LoadBoard();
-
-
-    glm::vec2 coordinates = chessBoard->GetCoordinatesFromSquare(std::string("B8"));
-    
-    
-    Entity& white_pawn1(manager.AddEntity("white_pawn", Layer::chess_piece));
-    white_pawn1.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1, Constants::offset_figures_squares);
-    white_pawn1.AddComponent<SpriteComponent>("white_pawn");
-
-
-    glm::vec2 newcoordinates = chessBoard->GetCoordinatesFromSquare(std::string("A1"));
-    auto test = white_pawn1.GetComponent<TransformComponent>();
-    test->SetPosition(newcoordinates.x, newcoordinates.y);
-
-
-    coordinates = chessBoard->GetCoordinatesFromSquare(std::string("D4"));
-    Entity& newEntity (manager.AddEntity("black_king", Layer::chess_piece));
-    newEntity.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1, Constants::offset_figures_squares);
-    newEntity.AddComponent<SpriteComponent>("black_king");
-
-    chessController = std::make_shared<ChessController>( manager.GetEntities(Layer::chess_piece) ) ;
-
 }
+void SimpleChess::LoadBoardSetup()
+{
+    lua.script_file("./assets/scripts/chessboard_setup.lua");
+    sol::table chessboardSetup = lua["chessboard_setup"];
+
+    unsigned int index = 0;
+    while (true)
+    {
+        sol::optional<sol::table> exists = chessboardSetup[index];
+        if (exists == sol::nullopt)
+            break;
+        sol::table chesspiece = chessboardSetup[index];
+        std::string name = chesspiece["name"];
+        std::string asset_id = chesspiece["asset_id"];
+        std::string position = chesspiece["position"];
+
+        auto& newEntity(manager.AddEntity(name, Layer::chess_piece));
+        newEntity.AddComponent<TransformComponent>(position, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1);
+        newEntity.AddComponent<SpriteComponent>(asset_id.c_str());
+
+        index++;
+    }
+}
+
 
 
 void SimpleChess::ProcessInput() 

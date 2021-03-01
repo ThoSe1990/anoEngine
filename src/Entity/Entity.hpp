@@ -25,6 +25,9 @@ private:
     std::map<const std::type_info*, Component*> componentTypes;
 
 public:
+    bool operator==(const Entity & rhs) const;
+    bool operator!=(const Entity & rhs) const;
+
     Layer layer_;
 
     Entity(EntityManager& manager);

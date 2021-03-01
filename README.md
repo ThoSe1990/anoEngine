@@ -8,7 +8,7 @@ Simple Chess Game under development
   
 First setup with chess figures 
 
-![first setup](./screenshots/first_setup.PNG)
+![first setup](./screenshots/default_setup.PNG)
 
 
 Next Steps:
@@ -16,8 +16,11 @@ Next Steps:
     - specific movement for pieces
     - draw possible movement of the selected piece on chess board 
     - drop oppenents piece by moving on their field
-- integrating lua for setting up chessboard
+- integrating lua for
+    - ~~setting up chessboard~~
+    - log and replay movements
 - implementing game logic (e.g. statemachine )
+- ...
 
 Optimizing:
 - moving figures diagonal (slower speed on the shorter axis)

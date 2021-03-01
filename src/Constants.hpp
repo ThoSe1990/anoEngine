@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include "glm/glm.hpp"
+
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 800;
 
@@ -14,6 +16,7 @@ public:
     static const int chesspiece_sidelength;
     static const int square_sidelength;
     static const int offset_figures_squares;
+    static const glm::vec2 offset_figures_squares_vec2;
     static const int number_of_squares_per_row;
     static const int number_of_squares_per_col;
 

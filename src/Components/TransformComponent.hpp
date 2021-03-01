@@ -25,21 +25,18 @@ public:
     int width_;
     int height_;
     int scale_;
-    int offset_;
 
     TransformComponent(
         std::string positionSquare,
         int width,
         int height,
-        int scale,
-        int offset) :
+        int scale) :
         ActPosition(chessBoard->GetCoordinatesFromSquare(std::string(positionSquare))),
         setPosition(ActPosition),
         velocity(glm::vec2(0,0)),
         width_(width),
         height_(height),
-        scale_(scale) ,
-        offset_(offset) 
+        scale_(scale)
         {}
 
     TransformComponent(
@@ -49,15 +46,13 @@ public:
         int vel_y, 
         int width,
         int height,
-        int scale,
-        int offset) :
-        ActPosition(glm::vec2(pos_x+offset, pos_y+offset)),
+        int scale) :
+        ActPosition(glm::vec2(pos_x, pos_y)),
         setPosition(ActPosition),
         velocity(glm::vec2(vel_x, vel_y)),
         width_(width),
         height_(height),
-        scale_(scale) ,
-        offset_(offset)
+        scale_(scale)
         { }
 
 
@@ -99,7 +94,7 @@ private:
     void setPosition_internal(glm::vec2 position, std::string title)
     {
         Logger::Log(logging::trivial::debug, log_location, Owner->name  , ": " , square, "->" , title);
-        setPosition = position + glm::vec2(offset_, offset_);
+        setPosition = position;
         square = title; 
     }
 

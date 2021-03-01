@@ -66,7 +66,7 @@ int ChessBoard::toggleSquareColor(int currentSquare)
 
 glm::vec2 ChessBoard::GetCoordinatesFromSquare(std::string title)
 {
-    return squareCoordinates[title];
+    return squareCoordinates[title] + Constants::offset_figures_squares_vec2;
 }
 
 std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates)

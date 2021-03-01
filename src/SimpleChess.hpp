@@ -20,8 +20,12 @@ class SimpleChess
 private:
     bool isRunning;
     SDL_Window* window;
-
     sol::state lua;
+
+    void InitializeLua();
+    void LoadAssets();
+    void LoadBoard();
+    void LoadBoardSetup();
 
 public:
     SimpleChess();
@@ -30,10 +34,6 @@ public:
     int ticksLastFrame = 0;
     bool IsRunning() const;
     void Initialize(int width, int height);
-
-    void InitializeLua();
-    void LoadBoard();
-
 
     void ProcessInput();
     void Update();
