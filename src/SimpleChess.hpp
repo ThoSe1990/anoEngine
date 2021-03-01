@@ -1,6 +1,8 @@
 #ifndef _SIMPLECHESS_HPP_
 #define _SIMPLECHESS_HPP_
 
+#include <memory>
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h> 
@@ -34,7 +36,7 @@ public:
     void Destroy();
 
     static SDL_Renderer *renderer;
-    static AssetManager* assetManager;
+    static std::shared_ptr<AssetManager> assetManager;
     static SDL_Event event;
 };
 

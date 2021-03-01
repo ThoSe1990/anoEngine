@@ -21,12 +21,18 @@ const int Constants::chessboard_offset = 40;
 const int Constants::number_of_squares_per_row = 8;
 const int Constants::number_of_squares_per_col = 8;
 
+
+
 EntityManager manager;
-ChessBoard* chessBoard;
-ChessController* chessController;
+
+
+std::shared_ptr<ChessBoard> chessBoard;
+std::shared_ptr<ChessController> chessController;
+std::shared_ptr<AssetManager> SimpleChess::assetManager = std::make_shared<AssetManager>(&manager);
+
+
 
 SDL_Event SimpleChess::event;
-AssetManager* SimpleChess::assetManager = new AssetManager(&manager);
 SDL_Renderer* SimpleChess::renderer;
 
 
@@ -100,8 +106,9 @@ void SimpleChess::LoadBoard()
     assetManager->AddTexture("black_rook", "./assets/images/black_rook.png");
     assetManager->AddTexture("board_squares", "./assets/images/board_squares.png");
 
-    
-    chessBoard = new ChessBoard("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
+
+    chessBoard = std::make_shared<ChessBoard>("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
+    // chessBoard = new ChessBoard("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
     chessBoard->LoadBoard();
 
 
@@ -124,9 +131,7 @@ void SimpleChess::LoadBoard()
     newEntity.AddComponent<SpriteComponent>("black_king");
 
 
-
-    // chesscontroller after chesspieces!
-    chessController = new ChessController( manager.GetEntities(Layer::chess_piece) ) ;
+    chessController = std::make_shared<ChessController>( manager.GetEntities(Layer::chess_piece) ) ;
 
 }
 

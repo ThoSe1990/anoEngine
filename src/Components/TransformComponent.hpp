@@ -14,7 +14,8 @@
 #include "ChessBoard.hpp"
 
 
-extern ChessBoard* chessBoard;
+// extern ChessBoard* chessBoard;
+extern std::shared_ptr<ChessBoard> chessBoard;
 
 class TransformComponent : public Component
 {

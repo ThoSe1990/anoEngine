@@ -6,6 +6,11 @@ AssetManager::AssetManager(EntityManager* manager): manager(manager)
 
 }
 
+AssetManager::~AssetManager()
+{
+    
+}
+
 void AssetManager::ClearData() 
 {
     textures.clear();
