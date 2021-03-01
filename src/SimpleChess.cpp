@@ -130,7 +130,6 @@ void SimpleChess::LoadBoard()
     newEntity.AddComponent<TransformComponent>(coordinates.x, coordinates.y, 0, 0, Constants::chessfigures_sidelength, Constants::chessfigures_sidelength, 1, Constants::offset_figures_squares);
     newEntity.AddComponent<SpriteComponent>("black_king");
 
-
     chessController = std::make_shared<ChessController>( manager.GetEntities(Layer::chess_piece) ) ;
 
 }
@@ -138,30 +137,42 @@ void SimpleChess::LoadBoard()
 
 void SimpleChess::ProcessInput() 
 {
-    SDL_PollEvent(&event);
-    switch (event.type) 
+    while (SDL_PollEvent(&event))
     {
-        case SDL_QUIT: 
+        switch (event.type) 
         {
-            isRunning = false;
-            break;
-        }
-        case SDL_KEYDOWN:
-        {
-            if (event.key.keysym.sym == SDLK_ESCAPE) {
+            case SDL_QUIT: 
+            {
                 isRunning = false;
+                break;
             }
-        }
-        // case SDL_MOUSEBUTTONDOWN:
-        // {
-        //     int x, y, w, h;
-        //     SDL_GetMouseState(&x, &y);
-        //     std::string square = chessBoard->GetSquareTitleByCoordinates(glm::vec2(x,y));
-        //     Logger::Log(logging::trivial::debug, log_location, "coordinates: " , x, " / " , y , " --> " , square);
-        // }
-        default: 
-        {
-            break;
+            case SDL_KEYDOWN:
+            {
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    isRunning = false;
+                }
+                break;
+            }
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                chessController->SetMousebutton(true);
+                break;
+            }
+            case SDL_MOUSEBUTTONUP:
+            {
+                chessController->SetMousebutton(false);
+                break;
+            }
+            case SDL_MOUSEMOTION:
+            {
+                chessController->SetMousePosition( static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
+
+                break;
+            }
+            default: 
+            {
+                break;
+            }
         }
     }
 }

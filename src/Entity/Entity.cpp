@@ -18,7 +18,10 @@ Entity::Entity(EntityManager& manager, std::string name, Layer layer): entityMan
 }
 
 void Entity::Update(float deltaTime) 
-{
+{   
+    if (isActive == false)
+        return;
+
     for (auto& component: components) 
     {
         component->Update(deltaTime);
@@ -27,6 +30,9 @@ void Entity::Update(float deltaTime)
 
 void Entity::Render() 
 {
+    if (isActive == false)
+        return;
+        
     for (auto& component: components) 
     {
         component->Render();
@@ -36,6 +42,11 @@ void Entity::Render()
 void Entity::Destroy() 
 {
     this->isActive = false;
+}
+
+void Entity::Activate() 
+{
+    this->isActive = true;
 }
 
 bool Entity::IsActive() const 

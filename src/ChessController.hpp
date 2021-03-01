@@ -16,6 +16,9 @@ class ChessController
 private:
     std::vector<Entity*> chessPieces;
     Entity* selectedPiece;
+    
+    glm::vec2 mousePosition;
+    bool mouseButtonPressed = false;
 
 public: 
 
@@ -23,13 +26,23 @@ public:
      : chessPieces(ChessPieces) 
      { }
 
+    void SetMousebutton(bool mousebutton)
+    {
+        mouseButtonPressed = mousebutton;
+    }
+
+    void SetMousePosition(int x, int y)
+    {
+        mousePosition.x = x;
+        mousePosition.y = y;
+    }
+
     void UpdateGame ()  
     {
-        if (SimpleChess::event.type == SDL_MOUSEBUTTONDOWN) 
+        
+        if (mouseButtonPressed) 
         {
-            int x, y;
-            SDL_GetMouseState(&x, &y);
-            std::string square = chessBoard->GetSquareTitleByCoordinates(glm::vec2(x,y));
+            std::string square = chessBoard->GetSquareTitleByCoordinates(glm::vec2( static_cast<int>(mousePosition.x),static_cast<int>(mousePosition.y) ));
             
             for (const auto& piece : chessPieces)
             {
@@ -41,9 +54,11 @@ public:
                     return;
                 }
             }    
-
-            TransformComponent* tc = selectedPiece->GetComponent<TransformComponent>();
-            tc->SetPosition(square);
+            if (selectedPiece)
+            {
+                TransformComponent* tc = selectedPiece->GetComponent<TransformComponent>();
+                tc->SetPosition(square);
+            }
         }
     } 
 

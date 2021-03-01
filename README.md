@@ -21,7 +21,7 @@ Next Steps:
 
 Optimizing:
 - moving figures diagonal (slower speed on the shorter axis)
-- click event delayed only on vm???
+- ~~click event delayed only on vm???~~ done
 - ... 
 
 ## External Libraries
