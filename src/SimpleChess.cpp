@@ -4,14 +4,16 @@
 #include "Constants.hpp"
 #include "SimpleChess.hpp"
 
+#include "lua/sol.hpp"
 #include "glm/glm.hpp"
 
 #include "AssetManager.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/SpriteComponent.hpp"
-
 #include "ChessBoard.hpp"
 #include "ChessController.hpp"
+
+#include "Log.hpp"
 
 const int Constants::chessfigures_sidelength = 60;
 const int Constants::chessboard_square_sidelength = 70;
@@ -92,23 +94,33 @@ void SimpleChess::Initialize(int width, int height)
 void SimpleChess::LoadBoard() 
 {
 
-    assetManager->AddTexture("white_bishop", "./assets/images/white_bishop.png");
-    assetManager->AddTexture("white_king", "./assets/images/white_king.png");
-    assetManager->AddTexture("white_knight", "./assets/images/white_knight.png");
-    assetManager->AddTexture("white_pawn", "./assets/images/white_pawn.png");
-    assetManager->AddTexture("white_queen", "./assets/images/white_queen.png");
-    assetManager->AddTexture("white_rook", "./assets/images/white_rook.png");
-    assetManager->AddTexture("black_bishop", "./assets/images/black_bishop.png");
-    assetManager->AddTexture("black_king", "./assets/images/black_king.png");
-    assetManager->AddTexture("black_knight", "./assets/images/black_knight.png");
-    assetManager->AddTexture("black_pawn", "./assets/images/black_pawn.png");
-    assetManager->AddTexture("black_queen", "./assets/images/black_queen.png");
-    assetManager->AddTexture("black_rook", "./assets/images/black_rook.png");
-    assetManager->AddTexture("board_squares", "./assets/images/board_squares.png");
+    sol::state lua;
+    lua.open_libraries(sol::lib::base, sol::lib::os, sol::lib::math);
+
+    lua.script_file("./assets/scripts/assets.lua");
+    sol::table chessboardAssets = lua["chessboard_assets"];
+
+
+    unsigned int index = 0;
+    while (true)
+    {
+        sol::optional<sol::table> exists = chessboardAssets[index];
+        if (exists == sol::nullopt)
+            break;
+        sol::table asset = chessboardAssets[index];
+        std::string type = asset["type"];
+        if (type.compare("texture") == 0)
+        {
+            std::string id = asset["id"];
+            std::string file = asset["file"];  
+            assetManager->AddTexture(id, file.c_str());
+            Logger::Log(logging::trivial::debug, log_location, "ading asset: \n    type: " , type , "\n    id: ", id , "\n    file: ", file);
+        }
+        index++;
+    }
 
 
     chessBoard = std::make_shared<ChessBoard>("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
-    // chessBoard = new ChessBoard("board_squares", 1, Constants::chessboard_square_sidelength, Constants::chessboard_offset);
     chessBoard->LoadBoard();
 
 

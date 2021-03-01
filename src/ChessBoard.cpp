@@ -10,12 +10,10 @@
 #include "Components/SquareComponent.hpp"
 #include "Constants.hpp"
 
-#include "Log.hpp"
 
 extern EntityManager manager;
 
-
-map<std::string, glm::vec2> ChessBoard::squareCoordinates;
+std::map<std::string, glm::vec2> ChessBoard::squareCoordinates;
 
 ChessBoard::ChessBoard(std::string textureId, int scale, int squareSize, int boardOffset) :
 textureId_(textureId), 
