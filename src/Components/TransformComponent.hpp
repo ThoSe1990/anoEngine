@@ -2,16 +2,14 @@
 #define _COMPONENTS_TRANSFORMCOMPONENT_HPP_
 
 #include <SDL2/SDL.h>
-
-#include "Components/Component.hpp"
 #include "glm/glm.hpp"
 
-#include "SimpleChess.hpp"
+#include "Components/Component.hpp"
 #include "Log.hpp"
-
+#include "SimpleChess.hpp"
 #include "Constants.hpp"
-
 #include "ChessBoard.hpp"
+#include "ChessController.hpp"
 
 extern std::shared_ptr<ChessBoard> chessBoard;
 
@@ -72,6 +70,10 @@ public:
         ActPosition.y += velocity.y * deltaTime;
     }
 
+    friend class ChessController;
+
+private: 
+
     void SetPosition(int x, int y)
     {
         setPosition_internal(glm::vec2(x,y), chessBoard->GetSquareTitleByCoordinates(glm::vec2(x,y)));
@@ -87,8 +89,6 @@ public:
         setPosition_internal( chessBoard->GetCoordinatesFromSquare(title), title );
     }
 
-
-private: 
     glm::vec2 setPosition;
 
     void setPosition_internal(glm::vec2 position, std::string title)

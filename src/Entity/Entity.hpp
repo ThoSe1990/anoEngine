@@ -24,10 +24,12 @@ private:
     std::vector<Component*> components;
     std::map<const std::type_info*, Component*> componentTypes;
 
+
 public:
     bool operator==(const Entity & rhs) const;
     bool operator!=(const Entity & rhs) const;
 
+    std::string name;  
     Layer layer_;
 
     Entity(EntityManager& manager);
@@ -41,6 +43,8 @@ public:
     bool IsActive() const;
     void ListAllComponents() const;
     
+    std::string GetName();
+
     template <typename T, typename... TArgs>
     T& AddComponent(TArgs&&... args) 
     {
@@ -63,7 +67,7 @@ public:
     {
         return componentTypes.count(&typeid(T));
     }
-    std::string name;
+    
 };
 
 #endif

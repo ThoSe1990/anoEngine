@@ -26,6 +26,11 @@ Entity::Entity(EntityManager& manager, std::string name, Layer layer): entityMan
     this->isActive = true;
 }
 
+std::string Entity::GetName()
+{
+    return this->name;
+}
+
 void Entity::Update(float deltaTime) 
 {   
     if (isActive == false)

@@ -6,6 +6,7 @@
 #include "Entity/Entity.hpp"
 #include "Components/Component.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Components/ChesspieceComponent.hpp"
 #include "Constants.hpp"
 #include "Log.hpp"
 
@@ -20,46 +21,16 @@ private:
     glm::vec2 mousePosition;
     bool mouseButtonPressed = false;
 
+    // std::map<std::string, Entity*> positionsWithPieces;
+    bool SquareOccupied(std::string square);
+
 public: 
 
-    ChessController(std::vector<Entity*> ChessPieces) 
-     : chessPieces(ChessPieces) 
-     { }
+    ChessController(std::vector<Entity*> ChessPieces);
 
-    void SetMousebutton(bool mousebutton)
-    {
-        mouseButtonPressed = mousebutton;
-    }
-
-    void SetMousePosition(int x, int y)
-    {
-        mousePosition.x = x;
-        mousePosition.y = y;
-    }
-
-    void UpdateGame ()  
-    {
-        
-        if (mouseButtonPressed) 
-        {
-            std::string square = chessBoard->GetSquareTitleByCoordinates(glm::vec2( static_cast<int>(mousePosition.x),static_cast<int>(mousePosition.y) ));
-            
-            for (const auto& piece : chessPieces)
-            {
-                TransformComponent* tc = piece->GetComponent<TransformComponent>();
-                if (tc->square.compare(square) == 0)
-                {
-                    selectedPiece = piece;
-                    return;
-                }
-            }    
-            if (selectedPiece)
-            {
-                TransformComponent* tc = selectedPiece->GetComponent<TransformComponent>();
-                tc->SetPosition(square);
-            }
-        }
-    } 
+    void SetMousebutton(bool mousebutton);
+    void SetMousePosition(int x, int y);
+    void UpdateGame ();
 
 };
 

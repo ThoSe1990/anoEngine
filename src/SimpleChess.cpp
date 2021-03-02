@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <sstream>
 
 #include "Constants.hpp"
 #include "SimpleChess.hpp"
@@ -9,20 +10,11 @@
 #include "AssetManager.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/SpriteComponent.hpp"
+#include "Components/ChesspieceComponent.hpp"
 #include "ChessBoard.hpp"
 #include "ChessController.hpp"
 
 #include "Log.hpp"
-
-const int Constants::chesspiece_sidelength = 60;
-const int Constants::square_sidelength = 70;
-const int Constants::offset_figures_squares = (Constants::square_sidelength - Constants::chesspiece_sidelength) / 2 ;
-const glm::vec2 Constants::offset_figures_squares_vec2 = glm::vec2(Constants::offset_figures_squares, Constants::offset_figures_squares);
-const int Constants::number_of_squares_per_row = 8;
-const int Constants::number_of_squares_per_col = 8;
-
-int Constants::chespieces_velocity = 500;
-int Constants::chessboard_offset = 40;
 
 
 EntityManager manager;
@@ -92,7 +84,7 @@ void SimpleChess::Initialize(int width, int height)
 
     LoadBoardSetup();
 
-    chessController = std::make_shared<ChessController>( manager.GetEntities(Layer::chess_piece) ) ;
+    chessController = std::make_shared<ChessController>(manager.GetEntities(Layer::chess_piece)) ;
     
     isRunning = true;
     return;
@@ -150,13 +142,17 @@ void SimpleChess::LoadBoardSetup()
             break;
         sol::table chesspiece = chessboardSetup[index];
         std::string name = chesspiece["name"];
-        std::string asset_id = chesspiece["asset_id"];
+        std::string type = chesspiece["type"];
+        std::string color = chesspiece["color"];
+        bool killed = chesspiece["killed"];
+        std::stringstream asset_id;
+        asset_id << color << '_' << type;
         std::string position = chesspiece["position"];
 
         auto& newEntity(manager.AddEntity(name, Layer::chess_piece));
         newEntity.AddComponent<TransformComponent>(position, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1);
-        newEntity.AddComponent<SpriteComponent>(asset_id.c_str());
-
+        newEntity.AddComponent<SpriteComponent>(asset_id.str().c_str());
+        newEntity.AddComponent<ChesspieceComponent>(type, color, killed);
         index++;
     }
 }

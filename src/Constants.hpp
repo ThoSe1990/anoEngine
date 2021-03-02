@@ -33,4 +33,13 @@ enum class Layer
 
 };
 
+
+class Movements
+{
+public:
+    static const glm::vec2 horizontal;
+    static const glm::vec2 vertical;
+    static const glm::vec2 diagonal;
+};
+
 #endif
