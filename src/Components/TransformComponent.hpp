@@ -9,7 +9,7 @@
 #include "SimpleChess.hpp"
 #include "Constants.hpp"
 #include "ChessBoard.hpp"
-#include "ChessController.hpp"
+#include "Statemachine/Statemachine.hpp"
 
 extern std::shared_ptr<ChessBoard> chessBoard;
 
@@ -70,7 +70,7 @@ public:
         ActPosition.y += velocity.y * deltaTime;
     }
 
-    friend class ChessController;
+    friend class Statemachine;
 
 private: 
 

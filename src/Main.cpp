@@ -3,11 +3,9 @@
 #include "SimpleChess.hpp"
 
 #include "Log.hpp"
-
-
+    
 int main(int argc, char* argv[]) 
 {
-
 
     Logger::Init("debug");
     Logger::Log(logging::trivial::debug, log_location, "starting SimpleChess\n");

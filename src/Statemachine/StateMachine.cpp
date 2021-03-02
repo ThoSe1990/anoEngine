@@ -1,24 +1,46 @@
 
-#include "ChessController.hpp"
+#include "Statemachine/Statemachine.hpp"
 
 
-ChessController::ChessController(std::vector<Entity*> ChessPieces) : chessPieces(ChessPieces)
-{ 
+Statemachine::Statemachine(State* state, std::vector<Entity*> ChessPieces) : currentState(state), chessPieces(ChessPieces)
+{
 
+}  
+
+Statemachine::~Statemachine()
+{
+    delete currentState;
 }
 
-void ChessController::SetMousebutton(bool mousebutton)
+void Statemachine::SetCurrentState(State* state) 
+{
+    currentState = state;
+}
+
+void Statemachine::SelectPiece()
+{
+    currentState->Select(this);
+}
+
+void Statemachine::MovePiece()
+{
+    currentState->Move(this);
+}
+
+
+void Statemachine::SetMousebutton(bool mousebutton)
 {
     mouseButtonPressed = mousebutton;
 }
 
-void ChessController::SetMousePosition(int x, int y)
+void Statemachine::SetMousePosition(int x, int y)
 {
     mousePosition.x = x;
     mousePosition.y = y;
 }
 
-void ChessController::UpdateGame ()  
+
+void Statemachine::UpdateGame ()  
 {
     //TODO: refactor
     if (mouseButtonPressed) 
@@ -40,23 +62,9 @@ void ChessController::UpdateGame ()
         if (selectedPiece)
         {
             TransformComponent* tc = selectedPiece->GetComponent<TransformComponent>();
-            if (!SquareOccupied(square))
-            {
-                tc->SetPosition(square);
-            }
+            tc->SetPosition(square);
+            
         }  
 
     }
 } 
-
-bool ChessController::SquareOccupied(std::string square)
-{
-    for (const auto& piece : chessPieces)
-    {
-        if (piece->GetComponent<TransformComponent>()->square.compare(square) == 0)
-            return true;
-    }
-    return false;
-}
-
-

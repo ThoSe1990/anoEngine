@@ -12,22 +12,21 @@
 #include "Components/SpriteComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
 #include "ChessBoard.hpp"
-#include "ChessController.hpp"
 
 #include "Log.hpp"
+
+#include "Statemachine/Statemachine.hpp"
+#include "Statemachine/WhiteTurn.hpp"
 
 
 EntityManager manager;
 
-
+std::shared_ptr<Statemachine> statemachine;
 std::shared_ptr<ChessBoard> chessBoard;
-std::shared_ptr<ChessController> chessController;
 std::shared_ptr<AssetManager> SimpleChess::assetManager = std::make_shared<AssetManager>(&manager);
-
 
 SDL_Event SimpleChess::event;
 SDL_Renderer* SimpleChess::renderer;
-
 
 
 SimpleChess::SimpleChess()
@@ -84,7 +83,7 @@ void SimpleChess::Initialize(int width, int height)
 
     LoadBoardSetup();
 
-    chessController = std::make_shared<ChessController>(manager.GetEntities(Layer::chess_piece)) ;
+    statemachine = std::make_shared<Statemachine>(new (WhiteTurn), manager.GetEntities(Layer::chess_piece));
     
     isRunning = true;
     return;
@@ -179,17 +178,18 @@ void SimpleChess::ProcessInput()
             }
             case SDL_MOUSEBUTTONDOWN:
             {
-                chessController->SetMousebutton(true);
+                statemachine->SetMousebutton(true);
                 break;
             }
             case SDL_MOUSEBUTTONUP:
             {
-                chessController->SetMousebutton(false);
+                statemachine->MovePiece();
+                statemachine->SetMousebutton(false);
                 break;
             }
             case SDL_MOUSEMOTION:
             {
-                chessController->SetMousePosition( static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
+                statemachine->SetMousePosition( static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
                 break;
             }
             default: 
@@ -216,7 +216,7 @@ void SimpleChess::Update()
 
     manager.Update(deltaTime);
 
-    chessController->UpdateGame();
+    statemachine->UpdateGame();
 
 }
 
