@@ -183,7 +183,7 @@ void SimpleChess::ProcessInput()
             }
             case SDL_MOUSEBUTTONUP:
             {
-                statemachine->MovePiece();
+                statemachine->UpdateStatemachine();
                 statemachine->SetMousebutton(false);
                 break;
             }
@@ -215,8 +215,6 @@ void SimpleChess::Update()
     ticksLastFrame = SDL_GetTicks();
 
     manager.Update(deltaTime);
-
-    statemachine->UpdateGame();
 
 }
 

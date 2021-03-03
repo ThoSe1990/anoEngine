@@ -9,14 +9,20 @@
 #include "Components/TransformComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
 
+#include "Log.hpp"
+
 class Statemachine;
 
 class State
 {
+protected: 
+    Entity* selected;
 public:
     virtual ~State() {}
-    virtual void Select(Statemachine* Statemachine) {}
-    virtual void Move(Statemachine* Statemachine) {}
+    virtual void Select(Statemachine* Statemachine) = 0;
+    virtual void Move(Statemachine* Statemachine) = 0;
+    virtual void SetSelectedPiece(Statemachine* statemachine, std::string square) = 0;
+
 };
 
 
@@ -32,15 +38,21 @@ private:
     glm::vec2 mousePosition;
     bool mouseButtonPressed = false;
 
+    
 public:
     Statemachine(State* state, std::vector<Entity*> ChessPieces);
     ~Statemachine ();
 
-    void UpdateGame ();
+    void UpdateStatemachine ();
 
     void SetCurrentState(State* state) ;
-    void SelectPiece();
-    void MovePiece();
+    void SetSelectedPiece();
+    void CallSelect();
+    void CallMove();
+    void ProcessMouseclick();
+    
+    Entity* GetEntityFromSquare(std::string square);
+
 
     void SetMousebutton(bool mousebutton);
     void SetMousePosition(int x, int y);
