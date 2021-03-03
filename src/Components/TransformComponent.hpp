@@ -11,7 +11,6 @@
 #include "ChessBoard.hpp"
 #include "Statemachine/Statemachine.hpp"
 
-extern std::shared_ptr<ChessBoard> chessBoard;
 
 class TransformComponent : public Component
 {
@@ -29,7 +28,7 @@ public:
         int width,
         int height,
         int scale) :
-        ActPosition(chessBoard->GetCoordinatesFromSquare(std::string(positionSquare))),
+        ActPosition(ChessBoard::GetCoordinatesFromSquare(std::string(positionSquare))),
         setPosition(ActPosition),
         velocity(glm::vec2(0,0)),
         width_(width),
@@ -56,7 +55,7 @@ public:
 
     void Initialize() override 
     { 
-        square = chessBoard->GetSquareTitleByCoordinates(ActPosition);
+        square = ChessBoard::GetSquareTitleByCoordinates(ActPosition);
         Logger::Log(logging::trivial::debug, log_location, "creating: ", Owner->name , " at " , square);
     }
 
@@ -76,17 +75,17 @@ private:
 
     void SetPosition(int x, int y)
     {
-        setPosition_internal(glm::vec2(x,y), chessBoard->GetSquareTitleByCoordinates(glm::vec2(x,y)));
+        setPosition_internal(glm::vec2(x,y), ChessBoard::GetSquareTitleByCoordinates(glm::vec2(x,y)));
     }
 
     void SetPosition(glm::vec2 newPosition)
     {
-        setPosition_internal(newPosition, chessBoard->GetSquareTitleByCoordinates(newPosition));
+        setPosition_internal(newPosition, ChessBoard::GetSquareTitleByCoordinates(newPosition));
     }
 
     void SetPosition(std::string title)
     {
-        setPosition_internal( chessBoard->GetCoordinatesFromSquare(title), title );
+        setPosition_internal( ChessBoard::GetCoordinatesFromSquare(title), title );
     }
 
     glm::vec2 setPosition;

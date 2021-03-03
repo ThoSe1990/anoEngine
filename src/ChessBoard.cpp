@@ -13,7 +13,10 @@
 
 extern EntityManager manager;
 
-// std::map<std::string, glm::vec2> ChessBoard::squareCoordinates;
+const char* ChessBoard::numbers = "87654321";
+const char* ChessBoard::letters = "ABCDEFGH";
+
+std::map<std::string, glm::vec2> ChessBoard::squareCoordinates;
 
 ChessBoard::ChessBoard(std::string textureId, int scale, int squareSize, int boardOffset) :
 textureId_(textureId), 
@@ -69,7 +72,7 @@ glm::vec2 ChessBoard::GetCoordinatesFromSquare(std::string title)
     return squareCoordinates[title] + Constants::offset_figures_squares_vec2;
 }
 
-std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates) const
+std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
 {   
 
     if ( (coordinates.x < Constants::chessboard_offset) ||
