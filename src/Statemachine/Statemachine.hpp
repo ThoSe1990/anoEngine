@@ -6,23 +6,21 @@
 #include "Entity/EntityManager.hpp"
 #include "Entity/Entity.hpp"
 #include "Components/Component.hpp"
-#include "Components/TransformComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
 
 #include "Log.hpp"
+
+#include <tuple>
 
 class Statemachine;
 
 class State
 {
-protected: 
-    Entity* selected;
 public:
+    Entity* selected;
     virtual ~State() {}
-    virtual void Select(Statemachine* Statemachine) = 0;
-    virtual void Move(Statemachine* Statemachine) = 0;
-    virtual void SetSelectedPiece(Statemachine* statemachine, std::string square) = 0;
-
+    virtual void NextTurn(Statemachine* Statemachine) = 0;
+    virtual void SetSelectedPiece(Statemachine* statemachine, Entity* entity) = 0;  
 };
 
 
@@ -31,29 +29,22 @@ class Statemachine
 {
 private:
     State *currentState;
-    
     std::vector<Entity*> chessPieces;
-    Entity* selectedPiece;
 
     glm::vec2 mousePosition;
     bool mouseButtonPressed = false;
 
+    tuple<Entity*, bool>  GetEntityFromSquare(std::string square);
+
     
 public:
+    bool rdyToMove = false;
+
     Statemachine(State* state, std::vector<Entity*> ChessPieces);
     ~Statemachine ();
 
     void UpdateStatemachine ();
-
     void SetCurrentState(State* state) ;
-    void SetSelectedPiece();
-    void CallSelect();
-    void CallMove();
-    void ProcessMouseclick();
-    
-    Entity* GetEntityFromSquare(std::string square);
-
-
     void SetMousebutton(bool mousebutton);
     void SetMousePosition(int x, int y);
 };

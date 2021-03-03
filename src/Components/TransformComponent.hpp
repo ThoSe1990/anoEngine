@@ -15,6 +15,9 @@
 class TransformComponent : public Component
 {
 public:
+    friend class Statemachine;
+    friend class State; 
+
     glm::vec2 ActPosition;
     glm::vec2 velocity;
     std::string square;
@@ -69,7 +72,7 @@ public:
         ActPosition.y += velocity.y * deltaTime;
     }
 
-    friend class Statemachine;
+
 
 private: 
 

@@ -7,10 +7,8 @@
 class BlackTurn : public State
 {
 public:
-    void Select(Statemachine* Statemachine) override ;
-    void Move(Statemachine* Statemachine) override ;
-    void SetSelectedPiece(Statemachine* statemachine, std::string square) override ;
-
+    void NextTurn(Statemachine* Statemachine) override ;
+    void SetSelectedPiece(Statemachine* statemachine, Entity* entity) override ;
 };
 
 

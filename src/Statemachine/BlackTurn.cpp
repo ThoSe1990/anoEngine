@@ -5,40 +5,22 @@
 #include "Statemachine/WhiteTurn.hpp"
 #include "Components/ChesspieceComponent.hpp"
 
-void BlackTurn::Select(Statemachine* statemachine) 
+void BlackTurn::NextTurn(Statemachine* statemachine) 
 {
-
-}   
-void BlackTurn::Move(Statemachine* statemachine) 
-{
-    Logger::Log(logging::trivial::debug, log_location, "bblack moves piece" );
+    Logger::Log(logging::trivial::debug, log_location, "black moves piece" );
     WhiteTurn* state = new WhiteTurn();
     statemachine->SetCurrentState(state);
-
     delete this;
 }
 
-void BlackTurn::SetSelectedPiece(Statemachine* statemachine, std::string square) 
+void BlackTurn::SetSelectedPiece(Statemachine* statemachine, Entity* entity) 
 {
-    try
+    ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
+    if (cp->color_.compare("black") == 0)
     {
-        Entity* entity = statemachine->GetEntityFromSquare(square);
-        if (!entity) // if entity is nullptr ---> free suqare was selected
-        {
-            this->Move(statemachine);
-            return;
-        }
-        
-        ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
-        if (cp->color_.compare("black") == 0)
-        {
-            Logger::Log(logging::trivial::debug, log_location, "selected: " , entity->name);
-            this->selected = entity;
-        }
+        Logger::Log(logging::trivial::debug, log_location, "selected: " , entity->name);
+        this->selected = entity;
+        statemachine->rdyToMove = true;
     }
-    catch(const std::exception& e)
-    {
-        Logger::Log(logging::trivial::debug, log_location, "unhandled exception: \n" , e.what());
-    } 
 }
 
