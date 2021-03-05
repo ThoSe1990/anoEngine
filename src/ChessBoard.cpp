@@ -8,6 +8,7 @@
 #include "SimpleChess.hpp"
 #include "Entity/EntityManager.hpp"
 #include "Components/SquareComponent.hpp"
+#include "Components/ValidationComponent.hpp"
 #include "Constants.hpp"
 
 
@@ -44,22 +45,35 @@ void ChessBoard::LoadBoard()
             title += numbers[rows];
             currentSquare = toggleSquareColor(currentSquare);
 
-            AddSquare(currentSquare * squareSize_, 
+            AddSquare(currentSquare * squareSize_,
                 0,
                 cols * (scale_ * squareSize_)+ boardOffset_,
                 rows * (scale_ * squareSize_)+ boardOffset_, 
                 title);
+            AddValidation(
+                cols * (scale_ * squareSize_)+ boardOffset_,
+                rows * (scale_ * squareSize_)+ boardOffset_,
+                title
+                );
         }
     }
 }
 
 void ChessBoard::AddSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle)
 {
-    Entity& newSqure(manager.AddEntity("Square", Layer::square));
-    newSqure.AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
+    Entity& newSquare(manager.AddEntity("Square", Layer::square));
+    newSquare.AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
 
     squareCoordinates.emplace(squareTitle, glm::vec2(x, y));
 }
+
+// TODO: magic numbers ... 
+void ChessBoard::AddValidation(int x, int y, std::string squareTitle)
+{
+    Entity& newValidation(manager.AddEntity("Validation", Layer::validation));
+    newValidation.Deactivate();
+    newValidation.AddComponent<ValidationComponent>(x, y, squareTitle, 15, 60, 0.66f, "validation_circle");
+} 
 
 
 int ChessBoard::toggleSquareColor(int currentSquare)

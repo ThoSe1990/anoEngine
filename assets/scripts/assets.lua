@@ -13,5 +13,7 @@ chessboard_assets = {
     [9] = { type="texture", id = "black_knight", file = "./assets/images/black_knight.png" },
     [10] = { type="texture", id = "black_pawn", file = "./assets/images/black_pawn.png" },
     [11] = { type="texture", id = "black_queen", file = "./assets/images/black_queen.png" },
-    [12] = { type="texture", id = "black_rook", file = "./assets/images/black_rook.png" }
+    [12] = { type="texture", id = "black_rook", file = "./assets/images/black_rook.png" },
+    [13] = { type="texture", id = "validation_splash", file = "./assets/images/validation_splash.png" },
+    [14] = { type="texture", id = "validation_circle", file = "./assets/images/validation_circle.png" }
 }

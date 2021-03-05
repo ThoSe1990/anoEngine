@@ -26,6 +26,8 @@ public:
         {
             statemachine->SetSelectedPiece(piece);
             pieceSelected = true;
+            statemachine->SetValidation("H5", "validation_circle");
+            statemachine->SetValidation("G5", "validation_splash");
         }
         else if (color.compare(opponentColor) == 0)
         {

@@ -38,7 +38,7 @@ public:
 
     void Update(float deltaTime);
     void Render();
-    void Destroy();
+    void Deactivate();
     void Activate();
     bool IsActive() const;
     void ListAllComponents() const;

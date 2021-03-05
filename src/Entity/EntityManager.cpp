@@ -7,7 +7,7 @@
 void EntityManager::ClearData() 
 {
     for (auto& entity: entities) 
-        entity->Destroy();
+        entity->Deactivate();
 }
 
 void EntityManager::Update(float deltaTime) 
@@ -18,9 +18,9 @@ void EntityManager::Update(float deltaTime)
 
 void EntityManager::Render() 
 {
-
-    for (auto& entity: entities) 
-        entity->Render();
+    for (int layer = 0; layer < static_cast<int>(Layer::layer_count); layer++) 
+        for (auto& entity: GetEntities(static_cast<Layer>(layer)))
+            entity->Render();
 }
 
 bool EntityManager::HasNoEntities() const 

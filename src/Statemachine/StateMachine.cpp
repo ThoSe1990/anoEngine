@@ -2,10 +2,15 @@
 #include "Statemachine/Statemachine.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
+#include "Components/ValidationComponent.hpp"
+
 
 #include "ChessBoard.hpp"
 
-Statemachine::Statemachine(State* state, std::vector<Entity*> ChessPieces) : currentState(state), chessPieces(ChessPieces)
+Statemachine::Statemachine(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities) 
+: currentState(state),
+ chessPieces(ChessPieces),
+ validationEntities(ValidationEntities)
 {
 
 }  
@@ -82,3 +87,21 @@ std::string Statemachine::getColorOfPiece(Entity* piece) const
     return c->color_;
 }
 
+void Statemachine::ResetValidation()
+{
+    for (auto& entity : validationEntities)
+        entity->Deactivate();
+} 
+
+void Statemachine::SetValidation(std::string square, std::string assetId)
+{
+    for (auto& entity : validationEntities)
+    {
+        auto v = entity->GetComponent<ValidationComponent>();
+        if (v->GetTitle().compare(square) == 0)
+        {
+            v->SetTextureId(assetId);
+            entity->Activate();
+        }
+    }
+}

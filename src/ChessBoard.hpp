@@ -32,7 +32,8 @@ public:
 
     void LoadBoard();
     void AddSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle);
-    
+    void AddValidation(int x, int y, std::string squareTitle);
+
     static glm::vec2 GetCoordinatesFromSquare(std::string title);
     static std::string GetSquareTitleByCoordinates(glm::vec2 coordinates);
 

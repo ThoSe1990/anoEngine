@@ -84,6 +84,10 @@ void SimpleChess::Initialize(int width, int height)
     LoadBoardSetup();
     LoadStatemachine();
 
+
+
+
+
     isRunning = true;
     return;
 
@@ -160,7 +164,7 @@ void SimpleChess::LoadStatemachine()
     sol::optional<std::string> chespieces_velocity_exists = lua["next_turn"];
     std::string startingColor = lua["next_turn"];
     std::string opponentsColor = (startingColor.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
-    statemachine = std::make_shared<Statemachine>(new PlayersTurn(startingColor, opponentsColor), manager.GetEntities(Layer::chess_piece));
+    statemachine = std::make_shared<Statemachine>(new PlayersTurn(startingColor, opponentsColor), manager.GetEntities(Layer::chess_piece), manager.GetEntities(Layer::validation));
 }
 
 

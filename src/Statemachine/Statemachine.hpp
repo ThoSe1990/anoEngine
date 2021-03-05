@@ -31,7 +31,8 @@ private:
     Entity* selectedPiece;
 
     std::vector<Entity*> chessPieces;
-    
+    std::vector<Entity*> validationEntities;
+
     std::string clickedSquare;
     bool runGameStep;
 
@@ -41,7 +42,7 @@ private:
 public:
     glm::vec2 GetMousePosition();
 
-    Statemachine(State* state, std::vector<Entity*> ChessPieces);
+    Statemachine(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities);
     ~Statemachine ();
 
     void Update();
@@ -52,6 +53,9 @@ public:
     void NextGamestep();
     
     bool MoveSelectedPiece();
+
+    void ResetValidation();    
+    void SetValidation(std::string square, std::string assetId);
 
     std::tuple<Entity*, std::string> GetClickedntityAndColor() const;   
 

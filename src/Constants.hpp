@@ -34,8 +34,8 @@ enum class Layer
 {
     square = 0,
     chess_piece = 1,
-    validation = 2
-
+    validation = 2,
+    layer_count = 3
 };
 
 

@@ -53,7 +53,7 @@ void Entity::Render()
     }
 }
 
-void Entity::Destroy() 
+void Entity::Deactivate() 
 {
     this->isActive = false;
 }
