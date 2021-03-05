@@ -26,7 +26,7 @@ private:
     void LoadAssets();
     void LoadBoard();
     void LoadBoardSetup();
-
+    void LoadStatemachine();
 public:
     SimpleChess();
     ~SimpleChess();

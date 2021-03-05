@@ -16,7 +16,6 @@ class TransformComponent : public Component
 {
 public:
     friend class Statemachine;
-    friend class State; 
 
     glm::vec2 ActPosition;
     glm::vec2 velocity;
@@ -86,9 +85,13 @@ private:
         setPosition_internal(newPosition, ChessBoard::GetSquareTitleByCoordinates(newPosition));
     }
 
-    void SetPosition(std::string title)
+    bool SetPosition(std::string title)
     {
+        if (title.compare(Constants::invalid_square) == 0)
+            return false;
+
         setPosition_internal( ChessBoard::GetCoordinatesFromSquare(title), title );
+        return true;
     }
 
     glm::vec2 setPosition;

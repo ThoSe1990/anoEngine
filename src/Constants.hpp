@@ -2,6 +2,7 @@
 #define CONSTANTS_H
 
 #include "glm/glm.hpp"
+#include <string>
 
 const unsigned int WINDOW_WIDTH = 800;
 const unsigned int WINDOW_HEIGHT = 800;
@@ -20,9 +21,13 @@ public:
     static const int number_of_squares_per_row;
     static const int number_of_squares_per_col;
 
+    static const std::string color_white;
+    static const std::string color_black;
+
+    static const std::string invalid_square;
+
     static int chespieces_velocity;
     static int chessboard_offset;
-
 };
 
 enum class Layer

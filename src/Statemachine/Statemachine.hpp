@@ -2,25 +2,24 @@
 #define _STATEMACHINE_STATEMACHINE_HPP_
 
 #include <iostream>
+#include <tuple>
 #include "glm/glm.hpp"
+
 #include "Entity/EntityManager.hpp"
 #include "Entity/Entity.hpp"
+
 #include "Components/Component.hpp"
-#include "Components/ChesspieceComponent.hpp"
 
 #include "Log.hpp"
 
-#include <tuple>
 
 class Statemachine;
 
 class State
 {
 public:
-    Entity* selected;
     virtual ~State() {}
-    virtual void NextTurn(Statemachine* Statemachine) = 0;
-    virtual void SetSelectedPiece(Statemachine* statemachine, Entity* entity) = 0;  
+    virtual void UpdateGame(Statemachine* statemachine) = 0;  
 };
 
 
@@ -28,25 +27,34 @@ public:
 class Statemachine
 {
 private:
-    State *currentState;
+    State* currentState;
+    Entity* selectedPiece;
+
     std::vector<Entity*> chessPieces;
-
-    glm::vec2 mousePosition;
-    bool mouseButtonPressed = false;
-
-    tuple<Entity*, bool>  GetEntityFromSquare(std::string square);
-
     
+    std::string clickedSquare;
+    bool runGameStep;
+
+    std::string getColorOfPiece(Entity* piece) const;
+    Entity* getClickedEntity() const;
+
 public:
-    bool rdyToMove = false;
+    glm::vec2 GetMousePosition();
 
     Statemachine(State* state, std::vector<Entity*> ChessPieces);
     ~Statemachine ();
 
-    void UpdateStatemachine ();
-    void SetCurrentState(State* state) ;
-    void SetMousebutton(bool mousebutton);
-    void SetMousePosition(int x, int y);
+    void Update();
+
+    void SetState(State* state) ;
+    void SetClickedSquare(int x, int y);
+    void SetSelectedPiece(Entity* entity);
+    void NextGamestep();
+    
+    bool MoveSelectedPiece();
+
+    std::tuple<Entity*, std::string> GetClickedntityAndColor() const;   
+
 };
 
 

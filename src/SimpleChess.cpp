@@ -16,7 +16,7 @@
 #include "Log.hpp"
 
 #include "Statemachine/Statemachine.hpp"
-#include "Statemachine/WhiteTurn.hpp"
+#include "Statemachine/PlayersTurn.hpp"
 
 
 EntityManager manager;
@@ -82,9 +82,8 @@ void SimpleChess::Initialize(int width, int height)
     chessBoard->LoadBoard();
 
     LoadBoardSetup();
+    LoadStatemachine();
 
-    statemachine = std::make_shared<Statemachine>(new (WhiteTurn), manager.GetEntities(Layer::chess_piece));
-    
     isRunning = true;
     return;
 
@@ -156,6 +155,14 @@ void SimpleChess::LoadBoardSetup()
     }
 }
 
+void SimpleChess::LoadStatemachine() 
+{
+    sol::optional<std::string> chespieces_velocity_exists = lua["next_turn"];
+    std::string startingColor = lua["next_turn"];
+    std::string opponentsColor = (startingColor.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
+    statemachine = std::make_shared<Statemachine>(new PlayersTurn(startingColor, opponentsColor), manager.GetEntities(Layer::chess_piece));
+}
+
 
 
 void SimpleChess::ProcessInput() 
@@ -178,18 +185,16 @@ void SimpleChess::ProcessInput()
             }
             case SDL_MOUSEBUTTONDOWN:
             {
-                statemachine->SetMousebutton(true);
                 break;
             }
             case SDL_MOUSEBUTTONUP:
             {
-                statemachine->UpdateStatemachine();
-                statemachine->SetMousebutton(false);
+                statemachine->SetClickedSquare(static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
+                statemachine->NextGamestep();
                 break;
             }
             case SDL_MOUSEMOTION:
-            {
-                statemachine->SetMousePosition( static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
+            {        
                 break;
             }
             default: 
@@ -216,6 +221,7 @@ void SimpleChess::Update()
 
     manager.Update(deltaTime);
 
+    statemachine->Update();
 }
 
 

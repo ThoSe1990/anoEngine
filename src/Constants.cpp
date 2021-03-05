@@ -9,6 +9,12 @@ const glm::vec2 Constants::offset_figures_squares_vec2 = glm::vec2(Constants::of
 const int Constants::number_of_squares_per_row = 8;
 const int Constants::number_of_squares_per_col = 8;
 
+
+const std::string Constants::color_white = "white";
+const std::string Constants::color_black = "black";
+
+const std::string Constants::invalid_square = "00";
+
 int Constants::chespieces_velocity = 500;
 int Constants::chessboard_offset = 40;
 
