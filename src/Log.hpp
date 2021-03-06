@@ -27,7 +27,7 @@ using namespace std;
 
 #define S1(x) #x
 #define S2(x) S1(x)
-#define log_location __FILE__ ":" S2(__LINE__) ":"
+#define log_location __FILE__ ":" S2(__LINE__) ":   "
 
 class Logger
 {

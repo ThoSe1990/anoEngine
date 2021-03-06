@@ -43,6 +43,7 @@ void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
             // move
             if (chesscontroller->MoveSelectedPiece())
             {
+                chesscontroller->ResetValidation();
                 PlayersTurn* next = new PlayersTurn(chesscontroller, opponentColor, playerColor);
                 chesscontroller->SetState(next);
                 delete this;
