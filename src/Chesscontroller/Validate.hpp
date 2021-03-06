@@ -6,8 +6,12 @@
 
 class Validate : public State
 {
+    std::string playerColor;
+    std::string opponentColor;
+
 public:
- 
+    
+    Validate (std::string PlayersColor, std::string OpponentsColor);
     void UpdateGame (Chesscontroller* chesscontroller) override;
 
 };

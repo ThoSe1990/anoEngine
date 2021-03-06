@@ -28,10 +28,13 @@ public:
         ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
         if (cp->type_.compare("pawn") == 0)
         {
-            std::cout << "drawing pawn validation" << std::endl;
-
+            Logger::Log(logging::trivial::debug, log_location, "creating movements for " , entity->name);
         }
-    }
+        else
+        {
+            Logger::Log(logging::trivial::debug, log_location, "no movements found for " , entity->name);
+        }
+    }   
 };
 
 #endif

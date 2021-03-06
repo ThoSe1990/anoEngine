@@ -1,6 +1,20 @@
 
 #include "Chesscontroller/PlayersTurn.hpp"
 
+PlayersTurn::PlayersTurn(std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor), pieceSelected(false)
+{
+    Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
+}
+
+PlayersTurn::PlayersTurn(Chesscontroller* chesscontroller, std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
+{
+    Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
+
+    auto [selected, color] = chesscontroller->GetSelectedPieceAndColor();
+
+    this->pieceSelected = (color.compare(playerColor) == 0 && selected) ? true : false; 
+}
+
 
 
 void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
@@ -9,23 +23,17 @@ void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
     {
         auto [piece, color] = chesscontroller->GetClickedPieceAndColor();
 
-        //TODO: Refactor in deciated states (??)
         if (color.compare(playerColor) == 0)
         {
-            std::cout << "click on player color " << std::endl;
             chesscontroller->SetSelectedPiece(piece);
             pieceSelected = true;
 
-            Validate* next = new Validate();
+            Validate* next = new Validate(playerColor, opponentColor);
             chesscontroller->SetState(next);
             delete this;
-
-            // chesscontroller->SetValidation("H5", "validation_circle");
-            // chesscontroller->SetValidation("G5", "validation_splash");
         }
         else if (color.compare(opponentColor) == 0)
         {
-            std::cout << "click on opponentColor color " << std::endl;
             // TODO: validate if possible
             // move and cick
         }
@@ -35,9 +43,7 @@ void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
             // move
             if (chesscontroller->MoveSelectedPiece())
             {
-                std::cout << "piece moved " << std::endl;
-
-                PlayersTurn* next = new PlayersTurn(opponentColor, playerColor);
+                PlayersTurn* next = new PlayersTurn(chesscontroller, opponentColor, playerColor);
                 chesscontroller->SetState(next);
                 delete this;
             }

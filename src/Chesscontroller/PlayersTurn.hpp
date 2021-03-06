@@ -12,17 +12,12 @@ class PlayersTurn : public State
     std::string playerColor;
     std::string opponentColor;
     
-    //TODO this initial false does pieces not move when coming back from validation
-    // initialize properly in constructor
-    bool pieceSelected = false;
+    bool pieceSelected;
 
 public:
 
-    PlayersTurn(std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
-    {
-        Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
-    }
-
+    PlayersTurn(std::string PlayerColor, std::string OpponentColor); 
+    PlayersTurn(Chesscontroller* chesscontroller, std::string PlayerColor, std::string OpponentColor); 
 
     void UpdateGame(Chesscontroller* chesscontroller) override;
 
