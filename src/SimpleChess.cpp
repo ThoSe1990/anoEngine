@@ -15,13 +15,13 @@
 
 #include "Log.hpp"
 
-#include "Statemachine/Statemachine.hpp"
-#include "Statemachine/PlayersTurn.hpp"
+#include "Chesscontroller/Chesscontroller.hpp"
+#include "Chesscontroller/PlayersTurn.hpp"
 
 
 EntityManager manager;
 
-std::shared_ptr<Statemachine> statemachine;
+std::shared_ptr<Chesscontroller> chesscontroller;
 std::shared_ptr<ChessBoard> chessBoard;
 std::shared_ptr<AssetManager> SimpleChess::assetManager = std::make_shared<AssetManager>(&manager);
 
@@ -82,7 +82,7 @@ void SimpleChess::Initialize(int width, int height)
     chessBoard->LoadBoard();
 
     LoadBoardSetup();
-    LoadStatemachine();
+    LoadChesscontroller();
 
 
 
@@ -159,12 +159,12 @@ void SimpleChess::LoadBoardSetup()
     }
 }
 
-void SimpleChess::LoadStatemachine() 
+void SimpleChess::LoadChesscontroller() 
 {
     sol::optional<std::string> chespieces_velocity_exists = lua["next_turn"];
     std::string startingColor = lua["next_turn"];
     std::string opponentsColor = (startingColor.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
-    statemachine = std::make_shared<Statemachine>(new PlayersTurn(startingColor, opponentsColor), manager.GetEntities(Layer::chess_piece), manager.GetEntities(Layer::validation));
+    chesscontroller = std::make_shared<Chesscontroller>(new PlayersTurn(startingColor, opponentsColor), manager.GetEntities(Layer::chess_piece), manager.GetEntities(Layer::validation));
 }
 
 
@@ -193,8 +193,8 @@ void SimpleChess::ProcessInput()
             }
             case SDL_MOUSEBUTTONUP:
             {
-                statemachine->SetClickedSquare(static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
-                statemachine->NextGamestep();
+                chesscontroller->SetClickedSquare(static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
+                chesscontroller->SetMouseClick();
                 break;
             }
             case SDL_MOUSEMOTION:
@@ -225,7 +225,7 @@ void SimpleChess::Update()
 
     manager.Update(deltaTime);
 
-    statemachine->Update();
+    chesscontroller->Update();
 }
 
 

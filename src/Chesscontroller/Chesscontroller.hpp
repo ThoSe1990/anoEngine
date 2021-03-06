@@ -1,5 +1,5 @@
-#ifndef _STATEMACHINE_STATEMACHINE_HPP_
-#define _STATEMACHINE_STATEMACHINE_HPP_
+#ifndef _CHESSCONTROLLER_CHESSCONTROLLER_HPP_
+#define _CHESSCONTROLLER_CHESSCONTROLLER_HPP_
 
 #include <iostream>
 #include <tuple>
@@ -13,18 +13,19 @@
 #include "Log.hpp"
 
 
-class Statemachine;
+
+class Chesscontroller;
 
 class State
 {
 public:
     virtual ~State() {}
-    virtual void UpdateGame(Statemachine* statemachine) = 0;  
+    virtual void UpdateGame(Chesscontroller* chesscontroller) = 0;  
 };
 
 
 
-class Statemachine
+class Chesscontroller
 {
 private:
     State* currentState;
@@ -34,30 +35,32 @@ private:
     std::vector<Entity*> validationEntities;
 
     std::string clickedSquare;
-    bool runGameStep;
+    bool mouseClick = false;
 
     std::string getColorOfPiece(Entity* piece) const;
     Entity* getClickedEntity() const;
 
 public:
-    glm::vec2 GetMousePosition();
 
-    Statemachine(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities);
-    ~Statemachine ();
+    Chesscontroller(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities);
+    ~Chesscontroller ();
 
     void Update();
 
     void SetState(State* state) ;
     void SetClickedSquare(int x, int y);
     void SetSelectedPiece(Entity* entity);
-    void NextGamestep();
-    
+    void SetMouseClick();
+    bool GetMouseClick();
     bool MoveSelectedPiece();
 
     void ResetValidation();    
     void SetValidation(std::string square, std::string assetId);
 
-    std::tuple<Entity*, std::string> GetClickedntityAndColor() const;   
+    // glm::vec2 GetMousePosition();
+
+    std::tuple<Entity*, std::string> GetClickedPieceAndColor() const;   
+    std::tuple<Entity*, std::string> GetSelectedPieceAndColor() const;   
 
 };
 

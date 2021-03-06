@@ -9,13 +9,13 @@
 #include "SimpleChess.hpp"
 #include "Constants.hpp"
 #include "ChessBoard.hpp"
-#include "Statemachine/Statemachine.hpp"
+#include "Chesscontroller/Chesscontroller.hpp"
 
 
 class TransformComponent : public Component
 {
 public:
-    friend class Statemachine;
+    friend class Chesscontroller;
 
     glm::vec2 ActPosition;
     glm::vec2 velocity;

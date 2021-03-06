@@ -1,5 +1,5 @@
 
-#include "Statemachine/Statemachine.hpp"
+#include "Chesscontroller/Chesscontroller.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
 #include "Components/ValidationComponent.hpp"
@@ -7,7 +7,7 @@
 
 #include "ChessBoard.hpp"
 
-Statemachine::Statemachine(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities) 
+Chesscontroller::Chesscontroller(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities) 
 : currentState(state),
  chessPieces(ChessPieces),
  validationEntities(ValidationEntities)
@@ -15,46 +15,44 @@ Statemachine::Statemachine(State* state, std::vector<Entity*> ChessPieces, std::
 
 }  
 
-Statemachine::~Statemachine()
+Chesscontroller::~Chesscontroller()
 {
     delete currentState;
 }
 
-void Statemachine::SetState(State* state) 
+void Chesscontroller::SetState(State* state) 
 {
     this->currentState = state;
 }
 
-void Statemachine::NextGamestep()
+void Chesscontroller::SetMouseClick()
 {
-    runGameStep = true;
+    mouseClick = true;
+}
+bool Chesscontroller::GetMouseClick()
+{
+    return mouseClick;
 }
 
-void Statemachine::Update()
+void Chesscontroller::Update()
 {
-    if (runGameStep)
-    {
-        this->currentState->UpdateGame(this);
-        runGameStep = false;
-    }
-    
+    this->currentState->UpdateGame(this);
+    this->mouseClick = false;
 }
 
-void Statemachine::SetSelectedPiece(Entity* entity)
+void Chesscontroller::SetSelectedPiece(Entity* entity)
 {
     Logger::Log(logging::trivial::debug, log_location, "Selected: " , entity->name);
     this->selectedPiece = entity;
 }
 
-
-
-void Statemachine::SetClickedSquare(int x, int y)
+void Chesscontroller::SetClickedSquare(int x, int y)
 {
     clickedSquare = ChessBoard::GetSquareTitleByCoordinates( glm::vec2(x,y) );
 }
 
 
-std::tuple<Entity*, std::string> Statemachine::GetClickedntityAndColor() const
+std::tuple<Entity*, std::string> Chesscontroller::GetClickedPieceAndColor() const
 {
     std::string color = "";
     auto piece = this->getClickedEntity();
@@ -63,9 +61,18 @@ std::tuple<Entity*, std::string> Statemachine::GetClickedntityAndColor() const
 
     return std::make_tuple(piece, color);
 }
+std::tuple<Entity*, std::string> Chesscontroller::GetSelectedPieceAndColor() const
+{
+    std::string color = "";
+
+    if (selectedPiece)
+        color = this->getColorOfPiece(selectedPiece);
+
+    return std::make_tuple(selectedPiece, color);
+}
 
 
-Entity* Statemachine::getClickedEntity() const
+Entity* Chesscontroller::getClickedEntity() const
 {
     for (const auto& piece : chessPieces)
     {
@@ -75,25 +82,25 @@ Entity* Statemachine::getClickedEntity() const
     } 
     return nullptr;
 }
-bool Statemachine::MoveSelectedPiece()
+bool Chesscontroller::MoveSelectedPiece()
 {
     TransformComponent* tc = this->selectedPiece->GetComponent<TransformComponent>();
     return tc->SetPosition(clickedSquare);
 }
 
-std::string Statemachine::getColorOfPiece(Entity* piece) const
+std::string Chesscontroller::getColorOfPiece(Entity* piece) const
 {
     ChesspieceComponent* c = piece->GetComponent<ChesspieceComponent>();
     return c->color_;
 }
 
-void Statemachine::ResetValidation()
+void Chesscontroller::ResetValidation()
 {
     for (auto& entity : validationEntities)
         entity->Deactivate();
 } 
 
-void Statemachine::SetValidation(std::string square, std::string assetId)
+void Chesscontroller::SetValidation(std::string square, std::string assetId)
 {
     for (auto& entity : validationEntities)
     {
