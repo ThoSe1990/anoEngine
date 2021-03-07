@@ -10,22 +10,10 @@
 
 class Movement
 {
-protected: 
-
-    std::tuple<std::string, std::string> getColorAndPosition(Entity* piece)
-    {
-        ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
-        TransformComponent* tp = piece->GetComponent<TransformComponent>();
-        return std::make_tuple(cp->color_, tp->square);
-    }
 
 public:
     virtual ~Movement() {}
-    virtual std::map<std::string, std::string> GetMovements(Chesscontroller* chesscontroller, Entity* piece)
-    {
-        std::map<std::string, std::string> empty;
-        return empty;
-    }
+    virtual void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece) { }
 };
 
 

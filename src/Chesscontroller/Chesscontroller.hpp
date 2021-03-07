@@ -39,7 +39,6 @@ private:
 
     std::string getColorOfPiece(Entity* piece) const;
     Entity* getClickedEntity() const;
-    Entity* getEntityFromSqaure(std::string square) const;
 
 public:
 
@@ -54,15 +53,21 @@ public:
     void SetMouseClick();
     bool GetMouseClick();
     bool MoveSelectedPiece();
-
+    bool HasValidMoves();
+    bool IsValidMove(std::string square);
+    
     void ResetValidation();    
     void SetValidation(std::string square, std::string assetId);
 
+    Entity* GetEntityFromSqaure(std::string square) const;
 
-    std::tuple<Entity*, std::string> GetClickedPieceAndColor() const;   
+    std::string GetSquareFromEntity(Entity* entity) const;    
+
+    std::tuple<Entity*, std::string, std::string> GetClickedPieceColorSquare() const;   
     std::tuple<Entity*, std::string> GetPieceAndColor(std::string square) const;   
     std::tuple<Entity*, std::string> GetSelectedPieceAndColor() const;   
 
+    std::tuple<std::string, std::string> GetColorAndPosition(Entity* entity) const;
 
 
 };

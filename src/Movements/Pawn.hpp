@@ -10,76 +10,56 @@ private:
     const char initialRowBlack = '7';
     const char initialRowWhite = '2';
 
-    int getMovingDirection(std::string color)
-    {
-        return (color.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
-    }
+    bool initialPosition;
+    int movingDirection;
 
-    bool isInitialPosition(const char positionX, std::string color)
+    void forwardMovement(Chesscontroller* chesscontroller, std::string position)
     {
-        return (color.compare(Constants::color_black) == 0) 
-        ? positionX == initialRowBlack 
-        : positionX == initialRowWhite;
-    }
+        position[Movements::y] += movingDirection;
 
-
-    // TODO: DRY!!!
-    void addRegularMovement(Chesscontroller* chesscontroller,std::string position, std::string color)
-    {
-        int direction = getMovingDirection(color);
-        position[Movements::y] += direction;
-
-        auto [otherPiece, otherColor] = chesscontroller->GetPieceAndColor(position);
-        if (!otherPiece)
-            movements.emplace(position, "valid_move");
-    }
-    void addInitialMovement(Chesscontroller* chesscontroller,std::string position, std::string color)
-    {
-        if (isInitialPosition(position[Movements::y], color))
+        auto isEntity = chesscontroller->GetEntityFromSqaure(position);
+        if (!isEntity)
         {
-            int direction = getMovingDirection(color);
-            position[Movements::y] += direction;
-            position[Movements::y] += direction;
+            chesscontroller->SetValidation(position, "valid_move");
+        }
 
-            auto [otherPiece, otherColor] = chesscontroller->GetPieceAndColor(position);
-            if (!otherPiece)
-                movements.emplace(position, "valid_move");
+        if (this->initialPosition)
+        {
+            this->initialPosition = false;
+            forwardMovement(chesscontroller, position);  
         }
     }
-    void addCapturingMovement(Chesscontroller* chesscontroller,std::string position, std::string color)
+
+    void addCapturingMovement(Chesscontroller* chesscontroller, std::string position, std::string color, int side)
     {
-        int direction = getMovingDirection(color);
-        position[Movements::y] += direction;
-        position[Movements::x] += Movements::right;
+        position[Movements::y] += movingDirection;
+        position[Movements::x] += side;
 
-        auto [otherPiece, otherColor] = chesscontroller->GetPieceAndColor(position);
-        if (otherPiece && otherColor.compare(color) != 0)
+        auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(position);
+        if (isOpponentEntity && OpponentColor.compare(color) != 0)
         {
-            movements.emplace(position, "valid_capture");
-
+            chesscontroller->SetValidation(position, "valid_capture");
         }
-        
-        position[Movements::x] += Movements::left;
-        position[Movements::x] += Movements::left;
-
-        auto [anotherPiece, anotherColor] = chesscontroller->GetPieceAndColor(position);
-        if (anotherPiece && anotherColor.compare(color) != 0)
-        {
-            movements.emplace(position, "valid_capture");
-        } 
     }
-
-    std::map<std::string, std::string> movements;
 
 public:
-   
-    std::map<std::string, std::string> GetMovements(Chesscontroller* chesscontroller, Entity* piece) override 
+    Pawn(Entity* currentPiece)
     {
-        auto [color, position] = getColorAndPosition(piece);
-        addRegularMovement(chesscontroller, position, color);  
-        addInitialMovement(chesscontroller, position, color);
-        addCapturingMovement(chesscontroller, position, color);
-        return movements;
+        ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
+        movingDirection = (cp->color_.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
+
+        TransformComponent* tc = currentPiece->GetComponent<TransformComponent>();
+        initialPosition = (cp->color_.compare(Constants::color_black) == 0) 
+            ? tc->square[Movements::y] == initialRowBlack 
+            : tc->square[Movements::y] == initialRowWhite;        
+    }
+
+    void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece) override 
+    {
+        auto [color, position] = chesscontroller->GetColorAndPosition(piece);
+        forwardMovement(chesscontroller, position);  
+        addCapturingMovement(chesscontroller, position, color, Movements::right);
+        addCapturingMovement(chesscontroller, position, color, Movements::left);
     }
 };
 

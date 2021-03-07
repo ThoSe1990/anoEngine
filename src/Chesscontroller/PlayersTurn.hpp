@@ -12,7 +12,7 @@ class PlayersTurn : public State
     std::string playerColor;
     std::string opponentColor;
     
-    bool pieceSelected;
+    std::map<std::string, std::string> validMoves;
 
 public:
 

@@ -15,7 +15,7 @@ public:
         ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
         if (cp->type_.compare("pawn") == 0)
         {
-            return std::make_unique<Pawn>();
+            return std::make_unique<Pawn>(entity);
         }
         else
         {

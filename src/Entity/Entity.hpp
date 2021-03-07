@@ -42,8 +42,6 @@ public:
     void Activate();
     bool IsActive() const;
     void ListAllComponents() const;
-    
-    std::string GetName();
 
     template <typename T, typename... TArgs>
     T& AddComponent(TArgs&&... args) 

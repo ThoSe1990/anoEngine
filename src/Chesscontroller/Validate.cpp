@@ -14,10 +14,7 @@ void Validate::UpdateGame(Chesscontroller* chesscontroller)
     auto [piece, color] = chesscontroller->GetSelectedPieceAndColor();
 
     auto movements = MovementFactory::Create(piece);
-    std::map<std::string, std::string> possibleMoves = movements->GetMovements(chesscontroller, piece);
-
-    for (const auto& m : possibleMoves)
-        chesscontroller->SetValidation(m.first, m.second);
+    movements->CreateValidMovements(chesscontroller, piece);
 
     PlayersTurn* next = new PlayersTurn(chesscontroller, playerColor, opponentColor);
     chesscontroller->SetState(next);

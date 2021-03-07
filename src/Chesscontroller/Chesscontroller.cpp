@@ -52,23 +52,24 @@ void Chesscontroller::SetClickedSquare(int x, int y)
 }
 
 
-std::tuple<Entity*, std::string> Chesscontroller::GetClickedPieceAndColor() const
+std::tuple<Entity*, std::string, std::string> Chesscontroller::GetClickedPieceColorSquare() const
 {
     std::string color = "";
     auto piece = this->getClickedEntity();
     if (piece)
         color = this->getColorOfPiece(piece);
 
-    return std::make_tuple(piece, color);
+    return std::make_tuple(piece, color, clickedSquare);
 }
 
 std::tuple<Entity*, std::string> Chesscontroller::GetPieceAndColor(std::string square) const
 {
     std::string color = "";
-    auto piece = this->getEntityFromSqaure(square);
+    auto piece = this->GetEntityFromSqaure(square);
     if (piece)
+    {
         color = this->getColorOfPiece(piece);
-
+    }
     return std::make_tuple(piece, color);
 }
 
@@ -76,20 +77,21 @@ std::tuple<Entity*, std::string> Chesscontroller::GetPieceAndColor(std::string s
 std::tuple<Entity*, std::string> Chesscontroller::GetSelectedPieceAndColor() const
 {
     std::string color = "";
-
     if (selectedPiece)
+    {
         color = this->getColorOfPiece(selectedPiece);
-
+    }
+        
     return std::make_tuple(selectedPiece, color);
 }
 
 
 Entity* Chesscontroller::getClickedEntity() const
 {
-    return getEntityFromSqaure(clickedSquare);
+    return GetEntityFromSqaure(clickedSquare);
 }
 
-Entity* Chesscontroller::getEntityFromSqaure(std::string square) const
+Entity* Chesscontroller::GetEntityFromSqaure(std::string square) const
 {
     for (const auto& piece : chessPieces)
     {
@@ -99,12 +101,31 @@ Entity* Chesscontroller::getEntityFromSqaure(std::string square) const
             if (transform->square.compare(square) == 0 && piece->IsActive())
                 return piece;
         }
-
     } 
     return nullptr;
 }
 
+bool Chesscontroller::IsValidMove(std::string square)
+{
+    for (const auto& v : validationEntities)
+    {
+        if ( v->HasComponent<ValidationComponent>() )
+        {
+            ValidationComponent* vc = v->GetComponent<ValidationComponent>();
+            if (square.compare( vc->GetTitle() ) == 0) 
+                return v->IsActive();
+        }
+    }
+    return false;
+}
 
+bool Chesscontroller::HasValidMoves()
+{
+    for (const auto& v : validationEntities)
+        if (v->IsActive()) 
+            return true;
+    return false;
+}
 
 bool Chesscontroller::MoveSelectedPiece()
 {
@@ -135,4 +156,31 @@ void Chesscontroller::SetValidation(std::string square, std::string assetId)
             entity->Activate();
         }
     }
+}
+
+std::string Chesscontroller::GetSquareFromEntity(Entity* entity) const
+{
+    if (entity->HasComponent<TransformComponent>())
+    {
+        TransformComponent* tc = entity->GetComponent<TransformComponent>();
+        return tc->square;
+    }
+    return std::string("");
+}
+
+std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(Entity* entity) const
+{
+    std::string color = "";
+    if (entity->HasComponent<ChesspieceComponent>())
+    {
+        ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
+        color = cp->color_;
+    }   
+    std::string square = "";
+    if (entity->HasComponent<TransformComponent>())
+    {
+        TransformComponent* tp = entity->GetComponent<TransformComponent>();
+        square = tp->square;
+    }
+    return std::make_tuple(color, square);
 }
