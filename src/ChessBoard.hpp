@@ -22,7 +22,8 @@ private:
     static const char* letters;
 
     int toggleSquareColor(int currentSquare);
-
+    void addSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle);
+    void addValidation(int x, int y, std::string squareTitle);
 
 public: 
     ChessBoard(std::string textureId, int scale, int squareSize, int boardOffset);
@@ -31,8 +32,8 @@ public:
     static std::map<std::string, glm::vec2> squareCoordinates;
 
     void LoadBoard();
-    void AddSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle);
-    void AddValidation(int x, int y, std::string squareTitle);
+    // void AddSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle);
+    // void AddValidation(int x, int y, std::string squareTitle);
 
     static glm::vec2 GetCoordinatesFromSquare(std::string title);
     static std::string GetSquareTitleByCoordinates(glm::vec2 coordinates);

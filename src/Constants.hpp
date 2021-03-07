@@ -42,9 +42,15 @@ enum class Layer
 class Movements
 {
 public:
-    static const glm::vec2 horizontal;
-    static const glm::vec2 vertical;
-    static const glm::vec2 diagonal;
+
+    static const int up;
+    static const int right;
+    static const int left;
+    static const int down;
+
+    static const int x;
+    static const int y;
+
 };
 
 #endif

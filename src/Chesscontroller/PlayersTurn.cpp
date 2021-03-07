@@ -26,6 +26,7 @@ void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
         if (color.compare(playerColor) == 0)
         {
             chesscontroller->SetSelectedPiece(piece);
+            chesscontroller->ResetValidation();
             pieceSelected = true;
 
             Validate* next = new Validate(playerColor, opponentColor);

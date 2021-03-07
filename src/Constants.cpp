@@ -18,8 +18,10 @@ const std::string Constants::invalid_square = "00";
 int Constants::chespieces_velocity = 500;
 int Constants::chessboard_offset = 40;
 
-const glm::vec2 Movements::horizontal = glm::vec2(Constants::square_sidelength, 0);
-const glm::vec2 Movements::vertical = glm::vec2(0, Constants::square_sidelength);
-const glm::vec2 Movements::diagonal = glm::vec2(Constants::square_sidelength, Constants::square_sidelength);
+const int Movements::up = 1;
+const int Movements::right = 1;
+const int Movements::left = -1;
+const int Movements::down = -1;
 
-
+const int Movements::x = 0;
+const int Movements::y = 1;

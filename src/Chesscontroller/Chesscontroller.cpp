@@ -61,6 +61,18 @@ std::tuple<Entity*, std::string> Chesscontroller::GetClickedPieceAndColor() cons
 
     return std::make_tuple(piece, color);
 }
+
+std::tuple<Entity*, std::string> Chesscontroller::GetPieceAndColor(std::string square) const
+{
+    std::string color = "";
+    auto piece = this->getEntityFromSqaure(square);
+    if (piece)
+        color = this->getColorOfPiece(piece);
+
+    return std::make_tuple(piece, color);
+}
+
+
 std::tuple<Entity*, std::string> Chesscontroller::GetSelectedPieceAndColor() const
 {
     std::string color = "";
@@ -74,14 +86,26 @@ std::tuple<Entity*, std::string> Chesscontroller::GetSelectedPieceAndColor() con
 
 Entity* Chesscontroller::getClickedEntity() const
 {
+    return getEntityFromSqaure(clickedSquare);
+}
+
+Entity* Chesscontroller::getEntityFromSqaure(std::string square) const
+{
     for (const auto& piece : chessPieces)
     {
-        TransformComponent* transform = piece->GetComponent<TransformComponent>();
-        if (transform->square.compare(clickedSquare) == 0 && piece->IsActive())
-            return piece;
+        if (piece->HasComponent<TransformComponent>())
+        {
+            TransformComponent* transform = piece->GetComponent<TransformComponent>();
+            if (transform->square.compare(square) == 0 && piece->IsActive())
+                return piece;
+        }
+
     } 
     return nullptr;
 }
+
+
+
 bool Chesscontroller::MoveSelectedPiece()
 {
     TransformComponent* tc = this->selectedPiece->GetComponent<TransformComponent>();

@@ -39,6 +39,7 @@ private:
 
     std::string getColorOfPiece(Entity* piece) const;
     Entity* getClickedEntity() const;
+    Entity* getEntityFromSqaure(std::string square) const;
 
 public:
 
@@ -57,10 +58,12 @@ public:
     void ResetValidation();    
     void SetValidation(std::string square, std::string assetId);
 
-    // glm::vec2 GetMousePosition();
 
     std::tuple<Entity*, std::string> GetClickedPieceAndColor() const;   
+    std::tuple<Entity*, std::string> GetPieceAndColor(std::string square) const;   
     std::tuple<Entity*, std::string> GetSelectedPieceAndColor() const;   
+
+
 
 };
 
