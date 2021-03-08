@@ -22,6 +22,7 @@ const int Movements::up = 1;
 const int Movements::right = 1;
 const int Movements::left = -1;
 const int Movements::down = -1;
+const int Movements::none = 0;
 
 const int Movements::x = 0;
 const int Movements::y = 1;

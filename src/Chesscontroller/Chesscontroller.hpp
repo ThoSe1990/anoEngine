@@ -52,10 +52,12 @@ public:
     void SetSelectedPiece(Entity* entity);
     void SetMouseClick();
     bool GetMouseClick();
+
     bool MoveSelectedPiece();
     bool HasValidMoves();
     bool IsValidMove(std::string square);
-    
+    bool IsValidPosition(std::string square);
+
     void ResetValidation();    
     void SetValidation(std::string square, std::string assetId);
 
@@ -69,6 +71,7 @@ public:
     std::tuple<Entity*, std::string> GetSelectedPieceAndColor() const;   
 
     std::tuple<std::string, std::string> GetColorAndPosition(Entity* entity) const;
+
 
 
 };

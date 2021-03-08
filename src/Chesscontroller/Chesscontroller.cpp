@@ -133,6 +133,14 @@ bool Chesscontroller::MoveSelectedPiece()
     return tc->SetPosition(clickedSquare);
 }
 
+bool Chesscontroller::IsValidPosition(std::string square)
+{
+    return (ChessBoard::squareCoordinates.find(square) == ChessBoard::squareCoordinates.end())
+    ? false
+    : true ;
+}
+
+
 std::string Chesscontroller::getColorOfPiece(Entity* piece) const
 {
     ChesspieceComponent* c = piece->GetComponent<ChesspieceComponent>();

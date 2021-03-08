@@ -47,6 +47,7 @@ public:
     static const int right;
     static const int left;
     static const int down;
+    static const int none;
 
     static const int x;
     static const int y;

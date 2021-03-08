@@ -9,17 +9,20 @@ Simple Chess Game under development
 First setup with chess figures 
 
 ![first setup](./screenshots/default_setup.PNG)
+![game running](./screenshots/chessgame.PNG)
 
 
 Next Steps:
-- validation component
-    - specific movement for pieces
-    - draw possible movement of the selected piece on chess board 
-    - drop oppenents piece by moving on their field
+- ~~validation component~~
 - integrating lua for
     - ~~setting up chessboard~~
     - log and replay movements
 - implementing game logic (e.g. statemachine )
+    - movments almost done (needs refactoring DRY!!)
+    - implent castling
+    - implent en passant
+    - reviving figure when pawn reaches end
+    - check checkmate
 - ...
 
 Optimizing:

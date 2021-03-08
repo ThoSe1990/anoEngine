@@ -13,32 +13,32 @@ private:
     bool initialPosition;
     int movingDirection;
 
-    void forwardMovement(Chesscontroller* chesscontroller, std::string playerPosition)
+    void forwardMovement(Chesscontroller* chesscontroller, std::string position)
     {
-        playerPosition[Movements::y] += movingDirection;
+        position[Movements::y] += movingDirection;
 
-        Entity* isEntity = chesscontroller->GetEntityFromSqaure(playerPosition);
+        Entity* isEntity = chesscontroller->GetEntityFromSqaure(position);
         if (!isEntity)
         {
-            chesscontroller->SetValidation(playerPosition, "valid_move");
+            chesscontroller->SetValidation(position, "valid_move");
         }
 
         if (this->initialPosition)
         {
             this->initialPosition = false;
-            forwardMovement(chesscontroller, playerPosition);  
+            forwardMovement(chesscontroller, position);  
         }
     }
 
-    void addCapturingMovement(Chesscontroller* chesscontroller, std::string playerPosition, std::string playerColor, int side)
+    void addCapturingMovement(Chesscontroller* chesscontroller, std::string position, std::string playerColor, int side)
     {
-        playerPosition[Movements::y] += movingDirection;
-        playerPosition[Movements::x] += side;
+        position[Movements::y] += movingDirection;
+        position[Movements::x] += side;
 
-        auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(playerPosition);
+        auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(position);
         if (isOpponentEntity && OpponentColor.compare(playerColor) != 0)
         {
-            chesscontroller->SetValidation(playerPosition, "valid_capture");
+            chesscontroller->SetValidation(position, "valid_capture");
         }
     }
 
