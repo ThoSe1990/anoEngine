@@ -13,32 +13,32 @@ private:
     bool initialPosition;
     int movingDirection;
 
-    void forwardMovement(Chesscontroller* chesscontroller, std::string position)
+    void forwardMovement(Chesscontroller* chesscontroller, std::string playerPosition)
     {
-        position[Movements::y] += movingDirection;
+        playerPosition[Movements::y] += movingDirection;
 
-        Entity* isEntity = chesscontroller->GetEntityFromSqaure(position);
+        Entity* isEntity = chesscontroller->GetEntityFromSqaure(playerPosition);
         if (!isEntity)
         {
-            chesscontroller->SetValidation(position, "valid_move");
+            chesscontroller->SetValidation(playerPosition, "valid_move");
         }
 
         if (this->initialPosition)
         {
             this->initialPosition = false;
-            forwardMovement(chesscontroller, position);  
+            forwardMovement(chesscontroller, playerPosition);  
         }
     }
 
-    void addCapturingMovement(Chesscontroller* chesscontroller, std::string position, std::string color, int side)
+    void addCapturingMovement(Chesscontroller* chesscontroller, std::string playerPosition, std::string playerColor, int side)
     {
-        position[Movements::y] += movingDirection;
-        position[Movements::x] += side;
+        playerPosition[Movements::y] += movingDirection;
+        playerPosition[Movements::x] += side;
 
-        auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(position);
-        if (isOpponentEntity && OpponentColor.compare(color) != 0)
+        auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(playerPosition);
+        if (isOpponentEntity && OpponentColor.compare(playerColor) != 0)
         {
-            chesscontroller->SetValidation(position, "valid_capture");
+            chesscontroller->SetValidation(playerPosition, "valid_capture");
         }
     }
 
@@ -56,10 +56,10 @@ public:
 
     void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece) override 
     {
-        auto [color, position] = chesscontroller->GetColorAndPosition(piece);
-        forwardMovement(chesscontroller, position);  
-        addCapturingMovement(chesscontroller, position, color, Movements::right);
-        addCapturingMovement(chesscontroller, position, color, Movements::left);
+        auto [playerColor, playerPosition] = chesscontroller->GetColorAndPosition(piece);
+        forwardMovement(chesscontroller, playerPosition);  
+        addCapturingMovement(chesscontroller, playerPosition, playerColor, Movements::right);
+        addCapturingMovement(chesscontroller, playerPosition, playerColor, Movements::left);
     }
 };
 

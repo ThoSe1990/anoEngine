@@ -3,6 +3,11 @@
 
 #include "Movements/Movements.hpp"
 #include "Movements/Pawn.hpp"
+#include "Movements/Knight.hpp"
+#include "Movements/Bishop.hpp"
+#include "Movements/Rook.hpp"
+#include "Movements/Queen.hpp"
+#include "Movements/King.hpp"
 
 
 class MovementFactory
@@ -16,6 +21,26 @@ public:
         if (cp->type_.compare("pawn") == 0)
         {
             return std::make_unique<Pawn>(entity);
+        }
+        else if (cp->type_.compare("knight") == 0)
+        {
+            return std::make_unique<Knight>(entity);
+        }
+        else if (cp->type_.compare("bishop") == 0)
+        {
+            return std::make_unique<Bishop>(entity);
+        }
+        else if (cp->type_.compare("rook") == 0)
+        {
+            return std::make_unique<Rook>(entity);
+        }
+        else if (cp->type_.compare("queen") == 0)
+        {
+            return std::make_unique<Queen>(entity);
+        }
+        else if (cp->type_.compare("king") == 0)
+        {
+            return std::make_unique<King>(entity);
         }
         else
         {
