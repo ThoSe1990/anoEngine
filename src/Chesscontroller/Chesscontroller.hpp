@@ -60,6 +60,7 @@ public:
     void SetValidation(std::string square, std::string assetId);
 
     Entity* GetEntityFromSqaure(std::string square) const;
+    void CaptureOpponent(std::string square);
 
     std::string GetSquareFromEntity(Entity* entity) const;    
 

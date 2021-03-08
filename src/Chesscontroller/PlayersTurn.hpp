@@ -14,6 +14,8 @@ class PlayersTurn : public State
     
     std::map<std::string, std::string> validMoves;
 
+    void selectPiece(Chesscontroller* chesscontroller, Entity* piece, std::string color);
+    void movePiece(Chesscontroller* chesscontroller, std::string square);
 public:
 
     PlayersTurn(std::string PlayerColor, std::string OpponentColor); 

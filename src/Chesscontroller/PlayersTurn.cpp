@@ -18,31 +18,36 @@ void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
     {
         auto [piece, color, square] = chesscontroller->GetClickedPieceColorSquare();
 
-        if (color.compare(playerColor) == 0)
-        {
-            chesscontroller->SetSelectedPiece(piece);
-            chesscontroller->ResetValidation();
+        this->selectPiece(chesscontroller, piece, color);
+        this->movePiece(chesscontroller, square);
+    }
+}
 
-            Validate* next = new Validate(playerColor, opponentColor);
+void PlayersTurn::selectPiece(Chesscontroller* chesscontroller, Entity* piece, std::string color)
+{
+    if (color.compare(playerColor) == 0)
+    {
+        chesscontroller->SetSelectedPiece(piece);
+        chesscontroller->ResetValidation();
+
+        Validate* next = new Validate(playerColor, opponentColor);
+        chesscontroller->SetState(next);
+        delete this;
+    }
+}
+
+void PlayersTurn::movePiece(Chesscontroller* chesscontroller, std::string square)
+{
+    if (chesscontroller->IsValidMove(square))
+    {
+        chesscontroller->CaptureOpponent(square);
+
+        if (chesscontroller->MoveSelectedPiece())
+        {
+            chesscontroller->ResetValidation();
+            PlayersTurn* next = new PlayersTurn(chesscontroller, opponentColor, playerColor);
             chesscontroller->SetState(next);
             delete this;
-        }
-        else if (color.compare(opponentColor) == 0)
-        {
-            // TODO: validate if possible
-            // move and cick
-        }
-
-
-        if ( chesscontroller->IsValidMove(square) )
-        {
-            if (chesscontroller->MoveSelectedPiece())
-            {
-                chesscontroller->ResetValidation();
-                PlayersTurn* next = new PlayersTurn(chesscontroller, opponentColor, playerColor);
-                chesscontroller->SetState(next);
-                delete this;
-            }
         }
     }
 }

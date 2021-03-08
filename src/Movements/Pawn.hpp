@@ -17,7 +17,7 @@ private:
     {
         position[Movements::y] += movingDirection;
 
-        auto isEntity = chesscontroller->GetEntityFromSqaure(position);
+        Entity* isEntity = chesscontroller->GetEntityFromSqaure(position);
         if (!isEntity)
         {
             chesscontroller->SetValidation(position, "valid_move");

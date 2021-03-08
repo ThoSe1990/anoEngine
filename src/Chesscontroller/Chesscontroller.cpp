@@ -184,3 +184,13 @@ std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(Entity
     }
     return std::make_tuple(color, square);
 }
+
+
+void Chesscontroller::CaptureOpponent(std::string square)
+{
+    Entity* entity = this->GetEntityFromSqaure(square);
+    if (entity)
+    {
+        entity->Deactivate();
+    }
+}
