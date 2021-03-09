@@ -11,14 +11,14 @@ public:
 
     void CreateValidMovements() override
     {
-        createMovesAndCaptures(playersPosition, Movements::up, Movements::none);
-        createMovesAndCaptures(playersPosition, Movements::none, Movements::right);
-        createMovesAndCaptures(playersPosition, Movements::down, Movements::none);
-        createMovesAndCaptures(playersPosition, Movements::none, Movements::left);
-        createMovesAndCaptures(playersPosition, Movements::up, Movements::right);
-        createMovesAndCaptures(playersPosition, Movements::down, Movements::right);
-        createMovesAndCaptures(playersPosition, Movements::down, Movements::left);
-        createMovesAndCaptures(playersPosition, Movements::up, Movements::left);
+        createMovesAndCaptures(Movements::up, Movements::none);
+        createMovesAndCaptures(Movements::none, Movements::right);
+        createMovesAndCaptures(Movements::down, Movements::none);
+        createMovesAndCaptures(Movements::none, Movements::left);
+        createMovesAndCaptures(Movements::up, Movements::right);
+        createMovesAndCaptures(Movements::down, Movements::right);
+        createMovesAndCaptures(Movements::down, Movements::left);
+        createMovesAndCaptures(Movements::up, Movements::left);
     }
 
 };

@@ -12,6 +12,9 @@ class Movement
 {
 
 private:
+    std::string playersPosition;
+    std::string playersColor;
+    std::string opponentsColor;
 
     void capturePieceIfOpponent(Entity* pieceOnPosition, std::string position)
     {
@@ -36,19 +39,15 @@ private:
         return currentSquare;
     }
 
-protected:
 
+protected:
+//TODO: private when single steps posssible, protected due to pwan movement
     Chesscontroller* chesscontroller;
     Entity* currentPiece;
 
-    std::string playersPosition;
-    std::string playersColor;
-    std::string opponentsColor;
-
-
-    void createMovesAndCaptures(std::string square, int directionX, int directionY)
+    void createMovesAndCaptures(int directionX, int directionY)
     {
-        std::string nextSquare = square;
+        std::string nextSquare = playersPosition;
         while (true)
         {
             nextSquare = this->getNextSquare(nextSquare, directionX, directionY);
