@@ -15,18 +15,17 @@ private:
     std::string playersPosition;
     std::string playersColor;
     std::string opponentsColor;
-
-    void capturePieceIfOpponent(Entity* pieceOnPosition, std::string position)
+    
+    void capturePieceIfOpponent(Entity* piece, std::string position)
     {
-        if (!pieceOnPosition->HasComponent<ChesspieceComponent>())
+        if (!piece->HasComponent<ChesspieceComponent>())
             return;
 
-        ChesspieceComponent* cp = pieceOnPosition->GetComponent<ChesspieceComponent>();
+        ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
         if (cp->color_.compare(opponentsColor) == 0)
-            chesscontroller->SetValidation(position, "valid_capture");
-    
+            chesscontroller->SetValidation(position, "valid_capture");               
     }
-    
+
     void move(std::string position)
     {
         chesscontroller->SetValidation(position, "valid_move");
@@ -55,15 +54,14 @@ protected:
             if (chesscontroller->IsValidPosition(nextSquare))
             {
                 Entity* otherPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
-                if (otherPiece)
+                if (!otherPiece)
                 {
-                    this->capturePieceIfOpponent(otherPiece, nextSquare);
-                    break;   
+                   this->move(nextSquare);
+                   continue;
                 }
-                else
-                {
-                    this->move(nextSquare);
-                }
+
+                this->capturePieceIfOpponent(otherPiece, nextSquare);
+                break;
             }
             else
                 break;
