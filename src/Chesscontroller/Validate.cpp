@@ -13,8 +13,8 @@ void Validate::UpdateGame(Chesscontroller* chesscontroller)
 {
     auto [piece, color] = chesscontroller->GetSelectedPieceAndColor();
 
-    auto movements = MovementFactory::Create(piece);
-    movements->CreateValidMovements(chesscontroller, piece);
+    auto movements = MovementFactory::Create(chesscontroller, piece);
+    movements->CreateValidMovements();
 
     PlayersTurn* next = new PlayersTurn(chesscontroller, playerColor, opponentColor);
     chesscontroller->SetState(next);

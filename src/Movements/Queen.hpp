@@ -5,38 +5,20 @@
 
 class Queen : public Movement
 {
-private:
-    std::string playerColor;
-    std::string opponentColor;
+
 public:
-    Queen(Entity* currentPiece)
-    {
-        ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
-        if (cp->color_.compare(Constants::color_black) == 0) 
-        {
-            playerColor = Constants::color_black;
-            opponentColor = Constants::color_white;
-        }
-        else
-        {
-            playerColor = Constants::color_white;
-            opponentColor = Constants::color_black;
-        }
+    Queen(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
-    }
-
-    void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece)
+    void CreateValidMovements() override
     {
-        auto [playerColor, playerPosition] = chesscontroller->GetColorAndPosition(piece);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::up, Movements::none, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::none, Movements::right, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::down, Movements::none, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::none, Movements::left, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::up, Movements::right, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::down, Movements::right, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::down, Movements::left, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::up, Movements::left, opponentColor);
-    
+        createMovesAndCaptures(playersPosition, Movements::up, Movements::none);
+        createMovesAndCaptures(playersPosition, Movements::none, Movements::right);
+        createMovesAndCaptures(playersPosition, Movements::down, Movements::none);
+        createMovesAndCaptures(playersPosition, Movements::none, Movements::left);
+        createMovesAndCaptures(playersPosition, Movements::up, Movements::right);
+        createMovesAndCaptures(playersPosition, Movements::down, Movements::right);
+        createMovesAndCaptures(playersPosition, Movements::down, Movements::left);
+        createMovesAndCaptures(playersPosition, Movements::up, Movements::left);
     }
 
 };

@@ -43,20 +43,19 @@ private:
     }
 
 public:
-    Pawn(Entity* currentPiece)
+    Pawn(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) 
     {
         ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
         movingDirection = (cp->color_.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
-
         TransformComponent* tc = currentPiece->GetComponent<TransformComponent>();
         initialPosition = (cp->color_.compare(Constants::color_black) == 0) 
             ? tc->square[Movements::y] == initialRowBlack 
-            : tc->square[Movements::y] == initialRowWhite;        
+            : tc->square[Movements::y] == initialRowWhite;     
     }
 
-    void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece) override 
+    void CreateValidMovements() override 
     {
-        auto [playerColor, playerPosition] = chesscontroller->GetColorAndPosition(piece);
+        auto [playerColor, playerPosition] = chesscontroller->GetColorAndPosition(currentPiece);
         forwardMovement(chesscontroller, playerPosition);  
         addCapturingMovement(chesscontroller, playerPosition, playerColor, Movements::right);
         addCapturingMovement(chesscontroller, playerPosition, playerColor, Movements::left);

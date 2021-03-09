@@ -57,7 +57,7 @@ public:
     bool HasValidMoves();
     bool IsValidMove(std::string square);
     bool IsValidPosition(std::string square);
-
+    
     void ResetValidation();    
     void SetValidation(std::string square, std::string assetId);
 

@@ -8,12 +8,9 @@ class King : public Movement
 private:
 
 public:
-    King(Entity* currentPiece)
-    {
+    King(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
-    }
-
-    void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece)
+    void CreateValidMovements() override
     {
 
     }

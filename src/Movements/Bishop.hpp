@@ -5,37 +5,16 @@
 
 class Bishop : public Movement
 {
-private:
-
-    std::string playerColor;
-    std::string opponentColor;
-
 public:
-    Bishop(Entity* currentPiece)
+    Bishop(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+
+    void CreateValidMovements() override
     {
-        ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
-        if (cp->color_.compare(Constants::color_black) == 0) 
-        {
-            playerColor = Constants::color_black;
-            opponentColor = Constants::color_white;
-        }
-        else
-        {
-            playerColor = Constants::color_white;
-            opponentColor = Constants::color_black;
-        }
-
+        createMovesAndCaptures(playersPosition, Movements::up, Movements::right);
+        createMovesAndCaptures(playersPosition, Movements::down, Movements::right);
+        createMovesAndCaptures(playersPosition, Movements::down, Movements::left);
+        createMovesAndCaptures(playersPosition, Movements::up, Movements::left);
     }
-
-    void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece)
-    {
-        auto [playerColor, playerPosition] = chesscontroller->GetColorAndPosition(piece);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::up, Movements::right, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::down, Movements::right, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::down, Movements::left, opponentColor);
-        createMovementInDirection(chesscontroller, playerPosition, Movements::up, Movements::left, opponentColor);
-    }
-
 };
 
 #endif

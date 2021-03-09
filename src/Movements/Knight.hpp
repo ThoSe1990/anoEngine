@@ -8,12 +8,9 @@ class Knight : public Movement
 private:
 
 public:
-    Knight(Entity* currentPiece)
-    {
-        
-    }
+    Knight(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
-    void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece)
+    void CreateValidMovements() override
     {
 
     }

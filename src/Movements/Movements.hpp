@@ -10,38 +10,77 @@
 
 class Movement
 {
-protected:
-    void createMovementInDirection(Chesscontroller* chesscontroller, std::string position, int directionX, int directionY, std::string opponentColor)
+
+private:
+
+    void capturePieceIfOpponent(Entity* pieceOnPosition, std::string position)
     {
+        if (!pieceOnPosition->HasComponent<ChesspieceComponent>())
+            return;
+
+        ChesspieceComponent* cp = pieceOnPosition->GetComponent<ChesspieceComponent>();
+        if (cp->color_.compare(opponentsColor) == 0)
+            chesscontroller->SetValidation(position, "valid_capture");
+    
+    }
+    
+    void move(std::string position)
+    {
+        chesscontroller->SetValidation(position, "valid_move");
+    }
+
+    std::string getNextSquare(std::string currentSquare, int directionX, int directionY)
+    {
+        currentSquare[Movements::x] += directionX;        
+        currentSquare[Movements::y] += directionY; 
+        return currentSquare;
+    }
+
+protected:
+
+    Chesscontroller* chesscontroller;
+    Entity* currentPiece;
+
+    std::string playersPosition;
+    std::string playersColor;
+    std::string opponentsColor;
+
+
+    void createMovesAndCaptures(std::string square, int directionX, int directionY)
+    {
+        std::string nextSquare = square;
         while (true)
         {
-            position[Movements::x] += directionX;        
-            position[Movements::y] += directionY; 
-            if ( chesscontroller->IsValidPosition(position) == false )
-                break;
+            nextSquare = this->getNextSquare(nextSquare, directionX, directionY);
 
-            Entity* otherPiece = chesscontroller->GetEntityFromSqaure(position);
-            if (otherPiece)
+            if (chesscontroller->IsValidPosition(nextSquare))
             {
-                ChesspieceComponent* cp = otherPiece->GetComponent<ChesspieceComponent>();
-                if (cp->color_.compare(opponentColor) == 0)
-                    chesscontroller->SetValidation(position, "valid_capture");
-                break;
+                Entity* otherPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
+                if (otherPiece)
+                {
+                    this->capturePieceIfOpponent(otherPiece, nextSquare);
+                    break;   
+                }
+                else
+                {
+                    this->move(nextSquare);
+                }
             }
             else
-            {
-                chesscontroller->SetValidation(position, "valid_move");
-            }
+                break;
         } 
     }
 
 public:
+    Movement(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : chesscontroller(Chesscontroller), currentPiece(CurrentPiece)
+    {
+        std::tie(playersColor, playersPosition) = chesscontroller->GetColorAndPosition(currentPiece);
+        opponentsColor = (playersColor.compare(Constants::color_white) == 0) ? Constants::color_black : Constants::color_white;
+    }
+
     virtual ~Movement() {}
-    virtual void CreateValidMovements(Chesscontroller* chesscontroller, Entity* piece) { }
+    virtual void CreateValidMovements() { }
 };
-
-
-
 
 
 
