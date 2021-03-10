@@ -17,7 +17,7 @@ private:
     {
         position[Movements::y] += movingDirection;
 
-        Entity* isEntity = chesscontroller->GetEntityFromSqaure(position);
+        std::shared_ptr<Entity> isEntity = chesscontroller->GetEntityFromSqaure(position);
         if (!isEntity)
         {
             chesscontroller->SetValidation(position, "valid_move");
@@ -43,7 +43,7 @@ private:
     }
 
 public:
-    Pawn(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) 
+    Pawn(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) 
     {
         ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
         movingDirection = (cp->color_.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;

@@ -2,14 +2,6 @@
 #include "Entity/Entity.hpp"
 #include "Log.hpp"
 
-bool Entity::operator==(const Entity& rhs) const
-{
-    return (this->name.compare(rhs.name) == 0);
-}
-bool Entity::operator!=(const Entity& rhs) const
-{
-    return (this->name.compare(rhs.name) != 0);
-}
 
 Entity::Entity(EntityManager& manager): entityManager(manager) 
 {

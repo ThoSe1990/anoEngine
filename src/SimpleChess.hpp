@@ -16,7 +16,7 @@
 
 class AssetManager;
 
-class SimpleChess
+class SimpleChess 
 {
 private:
     bool isRunning;

@@ -7,7 +7,7 @@ class Component
 {
 public:
     virtual ~Component() {}
-    Entity* Owner;
+    std::shared_ptr<Entity> Owner;
     virtual void Initialize() {}
     virtual void Update(float deltaTime) {}
     virtual void Render() {}

@@ -24,12 +24,12 @@ public:
         return title_;
     }
 
-    void SetTextureId(std::string id)
+    void SetTextureId(const std::string& id)
     {
         texture = SimpleChess::assetManager->GetTexture(id);
     }
 
-    ValidationComponent(int x, int y, std::string title, int offset, int sidelength, float scale, std::string textureId) 
+    ValidationComponent(int x, int y, const std::string& title, int offset, int sidelength, float scale, const std::string& textureId) 
     {
         title_ = title;
         texture = SimpleChess::assetManager->GetTexture(textureId);

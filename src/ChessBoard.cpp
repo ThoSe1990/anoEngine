@@ -19,7 +19,7 @@ const char* ChessBoard::letters = "ABCDEFGH";
 
 std::map<std::string, glm::vec2> ChessBoard::squareCoordinates;
 
-ChessBoard::ChessBoard(std::string textureId, int scale, int squareSize, int boardOffset) :
+ChessBoard::ChessBoard(const std::string& textureId, const int scale, const int squareSize, const int boardOffset) :
 textureId_(textureId), 
 scale_(scale), 
 squareSize_(squareSize), 
@@ -59,7 +59,7 @@ void ChessBoard::LoadBoard()
     }
 }
 
-void ChessBoard::addSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle)
+void ChessBoard::addSquare(const int sourceRectX, const int sourceRectY, const int x, const int y, const std::string& squareTitle)
 {
     Entity& newSquare(manager.AddEntity("Square", Layer::square));
     newSquare.AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
@@ -68,7 +68,7 @@ void ChessBoard::addSquare(int sourceRectX, int sourceRectY, int x, int y, std::
 }
 
 // TODO: magic numbers ... 
-void ChessBoard::addValidation(int x, int y, std::string squareTitle)
+void ChessBoard::addValidation(const int x, const int y, const std::string& squareTitle)
 {
     Entity& newValidation(manager.AddEntity("Validation", Layer::validation));
     newValidation.Deactivate();
@@ -76,24 +76,23 @@ void ChessBoard::addValidation(int x, int y, std::string squareTitle)
 } 
 
 
-int ChessBoard::toggleSquareColor(int currentSquare)
+int ChessBoard::toggleSquareColor(const int currentSquare)
 {
     return (currentSquare == whiteSquare) ? blackSquare : whiteSquare;
 }
 
-glm::vec2 ChessBoard::GetCoordinatesFromSquare(std::string title)
+glm::vec2 ChessBoard::GetCoordinatesFromSquare(const std::string& title)
 {
     return squareCoordinates[title] + Constants::offset_figures_squares_vec2;
 }
 
 std::string ChessBoard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
 {   
-
     if ( (coordinates.x < Constants::chessboard_offset) ||
         (coordinates.x > (Constants::square_sidelength * Constants::number_of_squares_per_col) + Constants::chessboard_offset) ||
         (coordinates.y < Constants::chessboard_offset) ||
         (coordinates.y > (Constants::square_sidelength * Constants::number_of_squares_per_row) + Constants::chessboard_offset) )
-            return "00"; //click outside of chess board
+            return "00"; // TODO: create constant
     
     int x = (coordinates.x - Constants::chessboard_offset) / Constants::square_sidelength ;
     int y = (coordinates.y - Constants::chessboard_offset) / Constants::square_sidelength ;

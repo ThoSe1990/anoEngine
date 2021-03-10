@@ -2,7 +2,6 @@
 #ifndef _ENTITY_ENTITY_HPP_
 #define _ENTITY_ENTITY_HPP_
 
-
 #include <vector>
 #include <string>
 #include <map>
@@ -16,7 +15,7 @@
 class EntityManager;
 class Component;
 
-class Entity
+class Entity : public std::enable_shared_from_this<Entity>
 {
 private:
     EntityManager& entityManager;
@@ -24,10 +23,7 @@ private:
     std::vector<Component*> components;
     std::map<const std::type_info*, Component*> componentTypes;
 
-
 public:
-    bool operator==(const Entity & rhs) const;
-    bool operator!=(const Entity & rhs) const;
 
     std::string name;  
     Layer layer_;
@@ -47,7 +43,7 @@ public:
     T& AddComponent(TArgs&&... args) 
     {
         T* newComponent(new T(std::forward<TArgs>(args)...));
-        newComponent->Owner = this;
+        newComponent->Owner = shared_from_this();
         components.emplace_back(newComponent);
         componentTypes[&typeid(*newComponent)] = newComponent;
         newComponent->Initialize();
@@ -55,7 +51,7 @@ public:
     }
     
     template <typename T>
-    T* GetComponent() 
+    T* GetComponent()
     {
         return static_cast<T*>(componentTypes[&typeid(T)]);
     }

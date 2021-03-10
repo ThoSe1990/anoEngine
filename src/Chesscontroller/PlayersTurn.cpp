@@ -1,12 +1,12 @@
 
 #include "Chesscontroller/PlayersTurn.hpp"
 
-PlayersTurn::PlayersTurn(std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)//, pieceSelected(false)
+PlayersTurn::PlayersTurn(const std::string& PlayerColor, const std::string& OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
 {
     Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
 }
 
-PlayersTurn::PlayersTurn(std::shared_ptr<Chesscontroller>& chesscontroller, std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
+PlayersTurn::PlayersTurn(std::shared_ptr<Chesscontroller>& chesscontroller, const std::string& PlayerColor, const std::string& OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
 {
     Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
 }
@@ -23,16 +23,15 @@ void PlayersTurn::UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller)
     }
 }
 
-void PlayersTurn::selectPiece(std::shared_ptr<Chesscontroller>& chesscontroller, Entity* piece, std::string color)
+void PlayersTurn::selectPiece(std::shared_ptr<Chesscontroller>& chesscontroller, std::shared_ptr<Entity> piece, std::string color)
 {
     if (color.compare(playerColor) == 0)
     {
         chesscontroller->SetSelectedPiece(piece);
         chesscontroller->ResetValidation();
 
-        Validate* next = new Validate(playerColor, opponentColor);
-        chesscontroller->SetState(next);
-        delete this;
+        auto next = std::make_unique<Validate>(playerColor, opponentColor);
+        chesscontroller->SetState(std::move(next));
     }
 }
 
@@ -45,9 +44,8 @@ void PlayersTurn::movePiece(std::shared_ptr<Chesscontroller>& chesscontroller, s
         if (chesscontroller->MoveSelectedPiece())
         {
             chesscontroller->ResetValidation();
-            PlayersTurn* next = new PlayersTurn(chesscontroller, opponentColor, playerColor);
-            chesscontroller->SetState(next);
-            delete this;
+            auto next = std::make_unique<PlayersTurn>(chesscontroller, opponentColor, playerColor);
+            chesscontroller->SetState(std::move(next));
         }
     }
 }

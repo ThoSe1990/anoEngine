@@ -33,14 +33,14 @@ unsigned int EntityManager::GetEntityCount() const
     return entities.size();
 }
 
-std::vector<Entity*> EntityManager::GetEntities() const 
+std::vector<std::shared_ptr<Entity>> EntityManager::GetEntities() const 
 {
     return entities;
 }
 
-std::vector<Entity*> EntityManager::GetEntities(Layer layer) const
+std::vector<std::shared_ptr<Entity>> EntityManager::GetEntities(Layer layer) const
 {
-    std::vector<Entity*> selectedEntities;
+    std::vector<std::shared_ptr<Entity>> selectedEntities;
     for (auto& entity: entities) 
     {
         if (entity->layer_ == layer) 
@@ -61,14 +61,14 @@ void EntityManager::ListAllEntities() const
 }
 
 
-Entity& EntityManager::AddEntity(std::string entityName) 
+Entity& EntityManager::AddEntity(const std::string& entityName) 
 {
     Entity *entity = new Entity(*this, entityName);
     entities.emplace_back(entity);
     return *entity;
 }
 
-Entity& EntityManager::AddEntity(std::string entityName, Layer layer) 
+Entity& EntityManager::AddEntity(const std::string& entityName, Layer layer) 
 {
     Entity *entity = new Entity(*this, entityName, layer);
     entities.emplace_back(entity);

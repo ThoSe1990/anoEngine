@@ -17,7 +17,7 @@ public:
     glm::vec2 position;
     std::string title;
 
-    SquareComponent(int sourceSqureX, int sourceSqureY, int x, int y, int squareSize, int squareScale, std::string assetTextureId, std::string squareTitle) 
+    SquareComponent(int sourceSqureX, int sourceSqureY, int x, int y, int squareSize, int squareScale, const std::string& assetTextureId, const std::string& squareTitle) 
     {
         texture = SimpleChess::assetManager->GetTexture(assetTextureId);
 

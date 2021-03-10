@@ -7,29 +7,24 @@
 
 #include "ChessBoard.hpp"
 
-Chesscontroller::Chesscontroller(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities) 
+Chesscontroller::Chesscontroller(State* state, std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities) 
 : currentState(state),
  chessPieces(ChessPieces),
  validationEntities(ValidationEntities)
-{
+{ }  
 
-}  
+Chesscontroller::~Chesscontroller(){ }
 
-Chesscontroller::~Chesscontroller()
+void Chesscontroller::SetState(std::unique_ptr<State> state)
 {
-    delete currentState;
-}
-
-void Chesscontroller::SetState(State* state) 
-{
-    this->currentState = state;
+    currentState = std::move(state);
 }
 
 void Chesscontroller::SetMouseClick()
 {
     mouseClick = true;
 }
-bool Chesscontroller::GetMouseClick()
+bool Chesscontroller::GetMouseClick() const
 {
     return mouseClick;
 }
@@ -40,24 +35,24 @@ void Chesscontroller::Update()
     this->mouseClick = false;
 }
 
-void Chesscontroller::SetSelectedPiece(Entity* entity)
+void Chesscontroller::SetSelectedPiece(std::shared_ptr<Entity>& entity)
 {
     Logger::Log(logging::trivial::debug, log_location, "Selected: " , entity->name);
     this->selectedPiece = entity;
 }
 
-void Chesscontroller::SetClickedSquare(int x, int y)
+void Chesscontroller::SetClickedSquare(const int x, const int y)
 {
-    clickedSquare = ChessBoard::GetSquareTitleByCoordinates( glm::vec2(x,y) );
+    clickedSquare = ChessBoard::GetSquareTitleByCoordinates(glm::vec2(x,y));
 }
 
-Entity* Chesscontroller::GetSelectedPiece() const
+std::shared_ptr<Entity> Chesscontroller::GetSelectedPiece() const
 {
-    return this->selectedPiece;
+    return selectedPiece;
 }
 
 
-std::tuple<Entity*, std::string, std::string> Chesscontroller::GetClickedPieceColorSquare() const
+std::tuple<std::shared_ptr<Entity>, std::string, std::string> Chesscontroller::GetClickedPieceColorSquare() const
 {
     std::string color = "";
     auto piece = this->getClickedEntity();
@@ -68,12 +63,12 @@ std::tuple<Entity*, std::string, std::string> Chesscontroller::GetClickedPieceCo
 }
 
 
-Entity* Chesscontroller::getClickedEntity() const
+std::shared_ptr<Entity> Chesscontroller::getClickedEntity() const
 {
     return GetEntityFromSqaure(clickedSquare);
 }
 
-Entity* Chesscontroller::GetEntityFromSqaure(std::string square) const
+std::shared_ptr<Entity> Chesscontroller::GetEntityFromSqaure(const std::string& square) const
 {
     for (const auto& piece : chessPieces)
     {
@@ -87,7 +82,7 @@ Entity* Chesscontroller::GetEntityFromSqaure(std::string square) const
     return nullptr;
 }
 
-bool Chesscontroller::IsValidMove(std::string square)
+bool Chesscontroller::IsValidMove(const std::string& square)
 {
     for (const auto& v : validationEntities)
     {
@@ -115,7 +110,7 @@ bool Chesscontroller::MoveSelectedPiece()
     return tc->SetPosition(clickedSquare);
 }
 
-bool Chesscontroller::IsValidPosition(std::string square)
+bool Chesscontroller::IsValidPosition(const std::string& square)
 {
     return (ChessBoard::squareCoordinates.find(square) == ChessBoard::squareCoordinates.end())
     ? false
@@ -123,7 +118,7 @@ bool Chesscontroller::IsValidPosition(std::string square)
 }
 
 
-std::string Chesscontroller::getColorOfPiece(Entity* piece) const
+std::string Chesscontroller::getColorOfPiece(std::shared_ptr<Entity> piece) const
 {
     ChesspieceComponent* c = piece->GetComponent<ChesspieceComponent>();
     return c->color_;
@@ -135,7 +130,7 @@ void Chesscontroller::ResetValidation()
         entity->Deactivate();
 } 
 
-void Chesscontroller::SetValidation(std::string square, std::string assetId)
+void Chesscontroller::SetValidation(const std::string& square, const std::string& assetId)
 {
     for (auto& entity : validationEntities)
     {
@@ -148,17 +143,8 @@ void Chesscontroller::SetValidation(std::string square, std::string assetId)
     }
 }
 
-// std::string Chesscontroller::GetSquareFromEntity(Entity* entity) const
-// {
-//     if (entity->HasComponent<TransformComponent>())
-//     {
-//         TransformComponent* tc = entity->GetComponent<TransformComponent>();
-//         return tc->square;
-//     }
-//     return std::string("");
-// }
 
-std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(Entity* entity) const
+std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(const std::shared_ptr<Entity>& entity) const
 {
     std::string color = "";
     if (entity->HasComponent<ChesspieceComponent>())
@@ -176,9 +162,9 @@ std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(Entity
 }
 
 
-void Chesscontroller::CaptureOpponent(std::string square)
+void Chesscontroller::CaptureOpponent(const std::string& square)
 {
-    Entity* entity = this->GetEntityFromSqaure(square);
+    std::shared_ptr<Entity> entity = this->GetEntityFromSqaure(square);
     if (entity)
     {
         entity->Deactivate();

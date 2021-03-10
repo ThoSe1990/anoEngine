@@ -23,7 +23,7 @@ public:
         SetTexture(filePath);
     }
 
-    void SetTexture(std::string assetTextureId) 
+    void SetTexture(const std::string& assetTextureId) 
     {
         texture = SimpleChess::assetManager->GetTexture(assetTextureId);
     }

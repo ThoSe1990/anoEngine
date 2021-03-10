@@ -21,23 +21,20 @@ private:
     static const char* numbers;
     static const char* letters;
 
-    int toggleSquareColor(int currentSquare);
-    void addSquare(int sourceRectX, int sourceRectY, int x, int y, std::string squareTitle);
-    void addValidation(int x, int y, std::string squareTitle);
+    int toggleSquareColor(const int currentSquare);
+    void addSquare(const int sourceRectX, const int sourceRectY, const int x, const int y, const std::string& squareTitle);
+    void addValidation(const int x, const int y, const std::string& squareTitle);
 
 public: 
-    ChessBoard(std::string textureId, int scale, int squareSize, int boardOffset);
+    ChessBoard(const std::string& textureId, const int scale, const int squareSize, const int boardOffset);
     ~ChessBoard();
 
     static std::map<std::string, glm::vec2> squareCoordinates;
 
     void LoadBoard();
 
-    static glm::vec2 GetCoordinatesFromSquare(std::string title);
+    static glm::vec2 GetCoordinatesFromSquare(const std::string& title);
     static std::string GetSquareTitleByCoordinates(glm::vec2 coordinates);
-
-    // const std::map<std::string, glm::vec2>& GetSquareCoordinates()  const;
-
 
 };
 

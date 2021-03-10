@@ -22,7 +22,7 @@ public:
     bool killed_;
     bool isSelected;    
 
-    ChesspieceComponent(std::string type, std::string color, bool killed) 
+    ChesspieceComponent(const std::string& type, const std::string& color, bool killed) 
      : type_(type),
      color_(color),
      killed_(killed),

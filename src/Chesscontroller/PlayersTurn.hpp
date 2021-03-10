@@ -14,12 +14,12 @@ class PlayersTurn : public State
     
     std::map<std::string, std::string> validMoves;
 
-    void selectPiece(std::shared_ptr<Chesscontroller>& chesscontroller, Entity* piece, std::string color);
+    void selectPiece(std::shared_ptr<Chesscontroller>& chesscontroller, std::shared_ptr<Entity> piece, std::string color);
     void movePiece(std::shared_ptr<Chesscontroller>& chesscontroller, std::string square);
 public:
 
-    PlayersTurn(std::string PlayerColor, std::string OpponentColor); 
-    PlayersTurn(std::shared_ptr<Chesscontroller>& chesscontroller, std::string PlayerColor, std::string OpponentColor); 
+    PlayersTurn(const std::string& PlayerColor, const std::string& OpponentColor); 
+    PlayersTurn(std::shared_ptr<Chesscontroller>& chesscontroller, const std::string& PlayerColor, const std::string& OpponentColor); 
 
     void UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller) override;
 

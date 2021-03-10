@@ -26,7 +26,7 @@ public:
     int scale_;
 
     TransformComponent(
-        std::string positionSquare,
+        const std::string& positionSquare,
         int width,
         int height,
         int scale) :

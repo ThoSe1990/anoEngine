@@ -7,67 +7,56 @@
 
 #include "Entity/EntityManager.hpp"
 #include "Entity/Entity.hpp"
-
 #include "Components/Component.hpp"
-
+#include "Chesscontroller/State.hpp"
 #include "Log.hpp"
 
-
-
-class Chesscontroller;
-
-class State
-{
-public:
-    virtual ~State() {}
-    virtual void UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller) = 0;  
-};
 
 
 
 class Chesscontroller : public std::enable_shared_from_this<Chesscontroller>
 {
 private:
-    State* currentState;
-    Entity* selectedPiece;
+    std::unique_ptr<State> currentState;
+    std::shared_ptr<Entity> selectedPiece;
 
-    std::vector<Entity*> chessPieces;
-    std::vector<Entity*> validationEntities;
+    std::vector<std::shared_ptr<Entity>> chessPieces;
+    std::vector<std::shared_ptr<Entity>> validationEntities;
 
     std::string clickedSquare;
     bool mouseClick = false;
 
-    std::string getColorOfPiece(Entity* piece) const;
-    Entity* getClickedEntity() const;
+    std::string getColorOfPiece(std::shared_ptr<Entity> piece) const;
+    std::shared_ptr<Entity> getClickedEntity() const;
 
 public:
 
-    Chesscontroller(State* state, std::vector<Entity*> ChessPieces, std::vector<Entity*> ValidationEntities);
+    Chesscontroller(State* state, std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities);
     ~Chesscontroller ();
 
     void Update();
 
-    void SetState(State* state) ;
-    void SetClickedSquare(int x, int y);
+    void SetState(std::unique_ptr<State> state) ;
+    void SetClickedSquare(const int x, const int y);
 
-    void SetSelectedPiece(Entity* entity);
-    Entity* GetSelectedPiece() const; 
+    void SetSelectedPiece(std::shared_ptr<Entity>& entity);
+    std::shared_ptr<Entity> GetSelectedPiece() const; 
 
     void SetMouseClick();
-    bool GetMouseClick();
+    bool GetMouseClick() const;
 
     bool MoveSelectedPiece();
     bool HasValidMoves();
-    bool IsValidMove(std::string square);
-    bool IsValidPosition(std::string square);
+    bool IsValidMove(const std::string& square);
+    bool IsValidPosition(const std::string& square);
     
     void ResetValidation();    
-    void SetValidation(std::string square, std::string assetId);
-    void CaptureOpponent(std::string square);
+    void SetValidation(const std::string& square, const std::string& assetId);
+    void CaptureOpponent(const std::string& square);
 
-    Entity* GetEntityFromSqaure(std::string square) const;
-    std::tuple<Entity*, std::string, std::string> GetClickedPieceColorSquare() const;   
-    std::tuple<std::string, std::string> GetColorAndPosition(Entity* entity) const;
+    std::shared_ptr<Entity> GetEntityFromSqaure(const std::string& square) const;
+    std::tuple<std::shared_ptr<Entity>, std::string, std::string> GetClickedPieceColorSquare() const;   
+    std::tuple<std::string, std::string> GetColorAndPosition(const std::shared_ptr<Entity>& entity) const;
 
 };
 

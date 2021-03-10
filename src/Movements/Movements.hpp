@@ -13,16 +13,16 @@ class Movement
 
 private:
     std::string playersPosition;
-    std::string playersColor;
-    std::string opponentsColor;
+    std::string playerColor;
+    std::string opponentColor;
     
-    void capturePieceIfOpponent(Entity* piece, std::string position)
+    void capturePieceIfOpponent(std::shared_ptr<Entity> piece, std::string position)
     {
         if (!piece->HasComponent<ChesspieceComponent>())
             return;
 
         ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
-        if (cp->color_.compare(opponentsColor) == 0)
+        if (cp->color_.compare(opponentColor) == 0)
             chesscontroller->SetValidation(position, "valid_capture");               
     }
 
@@ -42,7 +42,7 @@ private:
 protected:
 //TODO: private when single steps posssible, protected due to pwan movement
     std::shared_ptr<Chesscontroller>& chesscontroller;
-    Entity* currentPiece;
+    std::shared_ptr<Entity> currentPiece;
 
     void createMovesAndCaptures(int directionX, int directionY)
     {
@@ -53,7 +53,7 @@ protected:
 
             if (chesscontroller->IsValidPosition(nextSquare))
             {
-                Entity* otherPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
+                std::shared_ptr<Entity> otherPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
                 if (!otherPiece)
                 {
                    this->move(nextSquare);
@@ -69,10 +69,10 @@ protected:
     }
 
 public:
-    Movement(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : chesscontroller(Chesscontroller), currentPiece(CurrentPiece)
+    Movement(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : chesscontroller(Chesscontroller), currentPiece(CurrentPiece)
     {
-        std::tie(playersColor, playersPosition) = chesscontroller->GetColorAndPosition(currentPiece);
-        opponentsColor = (playersColor.compare(Constants::color_white) == 0) ? Constants::color_black : Constants::color_white;
+        std::tie(playerColor, playersPosition) = chesscontroller->GetColorAndPosition(currentPiece);
+        opponentColor = (playerColor.compare(Constants::color_white) == 0) ? Constants::color_black : Constants::color_white;
     }
 
     virtual ~Movement() {}

@@ -13,7 +13,7 @@
 class MovementFactory
 {
 public:
-    static std::unique_ptr<Movement> Create(std::shared_ptr<Chesscontroller>& chesscontroller, Entity* entity)
+    static std::unique_ptr<Movement> Create(std::shared_ptr<Chesscontroller>& chesscontroller, std::shared_ptr<Entity> entity)
     {
         Logger::Log(logging::trivial::debug, log_location, "creating movements for " , entity->name);
 

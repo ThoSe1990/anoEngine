@@ -6,10 +6,10 @@
 #include <vector>
 
 
-class EntityManager 
+class EntityManager : public std::enable_shared_from_this<EntityManager>
 {
 private:
-    std::vector<Entity*> entities;        
+    std::vector<std::shared_ptr<Entity>> entities;        
 
 public:
     void ClearData();
@@ -20,11 +20,12 @@ public:
     unsigned int GetEntityCount() const;
     void ListAllEntities() const;
 
-    std::vector<Entity*> GetEntities() const;
-    std::vector<Entity*> GetEntities(Layer layer) const;
-    
-    Entity& AddEntity(std::string entityName);
-    Entity& AddEntity(std::string entityName, Layer layer);
+    std::vector<std::shared_ptr<Entity>> GetEntities() const;
+    std::vector<std::shared_ptr<Entity>> GetEntities(Layer layer) const;
+
+    Entity& AddEntity(const std::string& entityName);
+    Entity& AddEntity(const std::string& entityName, Layer layer);
+
 
 };
 
