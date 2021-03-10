@@ -6,7 +6,7 @@
 class Rook : public Movement
 {
 public:
-    Rook(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Rook(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
     void CreateValidMovements() override
     {

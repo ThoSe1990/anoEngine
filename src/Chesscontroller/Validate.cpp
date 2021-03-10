@@ -9,10 +9,9 @@ Validate::Validate (std::string PlayerColor, std::string OpponentColor) : player
 
 }
 
-void Validate::UpdateGame(Chesscontroller* chesscontroller)
+void Validate::UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller)
 {
-    auto [piece, color] = chesscontroller->GetSelectedPieceAndColor();
-
+    Entity* piece = chesscontroller->GetSelectedPiece();
     auto movements = MovementFactory::Create(chesscontroller, piece);
     movements->CreateValidMovements();
 

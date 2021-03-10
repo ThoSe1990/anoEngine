@@ -13,7 +13,7 @@ private:
     bool initialPosition;
     int movingDirection;
 
-    void forwardMovement(Chesscontroller* chesscontroller, std::string position)
+    void forwardMovement(std::shared_ptr<Chesscontroller>& chesscontroller, std::string position)
     {
         position[Movements::y] += movingDirection;
 
@@ -30,20 +30,20 @@ private:
         }
     }
 
-    void addCapturingMovement(Chesscontroller* chesscontroller, std::string position, std::string playerColor, int side)
+    void addCapturingMovement(std::shared_ptr<Chesscontroller>& chesscontroller, std::string position, std::string playerColor, int side)
     {
         position[Movements::y] += movingDirection;
         position[Movements::x] += side;
 
-        auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(position);
-        if (isOpponentEntity && OpponentColor.compare(playerColor) != 0)
-        {
-            chesscontroller->SetValidation(position, "valid_capture");
-        }
+        // auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(position);
+        // if (isOpponentEntity && OpponentColor.compare(playerColor) != 0)
+        // {
+        //     chesscontroller->SetValidation(position, "valid_capture");
+        // }
     }
 
 public:
-    Pawn(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) 
+    Pawn(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) 
     {
         ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
         movingDirection = (cp->color_.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;

@@ -41,7 +41,7 @@ private:
 
 protected:
 //TODO: private when single steps posssible, protected due to pwan movement
-    Chesscontroller* chesscontroller;
+    std::shared_ptr<Chesscontroller>& chesscontroller;
     Entity* currentPiece;
 
     void createMovesAndCaptures(int directionX, int directionY)
@@ -69,7 +69,7 @@ protected:
     }
 
 public:
-    Movement(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : chesscontroller(Chesscontroller), currentPiece(CurrentPiece)
+    Movement(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : chesscontroller(Chesscontroller), currentPiece(CurrentPiece)
     {
         std::tie(playersColor, playersPosition) = chesscontroller->GetColorAndPosition(currentPiece);
         opponentsColor = (playersColor.compare(Constants::color_white) == 0) ? Constants::color_black : Constants::color_white;

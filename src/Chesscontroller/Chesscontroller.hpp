@@ -20,12 +20,12 @@ class State
 {
 public:
     virtual ~State() {}
-    virtual void UpdateGame(Chesscontroller* chesscontroller) = 0;  
+    virtual void UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller) = 0;  
 };
 
 
 
-class Chesscontroller
+class Chesscontroller : public std::enable_shared_from_this<Chesscontroller>
 {
 private:
     State* currentState;
@@ -49,7 +49,10 @@ public:
 
     void SetState(State* state) ;
     void SetClickedSquare(int x, int y);
+
     void SetSelectedPiece(Entity* entity);
+    Entity* GetSelectedPiece() const; 
+
     void SetMouseClick();
     bool GetMouseClick();
 
@@ -60,19 +63,11 @@ public:
     
     void ResetValidation();    
     void SetValidation(std::string square, std::string assetId);
-
-    Entity* GetEntityFromSqaure(std::string square) const;
     void CaptureOpponent(std::string square);
 
-    std::string GetSquareFromEntity(Entity* entity) const;    
-
+    Entity* GetEntityFromSqaure(std::string square) const;
     std::tuple<Entity*, std::string, std::string> GetClickedPieceColorSquare() const;   
-    std::tuple<Entity*, std::string> GetPieceAndColor(std::string square) const;   
-    std::tuple<Entity*, std::string> GetSelectedPieceAndColor() const;   
-
     std::tuple<std::string, std::string> GetColorAndPosition(Entity* entity) const;
-
-
 
 };
 

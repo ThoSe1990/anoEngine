@@ -7,7 +7,7 @@ class Queen : public Movement
 {
 
 public:
-    Queen(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Queen(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
     void CreateValidMovements() override
     {

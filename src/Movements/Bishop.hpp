@@ -6,7 +6,7 @@
 class Bishop : public Movement
 {
 public:
-    Bishop(Chesscontroller* Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Bishop(std::shared_ptr<Chesscontroller>& Chesscontroller, Entity* CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
     void CreateValidMovements() override
     {

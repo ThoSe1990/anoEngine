@@ -6,13 +6,13 @@ PlayersTurn::PlayersTurn(std::string PlayerColor, std::string OpponentColor) : p
     Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
 }
 
-PlayersTurn::PlayersTurn(Chesscontroller* chesscontroller, std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
+PlayersTurn::PlayersTurn(std::shared_ptr<Chesscontroller>& chesscontroller, std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
 {
     Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
 }
 
 
-void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
+void PlayersTurn::UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller)
 {
     if (chesscontroller->GetMouseClick())
     {
@@ -23,7 +23,7 @@ void PlayersTurn::UpdateGame(Chesscontroller* chesscontroller)
     }
 }
 
-void PlayersTurn::selectPiece(Chesscontroller* chesscontroller, Entity* piece, std::string color)
+void PlayersTurn::selectPiece(std::shared_ptr<Chesscontroller>& chesscontroller, Entity* piece, std::string color)
 {
     if (color.compare(playerColor) == 0)
     {
@@ -36,7 +36,7 @@ void PlayersTurn::selectPiece(Chesscontroller* chesscontroller, Entity* piece, s
     }
 }
 
-void PlayersTurn::movePiece(Chesscontroller* chesscontroller, std::string square)
+void PlayersTurn::movePiece(std::shared_ptr<Chesscontroller>& chesscontroller, std::string square)
 {
     if (chesscontroller->IsValidMove(square))
     {

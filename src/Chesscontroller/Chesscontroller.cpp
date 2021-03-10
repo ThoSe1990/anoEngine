@@ -36,7 +36,7 @@ bool Chesscontroller::GetMouseClick()
 
 void Chesscontroller::Update()
 {
-    this->currentState->UpdateGame(this);
+    this->currentState->UpdateGame(shared_from_this());
     this->mouseClick = false;
 }
 
@@ -51,6 +51,11 @@ void Chesscontroller::SetClickedSquare(int x, int y)
     clickedSquare = ChessBoard::GetSquareTitleByCoordinates( glm::vec2(x,y) );
 }
 
+Entity* Chesscontroller::GetSelectedPiece() const
+{
+    return this->selectedPiece;
+}
+
 
 std::tuple<Entity*, std::string, std::string> Chesscontroller::GetClickedPieceColorSquare() const
 {
@@ -60,29 +65,6 @@ std::tuple<Entity*, std::string, std::string> Chesscontroller::GetClickedPieceCo
         color = this->getColorOfPiece(piece);
 
     return std::make_tuple(piece, color, clickedSquare);
-}
-
-std::tuple<Entity*, std::string> Chesscontroller::GetPieceAndColor(std::string square) const
-{
-    std::string color = "";
-    auto piece = this->GetEntityFromSqaure(square);
-    if (piece)
-    {
-        color = this->getColorOfPiece(piece);
-    }
-    return std::make_tuple(piece, color);
-}
-
-
-std::tuple<Entity*, std::string> Chesscontroller::GetSelectedPieceAndColor() const
-{
-    std::string color = "";
-    if (selectedPiece)
-    {
-        color = this->getColorOfPiece(selectedPiece);
-    }
-        
-    return std::make_tuple(selectedPiece, color);
 }
 
 
@@ -166,15 +148,15 @@ void Chesscontroller::SetValidation(std::string square, std::string assetId)
     }
 }
 
-std::string Chesscontroller::GetSquareFromEntity(Entity* entity) const
-{
-    if (entity->HasComponent<TransformComponent>())
-    {
-        TransformComponent* tc = entity->GetComponent<TransformComponent>();
-        return tc->square;
-    }
-    return std::string("");
-}
+// std::string Chesscontroller::GetSquareFromEntity(Entity* entity) const
+// {
+//     if (entity->HasComponent<TransformComponent>())
+//     {
+//         TransformComponent* tc = entity->GetComponent<TransformComponent>();
+//         return tc->square;
+//     }
+//     return std::string("");
+// }
 
 std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(Entity* entity) const
 {

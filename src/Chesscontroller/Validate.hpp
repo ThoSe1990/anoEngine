@@ -12,7 +12,7 @@ class Validate : public State
 public:
     
     Validate (std::string PlayersColor, std::string OpponentsColor);
-    void UpdateGame (Chesscontroller* chesscontroller) override;
+    void UpdateGame (std::shared_ptr<Chesscontroller> chesscontroller) override;
 
 };
 
