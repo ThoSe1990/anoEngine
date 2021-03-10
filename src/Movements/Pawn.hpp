@@ -30,16 +30,27 @@ private:
         }
     }
 
+    bool isOpponentPiece(const std::string& square)
+    {
+        auto piece = chesscontroller->GetEntityFromSqaure(square);
+        if (piece)
+        {
+            ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
+            return cp->color_.compare(playerColor) == 0 ? false : true;
+        }
+        return false;
+    }
+
     void addCapturingMovement(std::shared_ptr<Chesscontroller>& chesscontroller, std::string position, std::string playerColor, int side)
     {
         position[Movements::y] += movingDirection;
         position[Movements::x] += side;
 
-        // auto [isOpponentEntity, OpponentColor] = chesscontroller->GetPieceAndColor(position);
-        // if (isOpponentEntity && OpponentColor.compare(playerColor) != 0)
-        // {
-        //     chesscontroller->SetValidation(position, "valid_capture");
-        // }
+        if (isOpponentPiece(position))
+        {
+            chesscontroller->SetValidation(position, "valid_capture");
+        }
+
     }
 
 public:

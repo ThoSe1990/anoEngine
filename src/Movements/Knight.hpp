@@ -5,7 +5,6 @@
 
 class Knight : public Movement
 {
-private:
 
 public:
     Knight(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
@@ -14,7 +13,6 @@ public:
     {
 
     }
-
 };
 
 #endif

@@ -10,10 +10,10 @@ public:
 
     void CreateValidMovements() override
     {
-        createMovesAndCaptures(Movements::up, Movements::none);
-        createMovesAndCaptures(Movements::none, Movements::right);
-        createMovesAndCaptures(Movements::down, Movements::none);
-        createMovesAndCaptures(Movements::none, Movements::left);
+        createMovesAndCaptures(Movements::none, Movements::up);
+        createMovesAndCaptures(Movements::right, Movements::none);
+        createMovesAndCaptures(Movements::none, Movements::down);
+        createMovesAndCaptures(Movements::left, Movements::none);
     }
 
 };
