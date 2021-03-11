@@ -17,15 +17,16 @@ public:
     void Render();
     bool HasNoEntities() const;
 
+    void DeleteEntity(std::shared_ptr<Entity> entity) ;
+
     unsigned int GetEntityCount() const;
     void ListAllEntities() const;
 
     std::vector<std::shared_ptr<Entity>> GetEntities() const;
     std::vector<std::shared_ptr<Entity>> GetEntities(Layer layer) const;
 
-    Entity& AddEntity(const std::string& entityName);
-    Entity& AddEntity(const std::string& entityName, Layer layer);
-
+    std::shared_ptr<Entity> AddEntity(const std::string& entityName);
+    std::shared_ptr<Entity> AddEntity(const std::string& entityName, Layer layer);
 
 };
 

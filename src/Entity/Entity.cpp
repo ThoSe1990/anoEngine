@@ -3,17 +3,26 @@
 #include "Log.hpp"
 
 
-Entity::Entity(EntityManager& manager): entityManager(manager) 
+bool Entity::operator==(const Entity& rhs) const
+{
+    return (this->name.compare(rhs.name) == 0);
+}
+bool Entity::operator!=(const Entity& rhs) const
+{
+    return (this->name.compare(rhs.name) != 0);
+}
+
+Entity::Entity(std::shared_ptr<EntityManager> manager): entityManager(manager) 
 {
     this->isActive = true;
 }
 
-Entity::Entity(EntityManager& manager, std::string name): entityManager(manager), name(name)
+Entity::Entity(std::shared_ptr<EntityManager> manager, std::string name): entityManager(manager), name(name)
 {
     this->isActive = true;
 }
 
-Entity::Entity(EntityManager& manager, std::string name, Layer layer): entityManager(manager), name(name), layer_(layer)
+Entity::Entity(std::shared_ptr<EntityManager> manager, std::string name, Layer layer): entityManager(manager), name(name), layer_(layer)
 {
     this->isActive = true;
 }

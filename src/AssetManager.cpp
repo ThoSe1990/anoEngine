@@ -1,11 +1,10 @@
 #include "AssetManager.hpp"
 #include "Components/TransformComponent.hpp"
 
-AssetManager::AssetManager(EntityManager* manager): manager(manager) 
+AssetManager::AssetManager(std::shared_ptr<EntityManager> manager) : manager(manager) 
 {
 
 }
-
 AssetManager::~AssetManager()
 {
     

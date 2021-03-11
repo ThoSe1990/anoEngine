@@ -38,6 +38,20 @@ std::vector<std::shared_ptr<Entity>> EntityManager::GetEntities() const
     return entities;
 }
 
+void EntityManager::DeleteEntity(std::shared_ptr<Entity> entity) 
+{
+    int id = 0;
+    for (auto& e : entities)
+    {
+        if (e == entity)
+        {
+            entities.erase(entities.begin()+id);
+            break;
+        }   
+        id++;
+    }
+}
+
 std::vector<std::shared_ptr<Entity>> EntityManager::GetEntities(Layer layer) const
 {
     std::vector<std::shared_ptr<Entity>> selectedEntities;
@@ -60,18 +74,17 @@ void EntityManager::ListAllEntities() const
     }
 }
 
-
-Entity& EntityManager::AddEntity(const std::string& entityName) 
+std::shared_ptr<Entity> EntityManager::AddEntity(const std::string& entityName) 
 {
-    Entity *entity = new Entity(*this, entityName);
+    auto entity = std::make_shared<Entity>(shared_from_this(), entityName);
     entities.emplace_back(entity);
-    return *entity;
+    return entity;
 }
 
-Entity& EntityManager::AddEntity(const std::string& entityName, Layer layer) 
+std::shared_ptr<Entity> EntityManager::AddEntity(const std::string& entityName, Layer layer) 
 {
-    Entity *entity = new Entity(*this, entityName, layer);
+    auto entity = std::make_shared<Entity>(shared_from_this(), entityName, layer);
     entities.emplace_back(entity);
-    return *entity;
+    return entity;
 }
 

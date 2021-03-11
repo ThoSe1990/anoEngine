@@ -11,10 +11,12 @@
 class AssetManager 
 {
 private:
-    EntityManager* manager;
+    std::shared_ptr<EntityManager> manager;
     std::map<std::string, SDL_Texture*> textures;
+    
 public:
     AssetManager(EntityManager* manager);
+    AssetManager(std::shared_ptr<EntityManager> manager);
     ~AssetManager();
     void ClearData();
     void AddTexture(const std::string& textureId, const char* filePath);

@@ -11,7 +11,7 @@
 
 extern std::shared_ptr<ChessBoard> chessBoard;
 
-extern EntityManager manager;
+extern std::shared_ptr<EntityManager> manager;
 
 class ChesspieceComponent : public Component
 {

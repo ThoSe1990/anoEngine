@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <memory>
 
 #include "Constants.hpp"
 #include "SimpleChess.hpp"
@@ -19,11 +20,11 @@
 #include "Chesscontroller/PlayersTurn.hpp"
 
 
-EntityManager manager;
+std::shared_ptr<EntityManager> manager = std::make_shared<EntityManager>();
 
 std::shared_ptr<Chesscontroller> chesscontroller;
 std::shared_ptr<ChessBoard> chessBoard;
-std::shared_ptr<AssetManager> SimpleChess::assetManager = std::make_shared<AssetManager>(&manager);
+std::shared_ptr<AssetManager> SimpleChess::assetManager = std::make_shared<AssetManager>(manager);
 
 SDL_Event SimpleChess::event;
 SDL_Renderer* SimpleChess::renderer;
@@ -151,10 +152,10 @@ void SimpleChess::LoadBoardSetup()
         asset_id << color << '_' << type;
         std::string position = chesspiece["position"];
 
-        auto& newEntity(manager.AddEntity(name, Layer::chess_piece));
-        newEntity.AddComponent<TransformComponent>(position, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1);
-        newEntity.AddComponent<SpriteComponent>(asset_id.str().c_str());
-        newEntity.AddComponent<ChesspieceComponent>(type, color, killed);
+        std::shared_ptr<Entity> newEntity(manager->AddEntity(name, Layer::chess_piece));
+        newEntity->AddComponent<TransformComponent>(position, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1);
+        newEntity->AddComponent<SpriteComponent>(asset_id.str().c_str());
+        newEntity->AddComponent<ChesspieceComponent>(type, color, killed);
         index++;
     }
 }
@@ -164,7 +165,7 @@ void SimpleChess::LoadChesscontroller()
     sol::optional<std::string> chespieces_velocity_exists = lua["next_turn"];
     std::string startingColor = lua["next_turn"];
     std::string opponentsColor = (startingColor.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
-    chesscontroller = std::make_shared<Chesscontroller>(new PlayersTurn(startingColor, opponentsColor), manager.GetEntities(Layer::chess_piece), manager.GetEntities(Layer::validation));
+    chesscontroller = std::make_shared<Chesscontroller>(new PlayersTurn(startingColor, opponentsColor), manager->GetEntities(Layer::chess_piece), manager->GetEntities(Layer::validation));
 }
 
 
@@ -223,7 +224,7 @@ void SimpleChess::Update()
 
     ticksLastFrame = SDL_GetTicks();
 
-    manager.Update(deltaTime);
+    manager->Update(deltaTime);
 
     chesscontroller->Update();
 }
@@ -234,10 +235,10 @@ void SimpleChess::Render()
     SDL_SetRenderDrawColor(renderer, 21, 21, 21, 255);
     SDL_RenderClear(renderer);
 
-    if (manager.HasNoEntities()) 
+    if (manager->HasNoEntities()) 
         return;
 
-    manager.Render();
+    manager->Render();
 
     SDL_RenderPresent(renderer);
 }

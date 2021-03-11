@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 #include <memory>
+#include <iostream>
 
 #include "Constants.hpp"
 
@@ -18,19 +19,22 @@ class Component;
 class Entity : public std::enable_shared_from_this<Entity>
 {
 private:
-    EntityManager& entityManager;
+    std::shared_ptr<EntityManager> entityManager;
+
     bool isActive;    
     std::vector<Component*> components;
     std::map<const std::type_info*, Component*> componentTypes;
 
 public:
+    bool operator==(const Entity & rhs) const;
+    bool operator!=(const Entity & rhs) const;
 
     std::string name;  
     Layer layer_;
 
-    Entity(EntityManager& manager);
-    Entity(EntityManager& manager, std::string name);
-    Entity(EntityManager& manager, std::string name, Layer layer);
+    Entity(std::shared_ptr<EntityManager> manager);
+    Entity(std::shared_ptr<EntityManager> manager, std::string name);
+    Entity(std::shared_ptr<EntityManager> manager, std::string name, Layer layer);
 
     void Update(float deltaTime);
     void Render();

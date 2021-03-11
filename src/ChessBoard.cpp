@@ -12,7 +12,7 @@
 #include "Constants.hpp"
 
 
-extern EntityManager manager;
+extern std::shared_ptr<EntityManager> manager;
 
 const char* ChessBoard::numbers = "87654321";
 const char* ChessBoard::letters = "ABCDEFGH";
@@ -61,8 +61,10 @@ void ChessBoard::LoadBoard()
 
 void ChessBoard::addSquare(const int sourceRectX, const int sourceRectY, const int x, const int y, const std::string& squareTitle)
 {
-    Entity& newSquare(manager.AddEntity("Square", Layer::square));
-    newSquare.AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
+    // Entity& newSquare(manager.AddEntity("Square", Layer::square));
+    // newSquare.AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
+    std::shared_ptr<Entity> newSquare(manager->AddEntity("Square", Layer::square));
+    newSquare->AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
 
     squareCoordinates.emplace(squareTitle, glm::vec2(x, y));
 }
@@ -70,9 +72,9 @@ void ChessBoard::addSquare(const int sourceRectX, const int sourceRectY, const i
 // TODO: magic numbers ... 
 void ChessBoard::addValidation(const int x, const int y, const std::string& squareTitle)
 {
-    Entity& newValidation(manager.AddEntity("Validation", Layer::validation));
-    newValidation.Deactivate();
-    newValidation.AddComponent<ValidationComponent>(x, y, squareTitle, 15, 60, 0.66f, "valid_move");
+    std::shared_ptr<Entity> newValidation(manager->AddEntity("Validation", Layer::validation));
+    newValidation->Deactivate();
+    newValidation->AddComponent<ValidationComponent>(x, y, squareTitle, 15, 60, 0.66f, "valid_move");
 } 
 
 
