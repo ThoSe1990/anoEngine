@@ -161,10 +161,6 @@ std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(const 
     return std::make_tuple(color, square);
 }
 
-
-
-// extern EntityManager manager; 
-extern std::shared_ptr<EntityManager> manager;
 void Chesscontroller::CaptureOpponent(const std::string& square)
 {
 
@@ -174,7 +170,6 @@ void Chesscontroller::CaptureOpponent(const std::string& square)
         entity->Deactivate();
     }
 }
-
 
 SquareState Chesscontroller::GetSquareState(const std::string& square, const std::string& playerColor)
 {

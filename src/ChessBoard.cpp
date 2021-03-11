@@ -61,8 +61,6 @@ void ChessBoard::LoadBoard()
 
 void ChessBoard::addSquare(const int sourceRectX, const int sourceRectY, const int x, const int y, const std::string& squareTitle)
 {
-    // Entity& newSquare(manager.AddEntity("Square", Layer::square));
-    // newSquare.AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
     std::shared_ptr<Entity> newSquare(manager->AddEntity("Square", Layer::square));
     newSquare->AddComponent<SquareComponent>(sourceRectX, sourceRectY, x, y, squareSize_, scale_, textureId_, squareTitle);
 

@@ -36,6 +36,8 @@ public:
     Entity(std::shared_ptr<EntityManager> manager, std::string name);
     Entity(std::shared_ptr<EntityManager> manager, std::string name, Layer layer);
 
+    ~Entity () {std::cout << "-------------------------- DELETING " << name << std::endl;}
+
     void Update(float deltaTime);
     void Render();
     void Deactivate();
