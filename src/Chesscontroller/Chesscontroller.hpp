@@ -12,6 +12,13 @@
 #include "Log.hpp"
 
 
+enum class SquareState
+{
+    free = 0,
+    ocupied_by_friend = 1,
+    occupied_by_opponent = 2,
+    invalid = 3
+};
 
 
 class Chesscontroller : public std::enable_shared_from_this<Chesscontroller>
@@ -57,6 +64,8 @@ public:
     std::shared_ptr<Entity> GetEntityFromSqaure(const std::string& square) const;
     std::tuple<std::shared_ptr<Entity>, std::string, std::string> GetClickedPieceColorSquare() const;   
     std::tuple<std::string, std::string> GetColorAndPosition(const std::shared_ptr<Entity>& entity) const;
+
+    SquareState GetSquareState(const std::string& square, const std::string& playerColor);
 
 };
 

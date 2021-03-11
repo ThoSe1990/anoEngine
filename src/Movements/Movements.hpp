@@ -11,8 +11,7 @@
 class Movement
 {
 
-
-protected: // TODO: refactor, all members protected later on??
+protected: 
     std::shared_ptr<Chesscontroller>& chesscontroller;
     std::shared_ptr<Entity> currentPiece;
     std::string playerPosition;
@@ -28,19 +27,6 @@ protected: // TODO: refactor, all members protected later on??
         return currentSquare;
     }
 
-    void capturePieceIfOpponent(std::shared_ptr<Entity> piece, std::string position)
-    {
-        if (!piece->HasComponent<ChesspieceComponent>())
-            return;
-
-        ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
-        if (cp->color_.compare(opponentColor) == 0)
-            chesscontroller->SetValidation(position, "valid_capture");               
-    }
-
-
-
-// TODO: refactore ... DRY
     void createMovesAndCaptures(const int directionX, const int directionY)
     {
         std::string nextSquare = playerPosition;
@@ -48,24 +34,22 @@ protected: // TODO: refactor, all members protected later on??
         {
             nextSquare = this->getNextSquare(nextSquare, directionX, directionY);
 
-            if (!chesscontroller->IsValidPosition(nextSquare))
-            {
-                break;
-            }
-            else
-            {
-                std::shared_ptr<Entity> otherPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
-                if (!otherPiece)
-                {
-                   chesscontroller->SetValidation(nextSquare, "valid_move");
-                   continue;
-                }
+            auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
 
-                this->capturePieceIfOpponent(otherPiece, nextSquare);
-                break;
+            if (squarestate == SquareState::free)
+            {
+                chesscontroller->SetValidation(nextSquare, "valid_move");
             }
-        } 
+            else if (squarestate == SquareState::occupied_by_opponent)
+            {
+                chesscontroller->SetValidation(nextSquare, "valid_capture");    
+                break;  
+            }
+            else 
+                break;
+        }
     }
+
 
 public:
     Movement(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : chesscontroller(Chesscontroller), currentPiece(CurrentPiece)

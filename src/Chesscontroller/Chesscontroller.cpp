@@ -170,3 +170,23 @@ void Chesscontroller::CaptureOpponent(const std::string& square)
         entity->Deactivate();
     }
 }
+
+
+SquareState Chesscontroller::GetSquareState(const std::string& square, const std::string& playerColor)
+{
+    auto piece = GetEntityFromSqaure(square);
+
+    if (!IsValidPosition(square))
+        return SquareState::invalid;
+    
+    if (!piece)
+        return SquareState::free;
+
+    if (piece->HasComponent<ChesspieceComponent>())
+    {
+        ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
+        return (cp->color_.compare(playerColor) == 0) ? SquareState::ocupied_by_friend : SquareState::occupied_by_opponent;
+    }
+
+    return SquareState::invalid;
+}
