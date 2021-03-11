@@ -13,44 +13,37 @@ private:
     bool initialPosition;
     int movingDirection;
 
-    void forwardMovement(std::shared_ptr<Chesscontroller>& chesscontroller, std::string position)
+    void addInitialStep(const std::string& position, const int directionX, const int directionY)
     {
-        position[Movements::y] += movingDirection;
-
-        std::shared_ptr<Entity> isEntity = chesscontroller->GetEntityFromSqaure(position);
-        if (!isEntity)
+        if (initialPosition)
         {
-            chesscontroller->SetValidation(position, "valid_move");
-        }
-
-        if (this->initialPosition)
-        {
-            this->initialPosition = false;
-            forwardMovement(chesscontroller, position);  
+            std::string next = getNextSquare(position, directionX, directionY);
+            auto squarestate = chesscontroller->GetSquareState(next, playerColor);
+            if (squarestate == SquareState::free)
+                chesscontroller->SetValidation(next, "valid_move");
         }
     }
 
-    bool isOpponentPiece(const std::string& square)
+    void createSingleStep(const int directionX, const int directionY)
     {
-        auto piece = chesscontroller->GetEntityFromSqaure(square);
-        if (piece)
-        {
-            ChesspieceComponent* cp = piece->GetComponent<ChesspieceComponent>();
-            return cp->color_.compare(playerColor) == 0 ? false : true;
-        }
-        return false;
+        std::string nextSquare = getNextSquare(playerPosition, directionX, directionY);
+        auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
+
+        if (squarestate == SquareState::free)
+            chesscontroller->SetValidation(nextSquare, "valid_move");
+        
+        addInitialStep(nextSquare, directionX, directionY);
     }
 
-    void addCapturingMovement(std::shared_ptr<Chesscontroller>& chesscontroller, std::string position, std::string playerColor, int side)
+    void addCapturingMovement(int side)
     {
-        position[Movements::y] += movingDirection;
-        position[Movements::x] += side;
+        std::string nextSquare = playerPosition;
+        nextSquare[Movements::y] += movingDirection;
+        nextSquare[Movements::x] += side;
 
-        if (isOpponentPiece(position))
-        {
-            chesscontroller->SetValidation(position, "valid_capture");
-        }
-
+        auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
+        if (squarestate == SquareState::occupied_by_opponent)
+            chesscontroller->SetValidation(nextSquare, "valid_capture");
     }
 
 public:
@@ -66,10 +59,9 @@ public:
 
     void CreateValidMovements() override 
     {
-        auto [playerColor, playerPosition] = chesscontroller->GetColorAndPosition(currentPiece);
-        forwardMovement(chesscontroller, playerPosition);  
-        addCapturingMovement(chesscontroller, playerPosition, playerColor, Movements::right);
-        addCapturingMovement(chesscontroller, playerPosition, playerColor, Movements::left);
+        createSingleStep(Movements::none, movingDirection);
+        addCapturingMovement(Movements::right);
+        addCapturingMovement(Movements::left);
     }
 };
 

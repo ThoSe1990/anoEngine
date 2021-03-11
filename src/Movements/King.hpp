@@ -11,21 +11,15 @@ private:
     {
         std::string nextSquare = getNextSquare(playerPosition, directionX, directionY);
 
-        if (!chesscontroller->IsValidPosition(nextSquare))
-        {
-            return;
-        }
-        else
-        {
-            std::shared_ptr<Entity> otherPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
-            if (!otherPiece)
-            {
-                chesscontroller->SetValidation(nextSquare, "valid_move");
-                return;
-            }
+        auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
 
-            if (playerPiece.compare("pawn") != 0 )
-                this->capturePieceIfOpponent(otherPiece, nextSquare);
+        if (squarestate == SquareState::free)
+        {
+            chesscontroller->SetValidation(nextSquare, "valid_move");
+        }
+        else if (squarestate == SquareState::occupied_by_opponent)
+        {
+            chesscontroller->SetValidation(nextSquare, "valid_capture");    
         }
     }
 
