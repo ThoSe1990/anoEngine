@@ -57,7 +57,8 @@ public:
         std::tie(playerColor, playerPosition) = chesscontroller->GetColorAndPosition(currentPiece);
         opponentColor = (playerColor.compare(Constants::color_white) == 0) ? Constants::color_black : Constants::color_white;
     
-        ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
+        // ChesspieceComponent* cp = currentPiece->GetComponent<ChesspieceComponent>();
+        auto cp = currentPiece->GetComponent<ChesspieceComponent>();
         playerPiece = cp->type_;
 
     }

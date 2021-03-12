@@ -85,7 +85,7 @@ void SimpleChess::Initialize(int width, int height)
     LoadBoardSetup();
     LoadChesscontroller();
 
-
+    
 
 
 

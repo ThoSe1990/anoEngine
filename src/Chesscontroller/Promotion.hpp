@@ -9,7 +9,6 @@ private:
 
 public:
 
-
 };
 
 #endif
