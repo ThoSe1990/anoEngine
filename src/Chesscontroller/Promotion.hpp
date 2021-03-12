@@ -5,8 +5,10 @@
 
 class Promotion : public State
 {
-    
-    
+private:
+
+public:
+
 
 };
 

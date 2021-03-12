@@ -9,11 +9,7 @@ class Validate;
 
 class PlayersTurn : public State
 {
-    std::string playerColor;
-    std::string opponentColor;
-    
-    std::map<std::string, std::string> validMoves;
-
+private:
     void selectPiece(std::shared_ptr<Chesscontroller>& chesscontroller, std::shared_ptr<Entity> piece, std::string color);
     void movePiece(std::shared_ptr<Chesscontroller>& chesscontroller, std::string square);
 public:

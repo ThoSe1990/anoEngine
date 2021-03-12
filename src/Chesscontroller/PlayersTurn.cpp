@@ -1,16 +1,10 @@
 
 #include "Chesscontroller/PlayersTurn.hpp"
 
-PlayersTurn::PlayersTurn(const std::string& PlayerColor, const std::string& OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
+PlayersTurn::PlayersTurn(const std::string& PlayerColor, const std::string& OpponentColor) : State(PlayerColor, OpponentColor)
 {
     Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
 }
-
-PlayersTurn::PlayersTurn(std::shared_ptr<Chesscontroller>& chesscontroller, const std::string& PlayerColor, const std::string& OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor)
-{
-    Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
-}
-
 
 void PlayersTurn::UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller)
 {
@@ -44,7 +38,7 @@ void PlayersTurn::movePiece(std::shared_ptr<Chesscontroller>& chesscontroller, s
         if (chesscontroller->MoveSelectedPiece())
         {
             chesscontroller->ResetValidation();
-            auto next = std::make_unique<PlayersTurn>(chesscontroller, opponentColor, playerColor);
+            auto next = std::make_unique<PlayersTurn>(opponentColor, playerColor);
             chesscontroller->SetState(std::move(next));
         }
     }
