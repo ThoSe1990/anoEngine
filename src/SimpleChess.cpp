@@ -12,6 +12,7 @@
 #include "Components/TransformComponent.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
+#include "Components/PromotionComponent.hpp"
 #include "ChessBoard.hpp"
 
 #include "Log.hpp"
@@ -85,9 +86,14 @@ void SimpleChess::Initialize(int width, int height)
     LoadBoardSetup();
     LoadChesscontroller();
 
+    std::shared_ptr<Entity> whitePromotion(manager->AddEntity("white_promotion", Layer::menu));
+    whitePromotion->AddComponent<PromotionComponent>(Constants::color_white);
+    whitePromotion->Deactivate();
+
+    std::shared_ptr<Entity> blackPromotion(manager->AddEntity("black_promotion", Layer::menu));
+    blackPromotion->AddComponent<PromotionComponent>(Constants::color_black);
+    whitePromotion->Deactivate();
     
-
-
 
     isRunning = true;
     return;

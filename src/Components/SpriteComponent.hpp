@@ -10,7 +10,6 @@ class SpriteComponent: public Component
 {
 private:
     TransformComponent* transform;
-    // std::shared_ptr<TransformComponent> transform;
     SDL_Texture* texture;
     SDL_Rect sourceRectangle;
     SDL_Rect destinationRectangle;
