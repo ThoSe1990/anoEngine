@@ -7,8 +7,8 @@
 class Validate : public State
 {
 public:
-    Validate (const std::string& PlayerColor, const std::string& OpponentColor);
-    void UpdateGame (std::shared_ptr<Chesscontroller> chesscontroller) override;
+    Validate (std::shared_ptr<Chesscontroller>& Chesscontroller, const std::string& PlayerColor, const std::string& OpponentColor);
+    void UpdateGame () override;
 
 };
 

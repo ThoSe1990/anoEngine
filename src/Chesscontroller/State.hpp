@@ -11,11 +11,12 @@ class State
 protected:
     std::string playerColor;
     std::string opponentColor;
+    std::shared_ptr<Chesscontroller>& chesscontroller;
 
 public:
-    State (std::string PlayerColor, std::string OpponentColor) : playerColor(PlayerColor), opponentColor(OpponentColor) { }
+    State (std::shared_ptr<Chesscontroller>& Chesscontroller, std::string PlayerColor, std::string OpponentColor) : chesscontroller(Chesscontroller), playerColor(PlayerColor), opponentColor(OpponentColor) { }
     virtual ~State() { }
-    virtual void UpdateGame(std::shared_ptr<Chesscontroller> chesscontroller) = 0;  
+    virtual void UpdateGame() = 0;  
 };
 
 

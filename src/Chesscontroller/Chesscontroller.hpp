@@ -21,7 +21,7 @@ enum class SquareState
 };
 
 
-class Chesscontroller : public std::enable_shared_from_this<Chesscontroller>
+class Chesscontroller
 {
 private:
     std::unique_ptr<State> currentState;
@@ -35,10 +35,11 @@ private:
 
     std::string getColorOfPiece(std::shared_ptr<Entity> piece) const;
     std::shared_ptr<Entity> getClickedEntity() const;
+    void captureIfSquareIsOccupied();
 
 public:
 
-    Chesscontroller(State* state, std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities);
+    Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities);
     ~Chesscontroller ();
 
     void Update();
@@ -52,14 +53,13 @@ public:
     void SetMouseClick();
     bool GetMouseClick() const;
 
-    bool MoveSelectedPiece();
+    void MoveSelectedPiece();
     bool HasValidMoves();
     bool IsValidMove(const std::string& square);
     bool IsValidPosition(const std::string& square);
     
     void ResetValidation();    
     void SetValidation(const std::string& square, const std::string& assetId);
-    void CaptureOpponent(const std::string& square);
 
     std::shared_ptr<Entity> GetEntityFromSqaure(const std::string& square) const;
     std::tuple<std::shared_ptr<Entity>, std::string, std::string> GetClickedPieceColorSquare() const;   

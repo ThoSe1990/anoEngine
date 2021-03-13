@@ -171,7 +171,10 @@ void SimpleChess::LoadChesscontroller()
     sol::optional<std::string> chespieces_velocity_exists = lua["next_turn"];
     std::string startingColor = lua["next_turn"];
     std::string opponentsColor = (startingColor.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
-    chesscontroller = std::make_shared<Chesscontroller>(new PlayersTurn(startingColor, opponentsColor), manager->GetEntities(Layer::chess_piece), manager->GetEntities(Layer::validation));
+    chesscontroller = std::make_shared<Chesscontroller>(manager->GetEntities(Layer::chess_piece), manager->GetEntities(Layer::validation));
+    
+    auto initialState = std::make_unique<PlayersTurn>(chesscontroller, startingColor, opponentsColor);
+    chesscontroller->SetState(std::move(initialState));
 }
 
 

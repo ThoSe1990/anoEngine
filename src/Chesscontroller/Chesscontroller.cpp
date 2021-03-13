@@ -7,10 +7,9 @@
 
 #include "ChessBoard.hpp"
 
-Chesscontroller::Chesscontroller(State* state, std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities) 
-: currentState(state),
- chessPieces(ChessPieces),
- validationEntities(ValidationEntities)
+Chesscontroller::Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities) 
+: chessPieces(ChessPieces),
+  validationEntities(ValidationEntities)
 { }  
 
 Chesscontroller::~Chesscontroller(){ }
@@ -31,7 +30,7 @@ bool Chesscontroller::GetMouseClick() const
 
 void Chesscontroller::Update()
 {
-    this->currentState->UpdateGame(shared_from_this());
+    this->currentState->UpdateGame();
     this->mouseClick = false;
 }
 
@@ -58,8 +57,8 @@ std::tuple<std::shared_ptr<Entity>, std::string, std::string> Chesscontroller::G
     auto piece = this->getClickedEntity();
     if (piece)
         color = this->getColorOfPiece(piece);
-
-    return std::make_tuple(piece, color, clickedSquare);
+    
+    return std::make_tuple(piece, color, this->clickedSquare);
 }
 
 
@@ -84,6 +83,9 @@ std::shared_ptr<Entity> Chesscontroller::GetEntityFromSqaure(const std::string& 
 
 bool Chesscontroller::IsValidMove(const std::string& square)
 {
+    if (square.compare(Constants::invalid_square) == 0)
+        return false;
+
     for (const auto& v : validationEntities)
     {
         if ( v->HasComponent<ValidationComponent>() )
@@ -104,10 +106,11 @@ bool Chesscontroller::HasValidMoves()
     return false;
 }
 
-bool Chesscontroller::MoveSelectedPiece()
+void Chesscontroller::MoveSelectedPiece()
 {
+    this->captureIfSquareIsOccupied();
     auto tc = this->selectedPiece->GetComponent<TransformComponent>();
-    return tc->SetPosition(clickedSquare);
+    tc->SetPosition(clickedSquare);
 }
 
 bool Chesscontroller::IsValidPosition(const std::string& square)
@@ -161,10 +164,9 @@ std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(const 
     return std::make_tuple(color, square);
 }
 
-void Chesscontroller::CaptureOpponent(const std::string& square)
+void Chesscontroller::captureIfSquareIsOccupied()
 {
-
-    std::shared_ptr<Entity> entity = this->GetEntityFromSqaure(square);
+    std::shared_ptr<Entity> entity = this->GetEntityFromSqaure(this->clickedSquare);
     if (entity)
     {
         entity->Deactivate();
