@@ -73,7 +73,7 @@ std::shared_ptr<Entity> Chesscontroller::GetEntityFromSqaure(const std::string& 
     {
         if (piece->HasComponent<TransformComponent>())
         {
-            auto transform = piece->GetComponent<TransformComponent>();
+            auto* transform = piece->GetComponent<TransformComponent>();
             if (transform->square.compare(square) == 0 && piece->IsActive())
                 return piece;
         }
@@ -90,7 +90,7 @@ bool Chesscontroller::IsValidMove(const std::string& square)
     {
         if ( v->HasComponent<ValidationComponent>() )
         {
-            auto vc = v->GetComponent<ValidationComponent>();
+            auto* vc = v->GetComponent<ValidationComponent>();
             if (square.compare( vc->GetTitle() ) == 0) 
                 return v->IsActive();
         }
@@ -109,7 +109,7 @@ bool Chesscontroller::HasValidMoves()
 void Chesscontroller::MoveSelectedPiece()
 {
     this->captureIfSquareIsOccupied();
-    auto tc = this->selectedPiece->GetComponent<TransformComponent>();
+    auto* tc = this->selectedPiece->GetComponent<TransformComponent>();
     tc->SetPosition(clickedSquare);
 }
 
@@ -123,7 +123,7 @@ bool Chesscontroller::IsValidPosition(const std::string& square)
 
 std::string Chesscontroller::getColorOfPiece(std::shared_ptr<Entity> piece) const
 {
-    auto cp = piece->GetComponent<ChesspieceComponent>();
+    auto* cp = piece->GetComponent<ChesspieceComponent>();
     return cp->color_;
 }
 
@@ -137,7 +137,7 @@ void Chesscontroller::SetValidation(const std::string& square, const std::string
 {
     for (auto& entity : validationEntities)
     {
-        auto v = entity->GetComponent<ValidationComponent>();
+        auto* v = entity->GetComponent<ValidationComponent>();
         if (v->GetTitle().compare(square) == 0)
         {
             v->SetTextureId(assetId);
@@ -158,7 +158,7 @@ std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(const 
     std::string square = "";
     if (entity->HasComponent<TransformComponent>())
     {
-        auto tp = entity->GetComponent<TransformComponent>();
+        auto* tp = entity->GetComponent<TransformComponent>();
         square = tp->square;
     }
     return std::make_tuple(color, square);
@@ -185,7 +185,7 @@ SquareState Chesscontroller::GetSquareState(const std::string& square, const std
 
     if (piece->HasComponent<ChesspieceComponent>())
     {
-        auto cp = piece->GetComponent<ChesspieceComponent>();
+        auto* cp = piece->GetComponent<ChesspieceComponent>();
         return (cp->color_.compare(playerColor) == 0) ? SquareState::ocupied_by_friend : SquareState::occupied_by_opponent;
     }
 

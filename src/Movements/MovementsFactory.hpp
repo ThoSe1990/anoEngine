@@ -18,7 +18,7 @@ public:
         Logger::Log(logging::trivial::debug, log_location, "creating movements for " , entity->name);
 
         // ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
-        auto cp = entity->GetComponent<ChesspieceComponent>();
+        auto* cp = entity->GetComponent<ChesspieceComponent>();
         if (cp->type_.compare("pawn") == 0)
         {
             return std::make_unique<Pawn>(chesscontroller, entity);

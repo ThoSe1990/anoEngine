@@ -153,7 +153,7 @@ void SimpleChess::LoadBoardSetup()
         std::string name = chesspiece["name"];
         std::string type = chesspiece["type"];
         std::string color = chesspiece["color"];
-        bool killed = chesspiece["killed"];
+        bool captured = chesspiece["captured"];
         std::stringstream asset_id;
         asset_id << color << '_' << type;
         std::string position = chesspiece["position"];
@@ -161,7 +161,7 @@ void SimpleChess::LoadBoardSetup()
         std::shared_ptr<Entity> newEntity(manager->AddEntity(name, Layer::chess_piece));
         newEntity->AddComponent<TransformComponent>(position, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength, 1);
         newEntity->AddComponent<SpriteComponent>(asset_id.str().c_str());
-        newEntity->AddComponent<ChesspieceComponent>(type, color, killed);
+        newEntity->AddComponent<ChesspieceComponent>(type, color, captured);
         index++;
     }
 }

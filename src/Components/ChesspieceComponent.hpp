@@ -3,6 +3,7 @@
 
 #include <string>
 #include "Components/Component.hpp"
+#include "Components/TransformComponent.hpp"
 
 #include "Log.hpp"
 #include "Constants.hpp"
@@ -16,18 +17,38 @@ extern std::shared_ptr<EntityManager> manager;
 class ChesspieceComponent : public Component
 {
 public:
-
+    char endOfBoard;
+    
     std::string color_;
     std::string type_;
-    bool killed_;
+    bool captured_;
     bool isSelected;    
 
-    ChesspieceComponent(const std::string& type, const std::string& color, bool killed) 
+    TransformComponent* transform;
+
+
+    ChesspieceComponent(const std::string& type, const std::string& color, bool captured) 
      : type_(type),
      color_(color),
-     killed_(killed),
+     captured_(captured),
      isSelected(false)
      {}
+
+
+    void Initialize() override 
+    {
+        transform = Owner->GetComponent<TransformComponent>();
+        endOfBoard = (color_.compare(Constants::color_white) == 0) ? '8' : '1';
+    }
+
+    bool PawnCanPromote()
+    {
+        if (type_.compare("pawn") != 0)
+            return false;
+
+        return (transform->square[Movements::y] == endOfBoard) ? true : false;
+    }
+
 };
 
 #endif
