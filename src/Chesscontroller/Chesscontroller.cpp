@@ -3,13 +3,15 @@
 #include "Components/TransformComponent.hpp"
 #include "Components/ChesspieceComponent.hpp"
 #include "Components/ValidationComponent.hpp"
+#include "Components/PromotionComponent.hpp"
 
 
 #include "ChessBoard.hpp"
 
-Chesscontroller::Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities) 
+Chesscontroller::Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities, std::vector<std::shared_ptr<Entity>> PawnPromotionEntities) 
 : chessPieces(ChessPieces),
-  validationEntities(ValidationEntities)
+  validationEntities(ValidationEntities),
+  pawnPromotionEntities(PawnPromotionEntities)
 { }  
 
 Chesscontroller::~Chesscontroller(){ }
@@ -40,11 +42,16 @@ void Chesscontroller::SetSelectedPiece(std::shared_ptr<Entity>& entity)
     this->selectedPiece = entity;
 }
 
-void Chesscontroller::SetClickedSquare(const int x, const int y)
+void Chesscontroller::SetClickedCoordinates(const int x, const int y)
 {
+    clickedCoordinates.x = x;
+    clickedCoordinates.y = y;
     clickedSquare = ChessBoard::GetSquareTitleByCoordinates(glm::vec2(x,y));
 }
-
+glm::vec2 Chesscontroller::GetClickedCoordinates()
+{
+    return this->clickedCoordinates;
+}
 std::shared_ptr<Entity> Chesscontroller::GetSelectedPiece() const
 {
     return selectedPiece;
@@ -69,17 +76,37 @@ std::shared_ptr<Entity> Chesscontroller::getClickedEntity() const
 
 std::shared_ptr<Entity> Chesscontroller::GetEntityFromSqaure(const std::string& square) const
 {
-    for (const auto& piece : chessPieces)
-    {
-        if (piece->HasComponent<TransformComponent>())
+    auto lambda = [&square](const std::shared_ptr<Entity> e) { 
+        
+        if (e->HasComponent<TransformComponent>())
         {
-            auto* transform = piece->GetComponent<TransformComponent>();
-            if (transform->square.compare(square) == 0 && piece->IsActive())
-                return piece;
+            auto* transform = e->GetComponent<TransformComponent>();
+            return (transform->square.compare(square) == 0 && e->IsActive());
         }
-    } 
-    return nullptr;
+        return false;
+    };
+
+    auto it = std::find_if(chessPieces.begin(), chessPieces.end(), lambda);
+    return (it != chessPieces.end()) ? (*it) : nullptr;
 }
+
+std::shared_ptr<Entity> Chesscontroller::GetPromotionEntity(const std::string& color) const
+{
+    auto lambda = [&color](const std::shared_ptr<Entity> e) { 
+        
+        if (e->HasComponent<PromotionComponent>())
+        {
+            auto* cp = e->GetComponent<PromotionComponent>();
+            return cp->color.compare(color) == 0;
+        }
+        return false;
+    };
+
+    auto it = std::find_if(pawnPromotionEntities.begin(), pawnPromotionEntities.end(), lambda);
+    
+    return (*it);
+}
+
 
 bool Chesscontroller::IsValidMove(const std::string& square)
 {

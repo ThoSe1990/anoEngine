@@ -13,7 +13,6 @@ class PromotionComponent : public Component
     int width = Constants::square_sidelength * 4;
     int height = Constants::square_sidelength;
 
-
     int r = 35;
     int g = 35;
     int b = 35;
@@ -26,16 +25,20 @@ class PromotionComponent : public Component
 
     std::vector<SDL_Texture*> textures;
 
+    std::vector<std::string> types = {"queen", "knight", "rook", "bishop"};
+
 public: 
 
-    PromotionComponent(const std::string PlayerColor)
+    std::string color;
+
+    PromotionComponent(const std::string PlayerColor) : color(PlayerColor)
     {
         backgroundRectangle.w = 4 * Constants::square_sidelength;
         backgroundRectangle.h = Constants::square_sidelength;
 
-        for (const auto& type : {"_queen", "_knight", "_rook", "_bishop"})
+        for (const auto& type : types)
         {
-            std::string id = PlayerColor + type;
+            std::string id = PlayerColor + '_' + type;
             textures.push_back(SimpleChess::assetManager->GetTexture(id));
 
             SDL_Rect rect;
@@ -61,9 +64,8 @@ public:
 
             offsetX += Constants::chesspiece_sidelength;
         }
-
     }
-
+    
     void SetBackgroundColor(const int red, const int green, const int blue, const int alpha)
     {
         r = red;
@@ -71,6 +73,21 @@ public:
         b = blue;
         a = alpha;
     }
+
+    void GetPlayersChoice (const int x, const int y)
+    {
+        for (int i = 0 ; i < destinationRectangles.size() ; i++)
+        {
+            if ( (x >= destinationRectangles[i].x && x < destinationRectangles[i].x + destinationRectangles[i].w ) &&
+                (y >= destinationRectangles[i].y && y < destinationRectangles[i].y + destinationRectangles[i].h ) )
+            {
+                std::cout << "coice is: " << types[i] << std::endl;
+            }
+        }
+    
+    }
+
+
 
     void Initialize() override
     {

@@ -5,14 +5,7 @@
 #include "Components/Component.hpp"
 #include "Components/TransformComponent.hpp"
 
-#include "Log.hpp"
 #include "Constants.hpp"
-#include "Entity/EntityManager.hpp"
-#include "ChessBoard.hpp"
-
-extern std::shared_ptr<ChessBoard> chessBoard;
-
-extern std::shared_ptr<EntityManager> manager;
 
 class ChesspieceComponent : public Component
 {

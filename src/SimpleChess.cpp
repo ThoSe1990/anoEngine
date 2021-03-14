@@ -84,7 +84,6 @@ void SimpleChess::Initialize(int width, int height)
     chessBoard->LoadBoard();
 
     LoadBoardSetup();
-    LoadChesscontroller();
 
     std::shared_ptr<Entity> whitePromotion(manager->AddEntity("white_promotion", Layer::menu));
     whitePromotion->AddComponent<PromotionComponent>(Constants::color_white);
@@ -94,6 +93,8 @@ void SimpleChess::Initialize(int width, int height)
     blackPromotion->AddComponent<PromotionComponent>(Constants::color_black);
     whitePromotion->Deactivate();
     
+
+    LoadChesscontroller();
 
     isRunning = true;
     return;
@@ -171,7 +172,7 @@ void SimpleChess::LoadChesscontroller()
     sol::optional<std::string> chespieces_velocity_exists = lua["next_turn"];
     std::string startingColor = lua["next_turn"];
     std::string opponentsColor = (startingColor.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
-    chesscontroller = std::make_shared<Chesscontroller>(manager->GetEntities(Layer::chess_piece), manager->GetEntities(Layer::validation));
+    chesscontroller = std::make_shared<Chesscontroller>(manager->GetEntities(Layer::chess_piece), manager->GetEntities(Layer::validation), manager->GetEntities(Layer::menu));
     
     auto initialState = std::make_unique<PlayersTurn>(chesscontroller, startingColor, opponentsColor);
     chesscontroller->SetState(std::move(initialState));
@@ -203,7 +204,7 @@ void SimpleChess::ProcessInput()
             }
             case SDL_MOUSEBUTTONUP:
             {
-                chesscontroller->SetClickedSquare(static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
+                chesscontroller->SetClickedCoordinates(static_cast<int>(event.motion.x), static_cast<int>(event.motion.y) );
                 chesscontroller->SetMouseClick();
                 break;
             }

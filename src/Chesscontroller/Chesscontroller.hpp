@@ -28,9 +28,12 @@ private:
     std::shared_ptr<Entity> selectedPiece;
 
     std::vector<std::shared_ptr<Entity>> chessPieces;
+    std::vector<std::shared_ptr<Entity>> pawnPromotionEntities;
     std::vector<std::shared_ptr<Entity>> validationEntities;
 
     std::string clickedSquare;
+    glm::vec2 clickedCoordinates;
+    
     bool mouseClick = false;
 
     std::string getColorOfPiece(std::shared_ptr<Entity> piece) const;
@@ -39,16 +42,19 @@ private:
 
 public:
 
-    Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities);
+    Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities, std::vector<std::shared_ptr<Entity>> PawnPromotionEntities);
     ~Chesscontroller ();
 
     void Update();
 
     void SetState(std::unique_ptr<State> state) ;
-    void SetClickedSquare(const int x, const int y);
+    void SetClickedCoordinates(const int x, const int y);
+    glm::vec2 GetClickedCoordinates();
 
     void SetSelectedPiece(std::shared_ptr<Entity>& entity);
     std::shared_ptr<Entity> GetSelectedPiece() const; 
+
+    std::shared_ptr<Entity> GetPromotionEntity(const std::string& color) const;
 
     void SetMouseClick();
     bool GetMouseClick() const;
