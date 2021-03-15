@@ -138,6 +138,9 @@ void Chesscontroller::MoveSelectedPiece()
     this->captureIfSquareIsOccupied();
     auto* tc = this->selectedPiece->GetComponent<TransformComponent>();
     tc->SetPosition(clickedSquare);
+    
+    auto* cp = this->selectedPiece->GetComponent<ChesspieceComponent>();
+    cp->IncrementMoves();
 }
 
 bool Chesscontroller::IsValidPosition(const std::string& square)
@@ -213,8 +216,9 @@ SquareState Chesscontroller::GetSquareState(const std::string& square, const std
     if (piece->HasComponent<ChesspieceComponent>())
     {
         auto* cp = piece->GetComponent<ChesspieceComponent>();
-        return (cp->GetColor().compare(playerColor) == 0) ? SquareState::ocupied_by_friend : SquareState::occupied_by_opponent;
+        return (cp->GetColor().compare(playerColor) == 0) ? SquareState::occupied_by_friend : SquareState::occupied_by_opponent;
     }
 
     return SquareState::invalid;
 }
+

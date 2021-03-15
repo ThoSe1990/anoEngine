@@ -17,7 +17,6 @@ public:
     {
         Logger::Log(logging::trivial::debug, log_location, "creating movements for " , entity->name);
 
-        // ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
         auto* cp = entity->GetComponent<ChesspieceComponent>();
         if (cp->GetType().compare("pawn") == 0)
         {

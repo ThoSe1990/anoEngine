@@ -12,10 +12,9 @@ private:
 
     void selectPiece(std::shared_ptr<Entity> piece);
     void doMovement();
-    bool doSpecialMove();
 
     bool pawnCanPromote();
-    // void castling();
+    bool kingCanCastle();
     // void enPassante();
 
 public:

@@ -41,23 +41,16 @@ void PlayersTurn::doMovement()
     chesscontroller->MoveSelectedPiece();
     chesscontroller->ResetValidation();
 
-    if (this->doSpecialMove())
-        return;
-
-    auto next = std::make_unique<PlayersTurn>(chesscontroller, opponentColor, playerColor);
-    chesscontroller->SetState(std::move(next));
-
-}
-
-bool PlayersTurn::doSpecialMove()
-{
     if (this->pawnCanPromote())
     {
         auto next = std::make_unique<Promotion>(chesscontroller, playerColor, opponentColor);
         chesscontroller->SetState(std::move(next)); 
-        return true;
+        return;
     }
-    return false;
+
+    auto next = std::make_unique<PlayersTurn>(chesscontroller, opponentColor, playerColor);
+    chesscontroller->SetState(std::move(next));
+
 }
 
 
@@ -75,10 +68,22 @@ bool PlayersTurn::pawnCanPromote()
     return false;
 }
 
-// void PlayersTurn::castling() 
-// {
 
-// }
+
+bool PlayersTurn::kingCanCastle() 
+{
+    auto piece = chesscontroller->GetSelectedPiece();
+    if (piece)
+    {
+        if (piece->HasComponent<ChesspieceComponent>())
+        {
+            auto* pc = piece->GetComponent<ChesspieceComponent>();
+            return pc->PawnCanPromote();
+        }
+    }
+    return false;
+}
+
 // void PlayersTurn::enPassante()
 // {
 

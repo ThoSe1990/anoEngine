@@ -15,7 +15,7 @@
 enum class SquareState
 {
     free = 0,
-    ocupied_by_friend = 1,
+    occupied_by_friend = 1,
     occupied_by_opponent = 2,
     invalid = 3
 };
@@ -72,7 +72,6 @@ public:
     std::tuple<std::string, std::string> GetColorAndPosition(const std::shared_ptr<Entity>& entity) const;
 
     SquareState GetSquareState(const std::string& square, const std::string& playerColor);
-
 };
 
 
