@@ -151,7 +151,7 @@ bool Chesscontroller::IsValidPosition(const std::string& square)
 std::string Chesscontroller::getColorOfPiece(std::shared_ptr<Entity> piece) const
 {
     auto* cp = piece->GetComponent<ChesspieceComponent>();
-    return cp->color_;
+    return cp->GetColor();
 }
 
 void Chesscontroller::ResetValidation()
@@ -180,7 +180,7 @@ std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(const 
     if (entity->HasComponent<ChesspieceComponent>())
     {
         auto cp = entity->GetComponent<ChesspieceComponent>();
-        color = cp->color_;
+        color = cp->GetColor();
     }   
     std::string square = "";
     if (entity->HasComponent<TransformComponent>())
@@ -213,7 +213,7 @@ SquareState Chesscontroller::GetSquareState(const std::string& square, const std
     if (piece->HasComponent<ChesspieceComponent>())
     {
         auto* cp = piece->GetComponent<ChesspieceComponent>();
-        return (cp->color_.compare(playerColor) == 0) ? SquareState::ocupied_by_friend : SquareState::occupied_by_opponent;
+        return (cp->GetColor().compare(playerColor) == 0) ? SquareState::ocupied_by_friend : SquareState::occupied_by_opponent;
     }
 
     return SquareState::invalid;

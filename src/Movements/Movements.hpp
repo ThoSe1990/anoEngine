@@ -58,7 +58,7 @@ public:
         opponentColor = (playerColor.compare(Constants::color_white) == 0) ? Constants::color_black : Constants::color_white;
     
         auto* cp = currentPiece->GetComponent<ChesspieceComponent>();
-        playerPiece = cp->type_;
+        playerPiece = cp->GetType();
 
     }
 

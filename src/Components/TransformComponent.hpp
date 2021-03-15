@@ -14,16 +14,18 @@
 
 class TransformComponent : public Component
 {
+    glm::vec2 ActPosition;
+
 public:
     friend class Chesscontroller;
     
-    glm::vec2 ActPosition;
     glm::vec2 velocity;
     std::string square;
 
     int width_;
     int height_;
-    int scale_;
+    int scale_;  
+
 
     TransformComponent(
         const std::string& positionSquare,
@@ -71,7 +73,10 @@ public:
         ActPosition.y += velocity.y * deltaTime;
     }
 
-
+    glm::vec2 GetActPosition() const 
+    {
+        return ActPosition;
+    }
 
 private: 
     void SetPosition(int x, int y)

@@ -38,9 +38,10 @@ public:
     }
 
     void Update(float deltaTime) override 
-    {
-        destinationRectangle.x = static_cast<int>(transform->ActPosition.x);
-        destinationRectangle.y = static_cast<int>(transform->ActPosition.y);
+    {   
+        glm::vec2 pos = transform->GetActPosition();
+        destinationRectangle.x = static_cast<int>(pos.x);
+        destinationRectangle.y = static_cast<int>(pos.y);
         destinationRectangle.w = transform->width_ * transform->scale_;
         destinationRectangle.h = transform->height_ * transform->scale_;
     }

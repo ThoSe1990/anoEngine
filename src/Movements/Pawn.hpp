@@ -50,9 +50,9 @@ public:
     Pawn(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) 
     {
         auto* cp = currentPiece->GetComponent<ChesspieceComponent>();
-        movingDirection = (cp->color_.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
+        movingDirection = (cp->GetColor().compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
         auto* tc = currentPiece->GetComponent<TransformComponent>();
-        initialPosition = (cp->color_.compare(Constants::color_black) == 0) 
+        initialPosition = (cp->GetColor().compare(Constants::color_black) == 0) 
             ? tc->square[Movements::y] == initialRowBlack 
             : tc->square[Movements::y] == initialRowWhite;     
     }

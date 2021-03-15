@@ -19,27 +19,27 @@ public:
 
         // ChesspieceComponent* cp = entity->GetComponent<ChesspieceComponent>();
         auto* cp = entity->GetComponent<ChesspieceComponent>();
-        if (cp->type_.compare("pawn") == 0)
+        if (cp->GetType().compare("pawn") == 0)
         {
             return std::make_unique<Pawn>(chesscontroller, entity);
         }
-        else if (cp->type_.compare("knight") == 0)
+        else if (cp->GetType().compare("knight") == 0)
         {
             return std::make_unique<Knight>(chesscontroller, entity);
         }
-        else if (cp->type_.compare("bishop") == 0)
+        else if (cp->GetType().compare("bishop") == 0)
         {
             return std::make_unique<Bishop>(chesscontroller, entity);
         }
-        else if (cp->type_.compare("rook") == 0)
+        else if (cp->GetType().compare("rook") == 0)
         {
             return std::make_unique<Rook>(chesscontroller, entity);
         }
-        else if (cp->type_.compare("queen") == 0)
+        else if (cp->GetType().compare("queen") == 0)
         {
             return std::make_unique<Queen>(chesscontroller, entity);
         }
-        else if (cp->type_.compare("king") == 0)
+        else if (cp->GetType().compare("king") == 0)
         {
             return std::make_unique<King>(chesscontroller, entity);
         }

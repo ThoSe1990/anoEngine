@@ -7,7 +7,8 @@
 class Promotion : public State
 {
 private:
-
+    void openMenu();
+    void changePieceAndCloseMenu();
 public:
     Promotion(std::shared_ptr<Chesscontroller>& chesscontroller, const std::string& PlayerColor, const std::string& OpponentColor); 
     void UpdateGame() override;

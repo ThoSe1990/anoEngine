@@ -13,18 +13,16 @@ class PromotionComponent : public Component
     int width = Constants::square_sidelength * 4;
     int height = Constants::square_sidelength;
 
-    int r = 35;
-    int g = 35;
-    int b = 35;
-    int a = 255;
+    int r;
+    int g;
+    int b;
+    int a;
 
     SDL_Rect backgroundRectangle;
     SDL_Rect sourceRectangle;
 
     std::vector<SDL_Rect> destinationRectangles;
-
     std::vector<SDL_Texture*> textures;
-
     std::vector<std::string> types = {"queen", "knight", "rook", "bishop"};
 
 public: 
@@ -63,6 +61,7 @@ public:
             pos.y = y + offsetY;
 
             offsetX += Constants::chesspiece_sidelength;
+            offsetX += Constants::offset_figures_squares;
         }
     }
     
@@ -74,20 +73,18 @@ public:
         a = alpha;
     }
 
-    void GetPlayersChoice (const int x, const int y)
+    std::string GetPlayersChoice (const int x, const int y)
     {
         for (int i = 0 ; i < destinationRectangles.size() ; i++)
         {
             if ( (x >= destinationRectangles[i].x && x < destinationRectangles[i].x + destinationRectangles[i].w ) &&
                 (y >= destinationRectangles[i].y && y < destinationRectangles[i].y + destinationRectangles[i].h ) )
             {
-                std::cout << "coice is: " << types[i] << std::endl;
+                return types[i];
             }
         }
     
     }
-
-
 
     void Initialize() override
     {
@@ -96,6 +93,11 @@ public:
         sourceRectangle.w = Constants::chesspiece_sidelength;
         sourceRectangle.h = Constants::chesspiece_sidelength;
         
+        if (color.compare("white") == 0)
+            SetBackgroundColor(21, 21, 21, 255);
+        else 
+            SetBackgroundColor(200, 200, 200, 255);
+
     }
 
     void Render() override 
