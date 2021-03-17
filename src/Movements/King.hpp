@@ -15,11 +15,11 @@ private:
 
         if (squarestate == SquareState::free)
         {
-            chesscontroller->SetValidation(nextSquare, "valid_move");
+            chesscontroller->SetValidation(nextSquare, ValidationType::move);
         }
         else if (squarestate == SquareState::occupied_by_opponent)
         {
-            chesscontroller->SetValidation(nextSquare, "valid_capture");    
+            chesscontroller->SetValidation(nextSquare, ValidationType::capture);    
         }
     }
 
@@ -47,8 +47,10 @@ private:
                 if (cp->GetType().compare("rook") == 0 && cp->GetMoves() == 0)
                 {
                     Logger::Log(logging::trivial::debug, log_location, "castling is valid for ", cp->GetType(), " in direction ", side);
-                    // castling is valid here 
-                    // set valid move or valid castling
+                    
+                    std::string position = playerPosition;
+                    position[Movements::x] += 2*side;
+                    chesscontroller->SetValidation(position, ValidationType::castling);
                     return;
                 } 
                 return;
@@ -57,6 +59,8 @@ private:
     }
 
 public:
+
+
     King(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
 
     void CreateValidMovements() override

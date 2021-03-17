@@ -11,10 +11,10 @@ class PlayersTurn : public State
 private:
 
     void selectPiece(std::shared_ptr<Entity> piece);
-    void doMovement();
+    void doMovement(const ValidationType& type);
 
     bool pawnCanPromote();
-    bool kingCanCastle();
+    bool kingCastles();
     // void enPassante();
 
 public:

@@ -12,11 +12,11 @@ class Knight : public Movement
 
         if (squarestate == SquareState::free)
         {
-            chesscontroller->SetValidation(square, "valid_move");
+            chesscontroller->SetValidation(square, ValidationType::move);
         }
         else if (squarestate == SquareState::occupied_by_opponent)
         {
-            chesscontroller->SetValidation(square, "valid_capture");    
+            chesscontroller->SetValidation(square, ValidationType::capture);    
         }
     }
 

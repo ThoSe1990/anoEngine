@@ -55,4 +55,12 @@ public:
 
 };
 
+enum class ValidationType {
+    none = 0,
+    move = 1,
+    capture = 2,
+    castling = 3
+};
+
+
 #endif

@@ -22,7 +22,6 @@ class ChesspieceComponent : public Component
     TransformComponent* transform;
     SpriteComponent* sprite;
 
-
 public:
 
     ChesspieceComponent(const std::string& type, const std::string& color, bool captured) 
@@ -74,15 +73,6 @@ public:
             return false;
 
         return (transform->square[Movements::y] == endOfBoard) ? true : false;
-    }
-
-    
-    bool KingCanCastle()
-    {
-        if (type_.compare("king") != 0 || this->moves > 0)
-            return false; 
-        
-
     }
 
 };

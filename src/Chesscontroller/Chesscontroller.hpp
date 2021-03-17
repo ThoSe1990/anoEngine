@@ -40,6 +40,8 @@ private:
     std::shared_ptr<Entity> getClickedEntity() const;
     void captureIfSquareIsOccupied();
 
+    std::tuple<std::shared_ptr<Entity>, std::string> getRook();
+
 public:
 
     Chesscontroller(std::vector<std::shared_ptr<Entity>> ChessPieces, std::vector<std::shared_ptr<Entity>> ValidationEntities, std::vector<std::shared_ptr<Entity>> PawnPromotionEntities);
@@ -60,12 +62,15 @@ public:
     bool GetMouseClick() const;
 
     void MoveSelectedPiece();
+    void Castle();
     bool HasValidMoves();
-    bool IsValidMove(const std::string& square);
+
+
+    ValidationType GetValidationFromSquare(const std::string& square);
     bool IsValidPosition(const std::string& square);
     
     void ResetValidation();    
-    void SetValidation(const std::string& square, const std::string& assetId);
+    void SetValidation(const std::string& square, ValidationType type);
 
     std::shared_ptr<Entity> GetEntityFromSqaure(const std::string& square) const;
     std::tuple<std::shared_ptr<Entity>, std::string, std::string> GetClickedPieceColorSquare() const;   

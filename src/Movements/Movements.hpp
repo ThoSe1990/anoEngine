@@ -7,6 +7,7 @@
 
 #include "Components/ChesspieceComponent.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Components/ValidationComponent.hpp"
 
 class Movement
 {
@@ -38,11 +39,11 @@ protected:
 
             if (squarestate == SquareState::free)
             {
-                chesscontroller->SetValidation(nextSquare, "valid_move");
+                chesscontroller->SetValidation(nextSquare, ValidationType::move);
             }
             else if (squarestate == SquareState::occupied_by_opponent)
             {
-                chesscontroller->SetValidation(nextSquare, "valid_capture");    
+                chesscontroller->SetValidation(nextSquare, ValidationType::capture);    
                 break;  
             }
             else 

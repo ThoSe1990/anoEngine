@@ -17,14 +17,16 @@ void PlayersTurn::UpdateGame()
 
     auto [clickedPiece, clickedColor, clickedSquare] = chesscontroller->GetClickedPieceColorSquare();
 
+    ValidationType validationType = chesscontroller->GetValidationFromSquare(clickedSquare);
+
     if (clickedPiece && clickedColor.compare(playerColor) == 0)
     {
         this->selectPiece(clickedPiece);
     }
-    else if (chesscontroller->IsValidMove(clickedSquare))
+    else if (validationType != ValidationType::none)
     {
-        this->doMovement();
-    }  
+        this->doMovement(validationType);
+    }
 }
 
 void PlayersTurn::selectPiece(std::shared_ptr<Entity> piece)
@@ -36,9 +38,16 @@ void PlayersTurn::selectPiece(std::shared_ptr<Entity> piece)
     chesscontroller->SetState(std::move(next));
 }
 
-void PlayersTurn::doMovement()
+void PlayersTurn::doMovement(const ValidationType& type)
 {
-    chesscontroller->MoveSelectedPiece();
+    if (type == ValidationType::castling)    
+    {
+        chesscontroller->Castle();
+    } 
+    else 
+        chesscontroller->MoveSelectedPiece();
+    
+    
     chesscontroller->ResetValidation();
 
     if (this->pawnCanPromote())
@@ -68,23 +77,3 @@ bool PlayersTurn::pawnCanPromote()
     return false;
 }
 
-
-
-bool PlayersTurn::kingCanCastle() 
-{
-    auto piece = chesscontroller->GetSelectedPiece();
-    if (piece)
-    {
-        if (piece->HasComponent<ChesspieceComponent>())
-        {
-            auto* pc = piece->GetComponent<ChesspieceComponent>();
-            return pc->PawnCanPromote();
-        }
-    }
-    return false;
-}
-
-// void PlayersTurn::enPassante()
-// {
-
-// }

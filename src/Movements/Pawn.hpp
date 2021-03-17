@@ -3,6 +3,7 @@
 
 #include "Movements/Movements.hpp"
 
+
 class Pawn : public Movement
 {
 private:
@@ -20,7 +21,7 @@ private:
             std::string next = getNextSquare(position, directionX, directionY);
             auto squarestate = chesscontroller->GetSquareState(next, playerColor);
             if (squarestate == SquareState::free)
-                chesscontroller->SetValidation(next, "valid_move");
+                chesscontroller->SetValidation(next, ValidationType::move);
         }
     }
 
@@ -30,7 +31,7 @@ private:
         auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
 
         if (squarestate == SquareState::free)
-            chesscontroller->SetValidation(nextSquare, "valid_move");
+            chesscontroller->SetValidation(nextSquare, ValidationType::move);
         
         addInitialStep(nextSquare, directionX, directionY);
     }
@@ -43,7 +44,7 @@ private:
 
         auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
         if (squarestate == SquareState::occupied_by_opponent)
-            chesscontroller->SetValidation(nextSquare, "valid_capture");
+            chesscontroller->SetValidation(nextSquare, ValidationType::capture);
     }
 
 public:

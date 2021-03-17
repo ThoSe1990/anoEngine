@@ -71,8 +71,7 @@ void ChessBoard::addSquare(const int sourceRectX, const int sourceRectY, const i
 void ChessBoard::addValidation(const int x, const int y, const std::string& squareTitle)
 {
     std::shared_ptr<Entity> newValidation(manager->AddEntity("Validation", Layer::validation));
-    newValidation->Deactivate();
-    newValidation->AddComponent<ValidationComponent>(x, y, squareTitle, 15, 60, 0.66f, "valid_move");
+    newValidation->AddComponent<ValidationComponent>(x, y, squareTitle, 15, 60, 0.66f);
 } 
 
 

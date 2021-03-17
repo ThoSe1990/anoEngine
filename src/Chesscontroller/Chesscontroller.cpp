@@ -107,23 +107,25 @@ std::shared_ptr<Entity> Chesscontroller::GetPromotionEntity(const std::string& c
     return (*it);
 }
 
-
-bool Chesscontroller::IsValidMove(const std::string& square)
+ValidationType Chesscontroller::GetValidationFromSquare(const std::string& square)
 {
     if (square.compare(Constants::invalid_square) == 0)
-        return false;
+        return ValidationType::none;
 
-    for (const auto& v : validationEntities)
-    {
-        if ( v->HasComponent<ValidationComponent>() )
+    auto lambda = [&square](const std::shared_ptr<Entity> e) { 
+        
+        if (e->HasComponent<ValidationComponent>())
         {
-            auto* vc = v->GetComponent<ValidationComponent>();
-            if (square.compare( vc->GetTitle() ) == 0) 
-                return v->IsActive();
+            auto* vc = e->GetComponent<ValidationComponent>();
+            return (vc->GetTitle().compare(square) == 0);
         }
-    }
-    return false;
+        return false;
+    };
+
+    auto it = std::find_if(validationEntities.begin(), validationEntities.end(), lambda);
+    return (*it)->GetComponent<ValidationComponent>()->GetValidationType();
 }
+
 
 bool Chesscontroller::HasValidMoves()
 {
@@ -143,6 +145,39 @@ void Chesscontroller::MoveSelectedPiece()
     cp->IncrementMoves();
 }
 
+void Chesscontroller::Castle()
+{
+    this->MoveSelectedPiece();
+
+    auto [rook, toSquare] = this->getRook();
+    auto* tc = rook->GetComponent<TransformComponent>();
+    if (this->IsValidPosition(toSquare))
+    {
+        tc->SetPosition(toSquare);
+        auto* cp = rook->GetComponent<ChesspieceComponent>();
+        cp->IncrementMoves();
+    }
+}
+
+std::tuple<std::shared_ptr<Entity>, std::string> Chesscontroller::getRook()
+{
+    std::string rookSquare;
+    std::string destination;
+    if (clickedSquare[Movements::x] == 'G')
+    {   
+        rookSquare = std::string{'H' , clickedSquare[Movements::y]};
+        destination = std::string{'F' , clickedSquare[Movements::y]};
+        return std::make_tuple(this->GetEntityFromSqaure(rookSquare), destination);
+    }
+    else if (clickedSquare[Movements::x] == 'C')
+    {
+        rookSquare = std::string{'A' , clickedSquare[Movements::y]};
+        destination = std::string{'D' , clickedSquare[Movements::y]};
+        return std::make_tuple(this->GetEntityFromSqaure(rookSquare), destination);
+    }
+
+}
+
 bool Chesscontroller::IsValidPosition(const std::string& square)
 {
     return (ChessBoard::squareCoordinates.find(square) == ChessBoard::squareCoordinates.end())
@@ -160,21 +195,24 @@ std::string Chesscontroller::getColorOfPiece(std::shared_ptr<Entity> piece) cons
 void Chesscontroller::ResetValidation()
 {
     for (auto& entity : validationEntities)
-        entity->Deactivate();
+    {
+        auto* vc = entity->GetComponent<ValidationComponent>();
+        vc->SetValidationType(ValidationType::none);
+    }
 } 
 
-void Chesscontroller::SetValidation(const std::string& square, const std::string& assetId)
+void Chesscontroller::SetValidation(const std::string& square, ValidationType type)
 {
     for (auto& entity : validationEntities)
     {
         auto* v = entity->GetComponent<ValidationComponent>();
         if (v->GetTitle().compare(square) == 0)
         {
-            v->SetTextureId(assetId);
-            entity->Activate();
+            v->SetValidationType(type);
         }
     }
 }
+
 
 
 std::tuple<std::string, std::string> Chesscontroller::GetColorAndPosition(const std::shared_ptr<Entity>& entity) const
