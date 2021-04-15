@@ -3,9 +3,15 @@
 
 
 # Simple Chess Game 
+  
+  
 
-**Things getting out of hand --> Redesign to an entity component system and current development on branch ecs.**
+<span style="font-size:larger;">**Things getting out of hand --> Redesign to an entity component system and current development on branch ecs.**</span>
 
+  
+  
+  
+  
 Welcome to my Chessgame! This game is still under development. The long term goal is to use artificial intelligence which learns how to play chess against human players or another AI. Currently plan is about to run laters AI in python and communicate via google protocol buffers on localhost to the game. 
   
 First setup with chess figures and a gaming scenario 
