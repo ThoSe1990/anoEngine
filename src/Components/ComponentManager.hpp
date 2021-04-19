@@ -76,6 +76,29 @@ public:
         }
     }
 
+    void MoveItem(size_t index_from, size_t index_to)
+    {
+        assert(index_from < GetCount());
+        assert(index_to < GetCount());
+        if (index_from == index_to)
+            return;
+        
+        std::shared_ptr<C> component = std::move(components[index_from]);
+        Entity entity = entities[index_from];
+
+        const int direction = index_from < index_to ? 1 : -1;
+        for (size_t i = index_from; i != index_to; i += direction)
+        {
+            const size_t next = i + direction;
+            components[i] = std::move(components[next]);
+            entities[i] = entities[next];
+            lookup[entities[i]] = i;
+        }
+        components[index_to] = std::move(component);
+        entities[index_to] = entity;
+        lookup[entity] = index_to;
+    }
+
 
     bool Has(Entity entity) const
     {
@@ -97,12 +120,6 @@ public:
     {
         auto it = std::find_if(components.begin(), components.end(), lambda);
         return (it != components.end()) ? (*it) : nullptr;
-    }
-
-    template<typename L>
-    void SortComponents(L &lambda)
-    {
-        std::sort(components.begin(), components.end(), lambda);
     }
 
     const std::shared_ptr<C> GetComponent(Entity entity)

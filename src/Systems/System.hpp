@@ -19,10 +19,10 @@ class System
 
     static Entity getEntity()
     {
-        for( const auto& e : componentsPerEntity ) 
+        for( const auto& entity : componentsPerEntity ) 
         {
-            if (e.second == 0)
-                return e.first;
+            if (entity.second == 0)
+                return entity.first;
         }
         return entitiesCount++;
     }
@@ -43,6 +43,7 @@ class System
         if (it != componentsPerEntity.end())
         {
             it->second--;
+            
         }
     }
 

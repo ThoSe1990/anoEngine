@@ -22,13 +22,6 @@ void Chess::Initialize()
 
     loadPieces();
     setInitialGameState();
-
-    // auto& components = Components::GetInstance();
-    // auto sortLayerAscending = [](const auto& lhs, const auto& rhs)
-    // {
-    //     return static_cast<int>(lhs->layer) < static_cast<int>(rhs->layer);
-    // };
-    // components.SpriteManager->SortComponents(sortLayerAscending);
 }
 
 void Chess::Update(float deltaTime)
@@ -138,23 +131,12 @@ void Chess::updatePieces()
             auto transform = components.TransformManager->GetComponent(current->owner);
             transform->setPosition = Chessboard::GetCoordinatesFromSquare(current->square);;
         }
-
-        auto chesspiece = current;
-        if (chesspiece)
-        {   
-            auto t1 = components.TransformManager->GetComponent(chesspiece->owner);
-            auto t2 = components.SpriteManager->GetComponent(chesspiece->owner);
-            auto t3 = components.ChesspieceManager->GetComponent(chesspiece->owner);   
-
-            std::cout << "updating: "  << current->owner << ' '<< t1->owner << ' ' << t2->owner << ' ' << t3->owner << ' '<< std::endl;
-        }
     }     
      
 }
 
 void Chess::updateValidation()
 {
-
     auto& components = Components::GetInstance();
     auto lambda = [](const auto current)
     {

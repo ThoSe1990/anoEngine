@@ -31,16 +31,21 @@ public:
             }
         }       
     }
-
     void Render() override  
     {
         auto& components = Components::GetInstance();
 
-        for (size_t i = 0 ; i<components.SpriteManager->GetCount() ; i++)
+        // TODO not the best, but it will do it for now --> refactor
+        for (size_t layer = static_cast<size_t>(Layer::layer_0) ; layer < static_cast<size_t>(Layer::layer_count) ; layer++)
         {
-            auto current = components.SpriteManager->at(i);
-            TextureManager::Draw(current->texture, current->source, current->destination, SDL_FLIP_NONE);
+            for (size_t i = 0 ; i<components.SpriteManager->GetCount() ; i++)
+            {
+                auto current = components.SpriteManager->at(i);
+                if (layer == static_cast<size_t>(current->layer))
+                    TextureManager::Draw(current->texture, current->source, current->destination, SDL_FLIP_NONE);
+            }
         }
+
     }
 
 };

@@ -5,7 +5,6 @@
 
 trigger:
 - master
-- ecs
 
 pool:
   vmImage: ubuntu-latest

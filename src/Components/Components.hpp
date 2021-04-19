@@ -22,9 +22,9 @@ public:
         static Components instance; 
         return instance;
     }
-    std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
     std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
     std::shared_ptr<ComponentManager<ChesspieceComponent>> ChesspieceManager = std::make_shared<ComponentManager<ChesspieceComponent>>();
+    std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
 
 private:
     Components() {}
