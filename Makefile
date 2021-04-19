@@ -1,6 +1,6 @@
 build:
 	g++ -g -w -std=c++14 -Wfatal-errors \
-	./src/*.cpp ./src/Entity/*.cpp ./src/Chesscontroller/*.cpp \
+	./src/*.cpp ./src/Chess/*.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
 	-o SimpleChess \
 	-I"./src" \

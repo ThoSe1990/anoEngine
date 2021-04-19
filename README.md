@@ -1,5 +1,5 @@
 
-[![Build Status](https://dev.azure.com/thomassedlmair/SimpleChess/_apis/build/status/ThoSe1990.SimpleChess?branchName=master)](https://dev.azure.com/thomassedlmair/SimpleChess/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://dev.azure.com/thomassedlmair/SimpleChess/_apis/build/status/ThoSe1990.SimpleChess?branchName=master)](https://dev.azure.com/thomassedlmair/SimpleChess/_build/latest?definitionId=3&branchName=ecs)
 
 
 # Simple Chess Game 

@@ -5,18 +5,21 @@
 
 #include <map>
 #include <string>
-#include "TextureManager.hpp"
-#include "Entity/EntityManager.hpp"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h> 
+// #include "Entity/EntityManager.hpp"
 
 class AssetManager 
 {
 private:
-    std::shared_ptr<EntityManager> manager;
+    // std::shared_ptr<EntityManager> manager;
     std::map<std::string, SDL_Texture*> textures;
     
 public:
-    AssetManager(EntityManager* manager);
-    AssetManager(std::shared_ptr<EntityManager> manager);
+    AssetManager();
+    // AssetManager(EntityManager* manager);
+    // AssetManager(std::shared_ptr<EntityManager> manager);
     ~AssetManager();
     void ClearData();
     void AddTexture(const std::string& textureId, const char* filePath);

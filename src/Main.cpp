@@ -1,27 +1,30 @@
 #include <iostream>
+#include <memory>
 #include "Constants.hpp"
-#include "SimpleChess.hpp"
 
 #include "Log.hpp"
     
+#include "Components/Components.hpp"
+#include "Game.hpp"
+
 int main(int argc, char* argv[]) 
 {
 
     Logger::Init("debug");
     Logger::Log(logging::trivial::debug, log_location, "starting SimpleChess\n");
     
-    SimpleChess simpleChess;
+    auto game = make_unique<Game>();
 
-    simpleChess.Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    while (simpleChess.IsRunning()) 
+    game->Initialize();
+    while (game->IsRunning()) 
     {
-        simpleChess.ProcessInput();
-        simpleChess.Update();
-        simpleChess.Render();
+        game->ProcessInput();
+        game->Update();
+        game->Render();
     }
 
-    simpleChess.Destroy();
+    game->Destroy();
+
 
     return 0;
 }

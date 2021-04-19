@@ -8,6 +8,7 @@ const int Constants::offset_figures_squares = (Constants::square_sidelength - Co
 const glm::vec2 Constants::offset_figures_squares_vec2 = glm::vec2(Constants::offset_figures_squares, Constants::offset_figures_squares);
 const int Constants::number_of_squares_per_row = 8;
 const int Constants::number_of_squares_per_col = 8;
+const int Constants::scale = 1;
 
 
 const std::string Constants::color_white = "white";

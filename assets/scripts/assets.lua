@@ -1,5 +1,5 @@
 
-
+print("lua api: loading assets")
 chessboard_assets = {
     [0] = { type="texture", id = "board_squares", file = "./assets/images/board_squares.png" },
     [1] = { type="texture", id = "white_bishop", file = "./assets/images/white_bishop.png" },

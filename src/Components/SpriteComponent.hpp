@@ -3,53 +3,37 @@
 #define _COMPONENTS_SPRITECOMPONENT_HPP_
 
 #include <SDL2/SDL.h>
-#include "TextureManager.hpp"
-#include "AssetManager.hpp"
+#include "Constants.hpp"
 
-class SpriteComponent: public Component 
+struct SpriteComponent
 {
-private:
-    TransformComponent* transform;
+    SpriteComponent(){}
+    SpriteComponent(Entity Owner, SDL_Texture* Texture, SDL_Rect Source, SDL_Rect Destination, Layer Layer)
+    {
+        owner = Owner;
+        
+        texture = Texture;
+
+        destination.x = Destination.x;
+        destination.y = Destination.y;
+        destination.w = Destination.w;
+        destination.h = Destination.h;
+
+        source.x = Source.x;
+        source.y = Source.y;
+        source.w = Source.w;
+        source.h = Source.h;
+
+        layer = Layer;
+    }
+
+    Entity owner;
     SDL_Texture* texture;
-    SDL_Rect sourceRectangle;
-    SDL_Rect destinationRectangle;
-    
+    SDL_Rect source;
+    SDL_Rect destination;
 
-public:
-    SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
+    Layer layer;
 
-    SpriteComponent(const char* filePath) 
-    {
-        SetTexture(filePath);
-    }
-
-    void SetTexture(const std::string& assetTextureId) 
-    {
-        texture = SimpleChess::assetManager->GetTexture(assetTextureId);
-    }
-
-    void Initialize() override 
-    {
-        transform = Owner->GetComponent<TransformComponent>();
-        sourceRectangle.x = 0;
-        sourceRectangle.y = 0;
-        sourceRectangle.w = transform->width_;
-        sourceRectangle.h = transform->height_;
-    }
-
-    void Update(float deltaTime) override 
-    {   
-        glm::vec2 pos = transform->GetActPosition();
-        destinationRectangle.x = static_cast<int>(pos.x);
-        destinationRectangle.y = static_cast<int>(pos.y);
-        destinationRectangle.w = transform->width_ * transform->scale_;
-        destinationRectangle.h = transform->height_ * transform->scale_;
-    }
-
-    void Render() override 
-    {
-        TextureManager::Draw(texture, sourceRectangle, destinationRectangle, spriteFlip);
-    }
 };
 
 

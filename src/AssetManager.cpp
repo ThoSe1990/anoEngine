@@ -1,10 +1,15 @@
 #include "AssetManager.hpp"
-#include "Components/TransformComponent.hpp"
+// #include "Components/TransformComponent.hpp"
+#include "TextureManager.hpp"
 
-AssetManager::AssetManager(std::shared_ptr<EntityManager> manager) : manager(manager) 
+AssetManager::AssetManager() 
 {
 
 }
+// AssetManager::AssetManager(std::shared_ptr<EntityManager> manager) : manager(manager) 
+// {
+
+// }
 AssetManager::~AssetManager()
 {
     

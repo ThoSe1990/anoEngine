@@ -1,7 +1,9 @@
 #ifndef _TEXTUREMANAGER_HPP_
 #define _TEXTUREMANAGER_HPP_
 
-#include "SimpleChess.hpp"
+// #include "SimpleChess.hpp"
+
+#include "Game.hpp"
 
 class TextureManager 
 {

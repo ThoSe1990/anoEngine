@@ -20,6 +20,7 @@ public:
     static const glm::vec2 offset_figures_squares_vec2;
     static const int number_of_squares_per_row;
     static const int number_of_squares_per_col;
+    static const int scale;
 
     static const std::string color_white;
     static const std::string color_black;
@@ -32,11 +33,12 @@ public:
 
 enum class Layer
 {
-    square = 0,
-    chess_piece = 1,
-    validation = 2,
-    menu = 3,
-    layer_count = 4
+    layer_0 = 0,
+    layer_1 = 1,
+    layer_2 = 2,
+    layer_3 = 3,
+    layer_4 = 4,
+    layer_count = 5
 };
 
 
