@@ -1,4 +1,4 @@
-
+[![Build Status](https://dev.azure.com/thomassedlmair/2DGameEngine/_apis/build/status/ThoSe1990.2DGameEngine?branchName=master)](https://dev.azure.com/thomassedlmair/2DGameEngine/_build/latest?definitionId=5&branchName=master)
 
 # 2D Game Engine
   
