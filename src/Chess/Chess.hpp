@@ -17,6 +17,7 @@ class Chess : public System
     void createValidation();
     void updatePieces();
     void updateValidation();
+    void doCastle();
     static bool isValidMove(const std::string& toSquare);
     static void captureOpponent(const std::string& square);
 public:
@@ -31,7 +32,10 @@ public:
     static void SetSelectedPiece(std::shared_ptr<ChesspieceComponent> cp);
     static void ResetSelectedPiece();
     static bool MovePiece(const std::string& toSquare);
+    static void MovePiece(const std::string& fromSquare, const std::string& toSquare);
     static std::shared_ptr<ChesspieceComponent> GetSelectedPiece();
+    static std::shared_ptr<ChesspieceComponent> GetChesspieceFromSquare(const std::string& square);
+
 };
 
 #endif 

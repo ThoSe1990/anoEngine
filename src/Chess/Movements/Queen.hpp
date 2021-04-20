@@ -1,24 +1,24 @@
-#ifndef _MOVEMENTS_QUEEN_HPP_
-#define _MOVEMENTS_QUEEN_HPP_
+#ifndef _CHESS_MOVEMENTS_QUEEN_HPP_
+#define _CHESS_MOVEMENTS_QUEEN_HPP_
 
-#include "Movements/Movements.hpp" 
+#include "Chess/Movements/Movement.hpp" 
 
 class Queen : public Movement
 {
 
 public:
-    Queen(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Queen(const std::shared_ptr<ChesspieceComponent>& Chesspiece) : Movement(Chesspiece) { }
 
     void CreateValidMovements() override
     {
-        createMovesAndCaptures(Movements::none, Movements::up);
-        createMovesAndCaptures(Movements::right, Movements::none);
-        createMovesAndCaptures(Movements::none, Movements::down);
-        createMovesAndCaptures(Movements::left, Movements::none);
-        createMovesAndCaptures(Movements::right, Movements::up);
-        createMovesAndCaptures(Movements::right, Movements::down);
-        createMovesAndCaptures(Movements::left, Movements::down);
-        createMovesAndCaptures(Movements::left, Movements::up);
+        createValidationMultiSteps(Movements::none, Movements::up);
+        createValidationMultiSteps(Movements::right, Movements::none);
+        createValidationMultiSteps(Movements::none, Movements::down);
+        createValidationMultiSteps(Movements::left, Movements::none);
+        createValidationMultiSteps(Movements::right, Movements::up);
+        createValidationMultiSteps(Movements::right, Movements::down);
+        createValidationMultiSteps(Movements::left, Movements::down);
+        createValidationMultiSteps(Movements::left, Movements::up);
     }
 
 };

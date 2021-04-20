@@ -1,19 +1,19 @@
-#ifndef _MOVEMENTS_BISHOP_HPP_
-#define _MOVEMENTS_BISHOP_HPP_
+#ifndef _CHESS_MOVEMENTS_BISHOP_HPP_
+#define _CHESS_MOVEMENTS_BISHOP_HPP_
 
-#include "Movements/Movements.hpp" 
+#include "Chess/Movements/Movement.hpp" 
 
 class Bishop : public Movement
 {
 public:
-    Bishop(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Bishop(const std::shared_ptr<ChesspieceComponent>& Chesspiece) : Movement(Chesspiece) { }
 
     void CreateValidMovements() override
     {
-        createMovesAndCaptures(Movements::right, Movements::up);
-        createMovesAndCaptures(Movements::right, Movements::down);
-        createMovesAndCaptures(Movements::left, Movements::down);
-        createMovesAndCaptures(Movements::left, Movements::up);
+        createValidationMultiSteps(Movements::right, Movements::up);
+        createValidationMultiSteps(Movements::right, Movements::down);
+        createValidationMultiSteps(Movements::left, Movements::down);
+        createValidationMultiSteps(Movements::left, Movements::up);
     }
 };
 

@@ -1,56 +1,38 @@
-#ifndef _MOVEMENTS_KING_HPP_
-#define _MOVEMENTS_KING_HPP_
+#ifndef _CHESS_MOVEMENTS_KING_HPP_
+#define _CHESS_MOVEMENTS_KING_HPP_
 
-#include "Movements/Movements.hpp" 
+#include "Chess/Movements/Movement.hpp" 
 #include "Components/ChesspieceComponent.hpp"
 
 class King : public Movement
 {
 private:
-    void createSingleStep(const int directionX, const int directionY)
-    {
-        std::string nextSquare = getNextSquare(playerPosition, directionX, directionY);
-
-        auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
-
-        if (squarestate == SquareState::free)
-        {
-            chesscontroller->SetValidation(nextSquare, ValidationType::move);
-        }
-        else if (squarestate == SquareState::occupied_by_opponent)
-        {
-            chesscontroller->SetValidation(nextSquare, ValidationType::capture);    
-        }
-    }
-
 
     void castle(const int side)
     {
-        auto* cp = currentPiece->GetComponent<ChesspieceComponent>();
-        if (cp->GetMoves() > 0)
+        if (chesspiece->movesCount > 0)
             return;
 
-        std::string nextSquare = playerPosition;
-        while (chesscontroller->IsValidPosition(nextSquare))
+        std::string nextSquare = chesspiece->square;
+        while (Chessboard::IsValidSquare(nextSquare))
         {
             nextSquare = getNextSquare(nextSquare, side, Movements::none);
-            auto squarestate = chesscontroller->GetSquareState(nextSquare, playerColor);
+            if (!Chessboard::IsValidSquare(nextSquare))
+                break;
+            
+            auto pieceOnSquare = Chess::GetChesspieceFromSquare(nextSquare);
 
-            if (squarestate == SquareState::free)
+            if (!pieceOnSquare)
                 continue;
-            else if (squarestate == SquareState::occupied_by_opponent)
+            else if (pieceOnSquare->color.compare(opponentColor) == 0)
                 return;
-            else if (squarestate == SquareState::occupied_by_friend)
-            {
-                auto friendPiece = chesscontroller->GetEntityFromSqaure(nextSquare);
-                auto* cp = friendPiece->GetComponent<ChesspieceComponent>();
-                if (cp->GetType().compare("rook") == 0 && cp->GetMoves() == 0)
-                {
-                    Logger::Log(logging::trivial::debug, log_location, "castling is valid for ", cp->GetType(), " in direction ", side);
-                    
-                    std::string position = playerPosition;
+            else if (pieceOnSquare->color.compare(chesspiece->color) == 0)
+            {               
+                if (pieceOnSquare->type.compare("rook") == 0 && pieceOnSquare->movesCount == 0)
+                {                    
+                    std::string position = chesspiece->square;
                     position[Movements::x] += 2*side;
-                    chesscontroller->SetValidation(position, ValidationType::castling);
+                    createValidation(position, "valid_move");
                     return;
                 } 
                 return;
@@ -61,18 +43,18 @@ private:
 public:
 
 
-    King(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    King(const std::shared_ptr<ChesspieceComponent>& Chesspiece) : Movement(Chesspiece) { }
 
     void CreateValidMovements() override
     {
-        createSingleStep(Movements::none, Movements::up);
-        createSingleStep(Movements::left, Movements::none);
-        createSingleStep(Movements::right, Movements::none);
-        createSingleStep(Movements::none, Movements::down);
-        createSingleStep(Movements::left, Movements::up);
-        createSingleStep(Movements::left, Movements::down);
-        createSingleStep(Movements::right, Movements::up);
-        createSingleStep(Movements::right, Movements::down);
+        createValidation(Movements::none, Movements::up);
+        createValidation(Movements::left, Movements::none);
+        createValidation(Movements::right, Movements::none);
+        createValidation(Movements::none, Movements::down);
+        createValidation(Movements::left, Movements::up);
+        createValidation(Movements::left, Movements::down);
+        createValidation(Movements::right, Movements::up);
+        createValidation(Movements::right, Movements::down);
         castle(Movements::right);
         castle(Movements::left);
     }

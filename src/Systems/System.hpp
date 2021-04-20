@@ -43,7 +43,6 @@ class System
         if (it != componentsPerEntity.end())
         {
             it->second--;
-            
         }
     }
 

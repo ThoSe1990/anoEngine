@@ -10,6 +10,7 @@ class PlayersTurn : public State
     std::shared_ptr<ChesspieceComponent> getClickedComponent();
     std::shared_ptr<ChesspieceComponent> getSelectedComponent();
 
+    void castling(const std::string& destination);
 
 public:
     PlayersTurn(const std::string& PlayerColor, const std::string& OpponentColor); 

@@ -23,6 +23,7 @@ public:
 
     static std::string GetSquareTitleByCoordinates(glm::vec2 coordinates);
     static glm::vec2 GetCoordinatesFromSquare(const std::string& title);
+    static bool IsValidSquare(const std::string& square);
     void Init();
 
 private:

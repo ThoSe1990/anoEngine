@@ -157,7 +157,6 @@ void Chess::updateValidation()
 
 bool Chess::MovePiece(const std::string& toSquare)
 {
-
     if (isValidMove(toSquare))
     {
         captureOpponent(toSquare);
@@ -168,6 +167,33 @@ bool Chess::MovePiece(const std::string& toSquare)
         return true;
     }
     return false;
+}
+void Chess::MovePiece(const std::string& fromSquare, const std::string& toSquare)
+{   
+    
+    auto cp = GetChesspieceFromSquare(fromSquare);
+    if (cp)
+    {
+        Logger::Log(logging::trivial::debug, log_location, "moving: " ,  cp->color, '-', cp->type , " from " , cp->square , "->" , toSquare);
+        cp->square = toSquare;
+        cp->movesCount++;
+    }
+}
+
+std::shared_ptr<ChesspieceComponent> Chess::GetChesspieceFromSquare(const std::string& square)
+{   
+    auto& components = Components::GetInstance();
+    auto lambda = [&square](const auto current)
+    {
+        return (current->square.compare(square) == 0);
+    };
+
+    return components.ChesspieceManager->GetComponent(lambda);
+}
+
+void Chess::doCastle()
+{
+    
 }
 
 bool Chess::isValidMove(const std::string& toSquare)

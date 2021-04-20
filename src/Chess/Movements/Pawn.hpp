@@ -1,26 +1,52 @@
 #ifndef _CHESS_MOVEMENTS_PAWN_HPP_
 #define _CHESS_MOVEMENTS_PAWN_HPP_
 
-#include "Chess/Movements/Movements.hpp"
+#include "Chess/Movements/Movement.hpp"
 
 
 class Pawn : public Movement
 {
-    Entity entity;
+
+    void forwardSteps(const int movingDirection)
+    {
+        std::string next = getNextSquare(chesspiece->square, Movements::none, movingDirection);
+        auto opponent = Chess::GetChesspieceFromSquare(next);
+        if (!opponent)
+            createValidation(next, "valid_move");  
+
+        if (chesspiece->movesCount == 0)
+        {
+            next = getNextSquare(next, Movements::none, movingDirection);
+            opponent = Chess::GetChesspieceFromSquare(next);
+            if (!opponent)
+                createValidation(next, "valid_move");  
+        }
+    }
+
+    void capture(const std::string& square)
+    {
+        auto opponent = Chess::GetChesspieceFromSquare(square);
+        if (opponent && opponent->color.compare(opponentColor) == 0)
+            createValidation(square, "valid_capture");
+    }
+
+
 public:
 
-    Pawn (Entity entity) : entity(entity) { }
+    Pawn (const std::shared_ptr<ChesspieceComponent>& Chesspiece) : Movement(Chesspiece) { }
 
     void CreateValidMovements() override 
     {
         auto& components = Components::GetInstance();
-        auto cp = components.ChesspieceManager->GetComponent(entity);  
-        int movingDirection = (cp->color.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
-        std::string oppColor = (cp->color.compare(Constants::color_black) == 0) ? Constants::color_white : Constants::color_black;
-        std::string next = getNextSquare(cp->square, Movements::none, movingDirection);
-        createValidation(next, oppColor);   
-        next = getNextSquare(next, Movements::none, movingDirection);
-        createValidation(next, oppColor);   
+        int movingDirection = (chesspiece->color.compare(Constants::color_black) == 0) ? Movements::down : Movements::up;
+
+        forwardSteps(movingDirection);
+
+        std::string right = getNextSquare(chesspiece->square, Movements::right, movingDirection);
+        capture(right);
+        
+        std::string left = getNextSquare(chesspiece->square, Movements::left, movingDirection);
+        capture(left);
     }
 };
 

@@ -1,38 +1,28 @@
-#ifndef _MOVEMENTS_KNIGHT_HPP_
-#define _MOVEMENTS_KNIGHT_HPP_
+#ifndef _CHESS_MOVEMENTS_KNIGHT_HPP_
+#define _CHESS_MOVEMENTS_KNIGHT_HPP_
 
-#include "Movements/Movements.hpp" 
+#include "Chess/Movements/Movement.hpp" 
 
 class Knight : public Movement
 {
 
-    void evaluateSquare(const std::string& square)
-    {
-        auto squarestate = chesscontroller->GetSquareState(square, playerColor);
-
-        if (squarestate == SquareState::free)
-        {
-            chesscontroller->SetValidation(square, ValidationType::move);
-        }
-        else if (squarestate == SquareState::occupied_by_opponent)
-        {
-            chesscontroller->SetValidation(square, ValidationType::capture);    
-        }
-    }
-
-// TODO refactor
     void createMovement(const int x1, const int x2, const int y1, const int y2)
     {
-        std::string next = playerPosition;
+        std::string next = chesspiece->square;
         next[Movements::x] += x1; 
         next[Movements::x] += x2;
         next[Movements::y] += y1; 
         next[Movements::y] += y2; 
-        evaluateSquare(next);
+
+        if (Chessboard::IsValidSquare(next))
+        {
+            createValidation(next);
+        }
+
     }
 
 public:
-    Knight(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Knight(const std::shared_ptr<ChesspieceComponent>& Chesspiece) : Movement(Chesspiece) { }
 
     void CreateValidMovements() override
     {        

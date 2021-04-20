@@ -1,19 +1,19 @@
-#ifndef _MOVEMENTS_ROOK_HPP_
-#define _MOVEMENTS_ROOK_HPP_
+#ifndef _CHESS_MOVEMENTS_ROOK_HPP_
+#define _CHESS_MOVEMENTS_ROOK_HPP_
 
-#include "Movements/Movements.hpp" 
+#include "Chess/Movements/Movement.hpp" 
 
 class Rook : public Movement
 {
 public:
-    Rook(std::shared_ptr<Chesscontroller>& Chesscontroller, std::shared_ptr<Entity> CurrentPiece) : Movement(Chesscontroller, CurrentPiece) { }
+    Rook(const std::shared_ptr<ChesspieceComponent>& Chesspiece) : Movement(Chesspiece) { }
 
     void CreateValidMovements() override
     {
-        createMovesAndCaptures(Movements::none, Movements::up);
-        createMovesAndCaptures(Movements::right, Movements::none);
-        createMovesAndCaptures(Movements::none, Movements::down);
-        createMovesAndCaptures(Movements::left, Movements::none);
+        createValidationMultiSteps(Movements::none, Movements::up);
+        createValidationMultiSteps(Movements::right, Movements::none);
+        createValidationMultiSteps(Movements::none, Movements::down);
+        createValidationMultiSteps(Movements::left, Movements::none);
     }
 
 };

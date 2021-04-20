@@ -2,17 +2,9 @@
 [![Build Status](https://dev.azure.com/thomassedlmair/SimpleChess/_apis/build/status/ThoSe1990.SimpleChess?branchName=master)](https://dev.azure.com/thomassedlmair/SimpleChess/_build/latest?definitionId=3&branchName=master)
 
 
-# Simple Chess Game 
+# 2D Game Engine
   
-  
-
-<span style="font-size:larger;">**Things getting out of hand --> Redesign to an entity component system and current development on branch ecs.**</span>
-
-  
-  
-  
-  
-Welcome to my Chessgame! This game is still under development. The long term goal is to use artificial intelligence which learns how to play chess against human players or another AI. Currently plan is about to run laters AI in python and communicate via google protocol buffers on localhost to the game. 
+Welcome to my 2D Game Engine! This game engine is still under development. The long term goal is to create different games by using different interfaces. Aside there will be an artificial intelligence which learns how to play chess (therefore i started implementing a chess game) against human players or another AI. Before starting with AI this will be a coding playground. first of all this will be a independent 2D game engine with an different interfaces (dll, python, lua) and an implemented chess game.
   
 First setup with chess figures and a gaming scenario 
 
@@ -21,28 +13,11 @@ First setup with chess figures and a gaming scenario
 
 
 Next Steps:
-- ~~validation component~~
-- integrating lua for
-    - ~~setting up chessboard~~
-    - log and redo movements
-- implementing game logic (e.g. statemachine )
-    - movments almost done (needs refactoring DRY!!)
-    - implent castling
-    - implent en passant
-    - reviving figure when pawn reaches end
-    - check checkmate
-    - restart game
-    - a bit of an UI (captured figures, time, game result, game state, etc.)
-- preparing interface to move chessfigures with protobuffer
-- implementing server side (boost asio)
-- defining protocol buffers
-- read / write proto
+- finishing chess implementation
+- adding further basic engine components/systems (fonts, drawing, collision, game control, hud, etc.)
+- creating api's
+- starting AI
 
-
-Optimizing:
-- moving figures diagonal (slower speed on the shorter axis)
-- ~~click event delayed only on vm???~~ done
-- ... 
 
 ## External Libraries
 

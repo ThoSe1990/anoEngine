@@ -60,6 +60,11 @@ void Chessboard::addSquare(const int sourceRectX, const int sourceRectY, const i
     return;
 }
 
+bool Chessboard::IsValidSquare(const std::string& square)
+{
+    return (squareCoordinates.find(square) == squareCoordinates.end()) ? false : true ;
+}
+
 std::string Chessboard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
 {   
     if ( (coordinates.x < Constants::chessboard_offset) ||
