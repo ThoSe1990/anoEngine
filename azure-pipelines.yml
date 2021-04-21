@@ -20,5 +20,6 @@ steps:
     sudo apt install liblua5.3-dev
     sudo apt-get install libboost-all-dev
     make
+    make -C ./examples/Chess
 
   displayName: 'installing libs'
