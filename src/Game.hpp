@@ -10,13 +10,14 @@
 
 #include "lua/sol.hpp"
 
-
 #include "AssetManager.hpp"
 #include "Systems/SystemsManager.hpp"
 
 
 class Game
 {
+    Game ();
+
     class UserInputs 
     {
         friend class Game;
@@ -31,6 +32,12 @@ class Game
     };
 
 public:
+
+    Game(Game const&) = delete;
+    void operator=(Game const&) = delete;
+
+    static Game& GetInstance() noexcept;
+
     static SDL_Renderer *renderer;
     static std::shared_ptr<AssetManager> assetManager;
     static std::shared_ptr<SystemManager> systemManager;

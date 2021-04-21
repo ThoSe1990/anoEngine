@@ -57,7 +57,7 @@ private:
 
         BOOST_LOG_SEV(lg, level) << Message.str();
 
-        std::cout << Message.str() << std::endl;
+        // std::cout << Message.str() << std::endl;
 
         Message.str("");    
     }

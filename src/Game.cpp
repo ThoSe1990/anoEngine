@@ -6,6 +6,7 @@
 
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/TransformSystem.hpp"
+
 #include "Chess/Chess.hpp"
 
 std::shared_ptr<AssetManager> Game::assetManager = std::make_shared<AssetManager>();
@@ -18,12 +19,21 @@ std::unordered_map<Entity, size_t>  System::componentsPerEntity;
 SDL_Event Game::event;
 SDL_Renderer* Game::renderer;
 
+Game::Game()
+{
+    
+}
+
+Game& Game::GetInstance() noexcept
+{
+    static Game instance; 
+    return instance;
+}
 
 bool Game::IsRunning() const 
 {
     return this->isRunning;
 }
-
 
 
 void Game::Initialize()
@@ -54,6 +64,7 @@ void Game::Initialize()
         std::cerr << "Error creating SDL renderer." << std::endl;
         return;
     }
+
     InitializeLua();
     LoadAssets();   
 

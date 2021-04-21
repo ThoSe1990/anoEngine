@@ -2,4 +2,5 @@
 
 /.vscode
 /log
-SimpleChess
+*.so
+examples/Chess/ChessExample

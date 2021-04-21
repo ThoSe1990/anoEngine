@@ -1,8 +1,9 @@
 build:
-	g++ -g -w -std=c++14 -Wfatal-errors \
-	./src/*.cpp ./src/Chess/*.cpp \
+	g++ -shared -w -std=c++14 -Wfatal-errors -fvisibility=hidden -fPIC \
+	./src/*.cpp ./api/*.cpp ./src/Chess/*.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
-	-o SimpleChess \
+	-o libezEngine.so \
+	-I"./" \
 	-I"./src" \
 	-I"./lib" \
 	-I"./src/lua" \
@@ -18,7 +19,5 @@ build:
 	-lpthread;
 
 clean:
-	rm ./SimpleChess;
+	rm ./libezEngine.so;
 
-run:
-	./SimpleChess;
