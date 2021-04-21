@@ -6,7 +6,8 @@ build:
 	-I"./src" \
 	-I"./../../lib" \
 	-L./../../lib/ezEngine \
-	-lezEngine;
+	-lezEngine \
+	-llua5.3;
 
 clean:
 	rm ./ChessExample;
@@ -15,3 +16,4 @@ run:
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$pwd/../../lib/ezEngine
 	export LD_LIBRARY_PATH
 	./ChessExample;
+	
