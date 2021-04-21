@@ -1,23 +1,20 @@
 
 
-#include <iostream>
-#include "../../../api/ezEngine.hpp"
+#include "ezEngine/ezEngine.hpp"
 
 int main(int argc, char* argv[]) 
 {
 
-    std::cout << "starting game " << std::endl;
+    ezEngine::Initialize();
 
-    api_ezEngine::Initialize();
-
-    while (api_ezEngine::IsRunning()) 
+    while (ezEngine::IsRunning()) 
     {
-        api_ezEngine::ProcessInput();
-        api_ezEngine::Update();
-        api_ezEngine::Render();
+        ezEngine::ProcessInput();
+        ezEngine::Update();
+        ezEngine::Render();
     }
 
-    api_ezEngine::Destroy();
+    ezEngine::Destroy();
 
     return 0;
 }

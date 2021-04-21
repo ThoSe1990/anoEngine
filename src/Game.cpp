@@ -68,7 +68,6 @@ void Game::Initialize()
     InitializeLua();
     LoadAssets();   
 
-
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<Chess>();

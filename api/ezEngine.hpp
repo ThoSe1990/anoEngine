@@ -1,8 +1,8 @@
-#ifndef _API_ezEngine_HPP_
-#define _API_ezEngine_HPP_
+#ifndef _ezEngine_HPP_
+#define _ezEngine_HPP_
 
 
-namespace api_ezEngine
+namespace ezEngine
 {
 
     void Initialize();

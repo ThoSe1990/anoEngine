@@ -21,3 +21,7 @@ build:
 clean:
 	rm ./libezEngine.so;
 
+install:
+	mkdir -p ./lib/ezEngine
+	cp libezEngine.so ./lib/ezEngine
+	cp ./api/*.hpp ./lib/ezEngine

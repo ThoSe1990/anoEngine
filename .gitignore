@@ -4,3 +4,4 @@
 /log
 *.so
 examples/Chess/ChessExample
+lib/ezEngine

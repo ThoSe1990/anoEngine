@@ -27,33 +27,33 @@
 #include "api/ezEngine.hpp"    
 #include "Game.hpp"
 
-EZ_ENGINE__PUBLIC void api_ezEngine::Initialize ()
+EZ_ENGINE__PUBLIC void ezEngine::Initialize ()
 {
     Game::GetInstance().Initialize();
 }
 
-EZ_ENGINE__PUBLIC bool api_ezEngine::IsRunning()
+EZ_ENGINE__PUBLIC bool ezEngine::IsRunning()
 {
     auto& game = Game::GetInstance();
     return game.IsRunning();
 }
 
-EZ_ENGINE__PUBLIC void api_ezEngine::ProcessInput()
+EZ_ENGINE__PUBLIC void ezEngine::ProcessInput()
 {
     Game::GetInstance().ProcessInput();
 }
 
-EZ_ENGINE__PUBLIC void api_ezEngine::Update()
+EZ_ENGINE__PUBLIC void ezEngine::Update()
 {
     Game::GetInstance().Update();
 }
 
-EZ_ENGINE__PUBLIC void api_ezEngine::Render()
+EZ_ENGINE__PUBLIC void ezEngine::Render()
 {
     Game::GetInstance().Render();
 }
 
-EZ_ENGINE__PUBLIC void api_ezEngine::Destroy()
+EZ_ENGINE__PUBLIC void ezEngine::Destroy()
 {
     Game::GetInstance().Destroy();
 }
