@@ -20,6 +20,16 @@ build:
 
 chess:
 	g++ -g -w -std=c++14 -Wfatal-errors -fPIC \
+	./examples/Chess/src/*.cpp \
+	-o chess_with_library \
+	-I"./examples/Chess/src" \
+	-I"./api" \
+	-L. \
+	-lezEngine;
+
+
+chess_static:
+	g++ -g -w -std=c++14 -Wfatal-errors -fPIC \
 	./src/*.cpp ./api/*.cpp ./src/Chess/*.cpp ./examples/Chess/src/*.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
 	-o ChessExample \
