@@ -18,6 +18,16 @@ build:
 	-lSDL2_mixer \
 	-lpthread;
 
+chess:
+	g++ -g -w -std=c++14 -Wfatal-errors \
+	./examples/Chess/src/*.cpp  \
+	-DBOOST_LOG_DYN_LINK=1 \
+	-o ChessExample \
+	-I"./examples/Chess/src" \
+	-I"./api" \
+	-L./ \
+	-lezEngine
+
 clean:
 	rm ./libezEngine.so;
 
