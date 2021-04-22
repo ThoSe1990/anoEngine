@@ -48,6 +48,7 @@ public:
 
     virtual ~Game() {}
     void Initialize();
+    void Initialize_sdl();
     void Update();
     void Render();
     void ProcessInput();

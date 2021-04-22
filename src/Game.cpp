@@ -21,7 +21,7 @@ SDL_Renderer* Game::renderer;
 
 Game::Game()
 {
-    
+
 }
 
 Game& Game::GetInstance() noexcept
@@ -36,8 +36,9 @@ bool Game::IsRunning() const
 }
 
 
-void Game::Initialize()
+void Game::Initialize_sdl()
 {
+    
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) 
     {
         std::cerr << "Error initializing SDL." << std::endl;
@@ -64,15 +65,12 @@ void Game::Initialize()
         std::cerr << "Error creating SDL renderer." << std::endl;
         return;
     }
-
-    InitializeLua();
-    LoadAssets();   
-
+}
+void Game::Initialize()
+{
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<Chess>();
-
-
 
     isRunning = true;
     return;
@@ -154,42 +152,3 @@ void Game::Destroy()
     SDL_Quit();
 }
 
-
-void Game::InitializeLua()
-{
-    lua.open_libraries(sol::lib::base, sol::lib::os, sol::lib::math);
-    lua.script_file("./assets/scripts/config.lua");
-
-    sol::optional<int> chespieces_velocity_exists = lua["config"]["chespieces_velocity"];
-    Constants::chespieces_velocity = (chespieces_velocity_exists == sol::nullopt) ? Constants::chespieces_velocity : lua["config"]["chespieces_velocity"];
-    Logger::Log(logging::trivial::debug, log_location, "loading chespieces_velocity: " , Constants::chespieces_velocity);
-
-    sol::optional<int> chessboard_offset_exists = lua["config"]["chessboard_offset"];
-    Constants::chessboard_offset = (chessboard_offset_exists == sol::nullopt) ? Constants::chessboard_offset : lua["config"]["chessboard_offset"];
-    Logger::Log(logging::trivial::debug, log_location, "loading chessboard_offset: " , Constants::chessboard_offset);
-    
-}
-
-void Game::LoadAssets()
-{
-    lua.script_file("./assets/scripts/assets.lua");
-    sol::table chessboardAssets = lua["chessboard_assets"];
-
-    unsigned int index = 0;
-    while (true)
-    {
-        sol::optional<sol::table> exists = chessboardAssets[index];
-        if (exists == sol::nullopt)
-            break;
-        sol::table asset = chessboardAssets[index];
-        std::string type = asset["type"];
-        if (type.compare("texture") == 0)
-        {
-            std::string id = asset["id"];
-            std::string file = asset["file"];  
-            assetManager->AddTexture(id, file.c_str());
-            Logger::Log(logging::trivial::debug, log_location, "ading asset: \n    type: " , type , "\n    id: ", id , "\n    file: ", file);
-        }
-        index++;
-    }
-}

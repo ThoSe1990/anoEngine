@@ -32,6 +32,11 @@ EZ_ENGINE_PUBLIC void ezEngine::Initialize ()
     Game::GetInstance().Initialize();
 }
 
+EZ_ENGINE_PUBLIC void ezEngine::Initialize_sdl ()
+{
+    Game::GetInstance().Initialize_sdl();
+}
+
 EZ_ENGINE_PUBLIC bool ezEngine::IsRunning()
 {
     auto& game = Game::GetInstance();
