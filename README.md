@@ -5,18 +5,8 @@
 Welcome to my 2D Game Engine! This game engine is still under development. The long term goal is to create different games by using different interfaces. Aside there will be an artificial intelligence which learns how to play chess (therefore i started implementing a chess game) against human players or another AI. Before starting with AI this will be a coding playground. first of all this will be a independent 2D game engine with an different interfaces (dll, python, lua) and an implemented chess game.
   
 ## Build & Run
-Current status is to separate the engine from the chess game. To build and run the game install external dependencies (see External Libraries) and run following build commands
+Current status is to separate the engine from the chess game. To build and run the game install external dependencies (see External Libraries) and run either `make` for the shared library of the engine or `make chess` for the chess game
 
-1. Build ezEngine.so 
-2. Install the library to the ./lib directory
-3. Build the chess game 
-4. Run the chess game
-````
-make
-make install
-make -C ./examples/Chess/
-make run -C ./examples/Chess/
-````
 
 By running the game the first setup with chess figures will look like: 
 
