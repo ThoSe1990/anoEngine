@@ -1,14 +1,14 @@
 #ifndef _CHESS_CHESSBOARD_HPP_
 #define _CHESS_CHESSBOARD_HPP_
 
+#include <iostream>
 #include <string>
 #include <map>
 #include "glm/glm.hpp"
+#include "ezEngine.hpp"
 
-#include "Game.hpp"
 #include "Constants.hpp"
-#include "Components/Components.hpp"
-#include "Systems/SpriteSystem.hpp"
+
 
 class Chessboard
 {

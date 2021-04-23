@@ -1,14 +1,15 @@
 #ifndef _CHESSCONTROLLER_PLAYERSTURN_HPP_
 #define _CHESSCONTROLLER_PLAYERSTURN_HPP_
 
-#include "Chess/State.hpp"
+#include "State.hpp"
+#include "Chesspiece.hpp"
 
 class Validate;
 
 class PlayersTurn : public State
 {
-    std::shared_ptr<ChesspieceComponent> getClickedComponent();
-    std::shared_ptr<ChesspieceComponent> getSelectedComponent();
+    std::shared_ptr<Chesspiece> getClickedComponent();
+    std::shared_ptr<Chesspiece> getSelectedComponent();
 
     void castling(const std::string& destination);
 

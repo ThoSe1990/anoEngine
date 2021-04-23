@@ -1,12 +1,10 @@
 
-
-#include "Chess/PlayersTurn.hpp"
-#include "Chess/Chess.hpp"
-#include "Log.hpp"
+#include "PlayersTurn.hpp"
+#include "Chess.hpp"
 
 PlayersTurn::PlayersTurn(const std::string& PlayerColor, const std::string& OpponentColor) : State(PlayerColor, OpponentColor)
 {
-    Logger::Log(logging::trivial::debug, log_location, "players turn: " , PlayerColor);
+    std::cout << "players turn: " << PlayerColor << std::endl;
 }
 
 std::unique_ptr<State> PlayersTurn::UpdateGame()
@@ -15,12 +13,13 @@ std::unique_ptr<State> PlayersTurn::UpdateGame()
 
     if (clicked && clicked->color.compare(playerColor) == 0)
     {
-        Logger::Log(logging::trivial::debug, log_location, "selected: " ,  clicked->color, ' ', clicked->type);
+        std::cout << "selected: " << clicked->color << ' ' << clicked->type  << std::endl;
         Chess::SetSelectedPiece(clicked);
     }
     else
     {
-        std::string destination = Chessboard::GetSquareTitleByCoordinates(Game::userInputs->GetMouseCoordinates());
+        ezEngine::Vector2d mouse = ezEngine::GetMouseCoordinates();
+        std::string destination = Chessboard::GetSquareTitleByCoordinates(glm::vec2(mouse.x, mouse.y));
         
         castling(destination);
         
@@ -55,18 +54,17 @@ void PlayersTurn::castling(const std::string& destination)
     }
 }
 
-std::shared_ptr<ChesspieceComponent> PlayersTurn::getClickedComponent()
+std::shared_ptr<Chesspiece> PlayersTurn::getClickedComponent()
 {
-    std::string clickedSquare = Chessboard::GetSquareTitleByCoordinates(Game::userInputs->GetMouseCoordinates());
+    ezEngine::Vector2d mouse = ezEngine::GetMouseCoordinates();
+    std::string clickedSquare = Chessboard::GetSquareTitleByCoordinates(glm::vec2(mouse.x, mouse.y));
     std::string color = this->playerColor;
 
-    auto lambda = [&clickedSquare, &color](const std::shared_ptr<ChesspieceComponent>& cp)
+    auto lambda = [&clickedSquare, &color](const std::shared_ptr<Chesspiece>& cp)
     {
         return ( (cp->square.compare(clickedSquare) == 0) && (cp->color.compare(color) == 0 ))  ? true : false;
     };
 
-    auto& components = Components::GetInstance();
-    return components.ChesspieceManager->GetComponent(lambda);
+    auto it = std::find_if(Chess::AllPieces.begin(), Chess::AllPieces.end(), lambda);
+    return (it != Chess::AllPieces.end()) ? (*it) : nullptr;
 }
-
-

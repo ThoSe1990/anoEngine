@@ -7,7 +7,6 @@
 #include "Components/ComponentManager.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/TransformComponent.hpp"
-#include "Components/ChesspieceComponent.hpp"
 
 
 class Components
@@ -23,7 +22,6 @@ public:
         return instance;
     }
     std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
-    std::shared_ptr<ComponentManager<ChesspieceComponent>> ChesspieceManager = std::make_shared<ComponentManager<ChesspieceComponent>>();
     std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
 
 private:

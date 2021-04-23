@@ -23,8 +23,13 @@
     #endif
 #endif
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
 
 #include "api/ezEngine.hpp"    
+#include "Components/Components.hpp"
+#include "Constants.hpp"
 #include "Game.hpp"
 
 EZ_ENGINE_PUBLIC void ezEngine::Initialize ()
@@ -66,5 +71,66 @@ EZ_ENGINE_PUBLIC void ezEngine::Destroy()
 EZ_ENGINE_PUBLIC void ezEngine::AddTexture(const std::string& textureId, const char* filePath)
 {
     Game::assetManager->AddTexture(textureId, filePath);
+}
+
+EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
+{
+    return System::AddEntity(); 
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::Create_TransformComponent(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+{
+    auto& components = Components::GetInstance();
+    components.TransformManager->Create(entity, glm::vec2(x,y), width, height, movingSpeed,  scale);
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::Update_TransformComponent(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+{
+    auto& components = Components::GetInstance();
+    auto transform = components.TransformManager->GetComponent(entity);
+    transform->setPosition = glm::vec2(x,y);
+    transform->width = width;
+    transform->height = height;
+    transform->movingSpeed = movingSpeed;
+    transform->scale = scale;
+}
+EZ_ENGINE_PUBLIC void ezEngine::SetPosition_TransformComponent(const Entity entity, const int x, const int y)
+{
+    auto& components = Components::GetInstance();
+    auto& transform = components.TransformManager->GetComponent(entity);
+    transform->setPosition = glm::vec2(x,y);
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::Remove_TransformComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    components.TransformManager->Remove(entity);
+}
+
+
+EZ_ENGINE_PUBLIC void ezEngine::Create_SpriteComponent(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, Layer layer)
+{
+    auto& components = Components::GetInstance();
+    components.SpriteManager->Create(entity, 
+        Game::assetManager->GetTexture(textureId.c_str()),     
+        SDL_Rect{source.x, source.y, source.w, source.h },
+        SDL_Rect{destination.x, destination.y, destination.w, destination.h },
+        layer);
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::Remove_SpriteComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    components.SpriteManager->Remove(entity);
+}
+
+EZ_ENGINE_PUBLIC bool ezEngine::MouseClicked()
+{
+    return Game::GetClick();
+}
+
+EZ_ENGINE_PUBLIC ezEngine::Vector2d ezEngine::GetMouseCoordinates()
+{
+    return Vector2d{Game::GetMouseX(), Game::GetMouseY()};
 }
 

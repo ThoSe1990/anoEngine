@@ -25,10 +25,6 @@ class Game
         int mouse_x;
         int mouse_y;
         public:
-            bool GetClick() {return click;}
-            glm::vec2 GetMouseCoordinates() {return glm::vec2(mouse_x, mouse_y);}
-            int GetMouseX() {return mouse_x;}
-            int GetMouseY() {return mouse_y;}
     };
 
 public:
@@ -54,6 +50,12 @@ public:
     void ProcessInput();
     void Destroy();
     bool IsRunning() const ;
+
+
+    static bool GetClick();
+    static glm::vec2 GetMouseCoordinates();
+    static int GetMouseX();
+    static int GetMouseY();
 
 protected:
 

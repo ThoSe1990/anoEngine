@@ -3,5 +3,5 @@
 /.vscode
 /log
 *.so
-examples/Chess/ChessExample
-lib/ezEngine
+chessExample
+chess_debug

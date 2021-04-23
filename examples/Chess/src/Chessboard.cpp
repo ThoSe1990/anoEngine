@@ -1,5 +1,5 @@
 
-#include "Chess/Chessboard.hpp"
+#include "Chessboard.hpp"
 
 const char* Chessboard::numbers = "87654321";
 const char* Chessboard::letters = "ABCDEFGH";
@@ -46,17 +46,16 @@ void Chessboard::addSquareCoordinates(const int col, const int row, const int x,
 
 void Chessboard::addSquare(const int sourceRectX, const int sourceRectY, const int x, const int y)
 {
-    if (Game::systemManager->HasSystem<SpriteSystem>() )
-    {
-        auto squareEntity = System::AddEntity(); 
-        auto& components = Components::GetInstance();
-        components.SpriteManager->Create(squareEntity,
-            Game::assetManager->GetTexture("board_squares"),
-            SDL_Rect{sourceRectX, sourceRectY, Constants::square_sidelength, Constants::square_sidelength},
-            SDL_Rect{x, y, Constants::square_sidelength, Constants::square_sidelength},
-            Layer::layer_0
-        );
-    }
+
+    auto newEntity = ezEngine::CreateEntity();
+
+    ezEngine::Create_SpriteComponent(newEntity,
+        std::string("board_squares"),
+        ezEngine::Rectangle{sourceRectX, sourceRectY, Constants::square_sidelength, Constants::square_sidelength},
+        ezEngine::Rectangle{x, y, Constants::square_sidelength, Constants::square_sidelength},
+        Layer::layer_0
+    );
+
     return;
 }
 

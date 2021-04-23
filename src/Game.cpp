@@ -7,8 +7,6 @@
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/TransformSystem.hpp"
 
-#include "Chess/Chess.hpp"
-
 std::shared_ptr<AssetManager> Game::assetManager = std::make_shared<AssetManager>();
 std::shared_ptr<SystemManager> Game::systemManager = std::make_shared<SystemManager>();
 std::unique_ptr<Game::UserInputs> Game::userInputs = std::make_unique<Game::UserInputs>();
@@ -34,6 +32,24 @@ bool Game::IsRunning() const
 {
     return this->isRunning;
 }
+
+bool Game::GetClick() 
+{
+    return userInputs->click;
+}
+glm::vec2 Game::GetMouseCoordinates() 
+{
+    return glm::vec2(userInputs->mouse_x, userInputs->mouse_y);
+}
+int Game::GetMouseX() 
+{
+    return userInputs->mouse_x;
+}
+int Game::GetMouseY() 
+{
+    return userInputs->mouse_y;
+}
+
 
 
 void Game::Initialize_sdl()
@@ -70,7 +86,6 @@ void Game::Initialize()
 {
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
-    systemManager->AddSystem<Chess>();
 
     isRunning = true;
     return;
