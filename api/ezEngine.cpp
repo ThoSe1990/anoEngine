@@ -73,18 +73,24 @@ EZ_ENGINE_PUBLIC void ezEngine::AddTexture(const std::string& textureId, const c
     Game::assetManager->AddTexture(textureId, filePath);
 }
 
+
+
+
 EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
 {
     return System::AddEntity(); 
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::Create_TransformComponent(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+
+
+
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
 {
     auto& components = Components::GetInstance();
     components.TransformManager->Create(entity, glm::vec2(x,y), width, height, movingSpeed,  scale);
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::Update_TransformComponent(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Update(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
 {
     auto& components = Components::GetInstance();
     auto transform = components.TransformManager->GetComponent(entity);
@@ -94,21 +100,23 @@ EZ_ENGINE_PUBLIC void ezEngine::Update_TransformComponent(const Entity entity, c
     transform->movingSpeed = movingSpeed;
     transform->scale = scale;
 }
-EZ_ENGINE_PUBLIC void ezEngine::SetPosition_TransformComponent(const Entity entity, const int x, const int y)
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::SetPosition(const Entity entity, const int x, const int y)
 {
     auto& components = Components::GetInstance();
     auto& transform = components.TransformManager->GetComponent(entity);
     transform->setPosition = glm::vec2(x,y);
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::Remove_TransformComponent(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.TransformManager->Remove(entity);
 }
 
 
-EZ_ENGINE_PUBLIC void ezEngine::Create_SpriteComponent(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, Layer layer)
+
+
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer)
 {
     auto& components = Components::GetInstance();
     components.SpriteManager->Create(entity, 
@@ -118,18 +126,32 @@ EZ_ENGINE_PUBLIC void ezEngine::Create_SpriteComponent(const Entity entity, cons
         layer);
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::Remove_SpriteComponent(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Update(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
+    sprite->source = SDL_Rect{source.x, source.y, source.w, source.h };
+    sprite->destination = SDL_Rect{destination.x, destination.y, destination.w, destination.h };
+    
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.SpriteManager->Remove(entity);
 }
 
-EZ_ENGINE_PUBLIC bool ezEngine::MouseClicked()
+
+
+
+
+EZ_ENGINE_PUBLIC bool ezEngine::UserInputs::MouseClicked()
 {
     return Game::GetClick();
 }
 
-EZ_ENGINE_PUBLIC ezEngine::Vector2d ezEngine::GetMouseCoordinates()
+EZ_ENGINE_PUBLIC ezEngine::Vector2d ezEngine::UserInputs::GetMouseCoordinates()
 {
     return Vector2d{Game::GetMouseX(), Game::GetMouseY()};
 }

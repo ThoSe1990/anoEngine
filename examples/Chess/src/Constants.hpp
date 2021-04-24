@@ -1,8 +1,8 @@
 #ifndef CHESS_CONSTANTS_H
 #define CHESS_CONSTANTS_H
 
-#include "glm/glm.hpp"
 #include <string>
+#include "api/ezEngine.hpp"
 
 class Constants
 {
@@ -10,7 +10,7 @@ public:
     static const int chesspiece_sidelength;
     static const int square_sidelength;
     static const int offset_figures_squares;
-    static const glm::vec2 offset_figures_squares_vec2;
+    static const ezEngine::Vector2d offset_figures_squares_vec2;
     static const int number_of_squares_per_row;
     static const int number_of_squares_per_col;
     static const int scale;
@@ -22,16 +22,6 @@ public:
 
     static int chespieces_velocity;
     static int chessboard_offset;
-};
-
-enum class Layer
-{
-    layer_0 = 0,
-    layer_1 = 1,
-    layer_2 = 2,
-    layer_3 = 3,
-    layer_4 = 4,
-    layer_count = 5
 };
 
 

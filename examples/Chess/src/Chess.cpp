@@ -1,5 +1,5 @@
 
-#include "ezEngine.hpp"
+#include "api/ezEngine.hpp"
 
 #include "Chess.hpp"
 #include "Chessboard.hpp"
@@ -63,7 +63,7 @@ void Chess::loadAssets()
 void Chess::Update()
 {
     ezEngine::Update();
-    if (ezEngine::MouseClicked())
+    if (ezEngine::UserInputs::MouseClicked())
     {               
         auto next = this->currentState->UpdateGame();
         SetState(std::move(next));
@@ -127,7 +127,7 @@ void Chess::loadPieces()
 
         auto coordinates = Chessboard::GetCoordinatesFromSquare(position);
         auto newEntity = ezEngine::CreateEntity();
-        ezEngine::Create_TransformComponent(newEntity, 
+        ezEngine::TransformComponent::Create(newEntity, 
             coordinates.x,
             coordinates.y,
             Constants::chesspiece_sidelength,
@@ -136,11 +136,11 @@ void Chess::loadPieces()
             Constants::scale
         );
 
-        ezEngine::Create_SpriteComponent(newEntity,
+        ezEngine::SpriteComponent::Create(newEntity,
             asset_id.str(),
             ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
             ezEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
-            Layer::layer_1 
+            ezEngine::SpriteComponent::Layer::layer_1 
         );
         
         
@@ -157,14 +157,14 @@ void Chess::updatePieces()
     for (const auto& piece : AllPieces)
     {
         auto position = Chessboard::GetCoordinatesFromSquare(piece->square);
-        ezEngine::SetPosition_TransformComponent(piece->owner, position.x, position.y);
+        ezEngine::TransformComponent::SetPosition(piece->owner, position.x, position.y);
     }     
 }
 
 void Chess::updateValidation()
 {
     for (const auto& e : validMoves)
-        ezEngine::Remove_SpriteComponent(e.second);
+        ezEngine::SpriteComponent::Remove(e.second);
 
     validMoves.clear();
 
@@ -226,8 +226,8 @@ void Chess::captureOpponent(const std::string& square)
 
     if (!opponent) return;
 
-    ezEngine::Remove_SpriteComponent(opponent->owner);
-    ezEngine::Remove_TransformComponent(opponent->owner);
+    ezEngine::SpriteComponent::Remove(opponent->owner);
+    ezEngine::TransformComponent::Remove(opponent->owner);
 
     auto it = std::find_if(AllPieces.begin(), AllPieces.end(), [&opponent](const auto& current){
         return opponent->owner == current->owner;

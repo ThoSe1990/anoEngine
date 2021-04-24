@@ -36,7 +36,7 @@ public:
         auto& components = Components::GetInstance();
 
         // TODO not the best, but it will do it for now --> refactor
-        for (size_t layer = static_cast<size_t>(Layer::layer_0) ; layer < static_cast<size_t>(Layer::layer_count) ; layer++)
+        for (size_t layer = static_cast<size_t>(ezEngine::SpriteComponent::Layer::layer_0) ; layer < static_cast<size_t>(ezEngine::SpriteComponent::Layer::layer_count) ; layer++)
         {
             for (size_t i = 0 ; i<components.SpriteManager->GetCount() ; i++)
             {

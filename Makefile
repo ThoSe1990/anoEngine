@@ -6,7 +6,6 @@ build:
 	-I"./" \
 	-I"./src" \
 	-I"./lib" \
-	-I"./src/lua" \
 	-lboost_log \
 	-lboost_log_setup \
 	-lboost_system \
@@ -23,7 +22,7 @@ chess:
 	./examples/Chess/src/*.cpp \
 	-o chessExample \
 	-I"./examples/Chess/src" \
-	-I"./api" \
+	-I"./" \
 	-I"./lib" \
 	-L. \
 	-lezEngine \

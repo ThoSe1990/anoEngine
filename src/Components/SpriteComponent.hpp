@@ -3,12 +3,12 @@
 #define _COMPONENTS_SPRITECOMPONENT_HPP_
 
 #include <SDL2/SDL.h>
-#include "Constants.hpp"
+#include "api/ezEngine.hpp"
 
 struct SpriteComponent
 {
     SpriteComponent(){}
-    SpriteComponent(Entity Owner, SDL_Texture* Texture, SDL_Rect Source, SDL_Rect Destination, Layer Layer)
+    SpriteComponent(Entity Owner, SDL_Texture* Texture, SDL_Rect Source, SDL_Rect Destination, ezEngine::SpriteComponent::Layer Layer)
     {
         owner = Owner;
         
@@ -32,7 +32,7 @@ struct SpriteComponent
     SDL_Rect source;
     SDL_Rect destination;
 
-    Layer layer;
+    ezEngine::SpriteComponent::Layer layer;
 
 };
 

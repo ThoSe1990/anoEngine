@@ -18,8 +18,8 @@ std::unique_ptr<State> PlayersTurn::UpdateGame()
     }
     else
     {
-        ezEngine::Vector2d mouse = ezEngine::GetMouseCoordinates();
-        std::string destination = Chessboard::GetSquareTitleByCoordinates(glm::vec2(mouse.x, mouse.y));
+        ezEngine::Vector2d mouse = ezEngine::UserInputs::GetMouseCoordinates();
+        std::string destination = Chessboard::GetSquareTitleByCoordinates(ezEngine::Vector2d{mouse.x, mouse.y});
         
         castling(destination);
         
@@ -56,8 +56,8 @@ void PlayersTurn::castling(const std::string& destination)
 
 std::shared_ptr<Chesspiece> PlayersTurn::getClickedComponent()
 {
-    ezEngine::Vector2d mouse = ezEngine::GetMouseCoordinates();
-    std::string clickedSquare = Chessboard::GetSquareTitleByCoordinates(glm::vec2(mouse.x, mouse.y));
+    ezEngine::Vector2d mouse = ezEngine::UserInputs::GetMouseCoordinates();
+    std::string clickedSquare = Chessboard::GetSquareTitleByCoordinates(ezEngine::Vector2d{mouse.x, mouse.y});
     std::string color = this->playerColor;
 
     auto lambda = [&clickedSquare, &color](const std::shared_ptr<Chesspiece>& cp)

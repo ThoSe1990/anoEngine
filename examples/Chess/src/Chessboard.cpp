@@ -4,7 +4,7 @@
 const char* Chessboard::numbers = "87654321";
 const char* Chessboard::letters = "ABCDEFGH";
 
-std::map<std::string, glm::vec2> Chessboard::squareCoordinates;
+std::map<std::string, ezEngine::Vector2d> Chessboard::squareCoordinates;
 
 
 void Chessboard::Init()
@@ -25,7 +25,8 @@ void Chessboard::Init()
     }
 }
 
-glm::vec2 Chessboard::GetCoordinatesFromSquare(const std::string& title)
+
+ezEngine::Vector2d Chessboard::GetCoordinatesFromSquare(const std::string& title)
 {
     return squareCoordinates[title] + Constants::offset_figures_squares_vec2;
 }
@@ -41,7 +42,7 @@ void Chessboard::addSquareCoordinates(const int col, const int row, const int x,
     std::string squareTitle = "";
     squareTitle += letters[col];
     squareTitle += numbers[row];
-    squareCoordinates.emplace(squareTitle, glm::vec2(x, y));
+    squareCoordinates.emplace(squareTitle, ezEngine::Vector2d{x, y});
 }
 
 void Chessboard::addSquare(const int sourceRectX, const int sourceRectY, const int x, const int y)
@@ -49,11 +50,11 @@ void Chessboard::addSquare(const int sourceRectX, const int sourceRectY, const i
 
     auto newEntity = ezEngine::CreateEntity();
 
-    ezEngine::Create_SpriteComponent(newEntity,
+    ezEngine::SpriteComponent::Create(newEntity,
         std::string("board_squares"),
         ezEngine::Rectangle{sourceRectX, sourceRectY, Constants::square_sidelength, Constants::square_sidelength},
         ezEngine::Rectangle{x, y, Constants::square_sidelength, Constants::square_sidelength},
-        Layer::layer_0
+        ezEngine::SpriteComponent::Layer::layer_0
     );
 
     return;
@@ -64,13 +65,13 @@ bool Chessboard::IsValidSquare(const std::string& square)
     return (squareCoordinates.find(square) == squareCoordinates.end()) ? false : true ;
 }
 
-std::string Chessboard::GetSquareTitleByCoordinates(glm::vec2 coordinates)
+std::string Chessboard::GetSquareTitleByCoordinates(ezEngine::Vector2d coordinates)
 {   
     if ( (coordinates.x < Constants::chessboard_offset) ||
         (coordinates.x > (Constants::square_sidelength * Constants::number_of_squares_per_col) + Constants::chessboard_offset) ||
         (coordinates.y < Constants::chessboard_offset) ||
         (coordinates.y > (Constants::square_sidelength * Constants::number_of_squares_per_row) + Constants::chessboard_offset) )
-            return "00"; // TODO: create constant
+            return Constants::invalid_square;
     
     int x = (coordinates.x - Constants::chessboard_offset) / Constants::square_sidelength ;
     int y = (coordinates.y - Constants::chessboard_offset) / Constants::square_sidelength ;

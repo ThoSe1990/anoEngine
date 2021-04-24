@@ -1,7 +1,7 @@
 #ifndef _CHESS_MOVEMENTS_MOVEMENT_HPP_
 #define _CHESS_MOVEMENTS_MOVEMENT_HPP_
 
-#include "ezEngine.hpp"
+#include "api/ezEngine.hpp"
 
 #include "Chessboard.hpp"
 #include "Constants.hpp"
@@ -14,11 +14,11 @@ class Movement
         auto coordinates = Chessboard::GetCoordinatesFromSquare(square);
 
         auto newEntity = ezEngine::CreateEntity();
-        ezEngine::Create_SpriteComponent(newEntity,
+        ezEngine::SpriteComponent::Create(newEntity,
             textureId,
             ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
             ezEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
-            Layer::layer_2
+            ezEngine::SpriteComponent::Layer::layer_2
         );          
         // Chess::validMoves.push_back(newEntity);
         Chess::validMoves[square] = newEntity;

@@ -4,8 +4,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "glm/glm.hpp"
-#include "ezEngine.hpp"
+#include "api/ezEngine.hpp"
 
 #include "Constants.hpp"
 
@@ -19,10 +18,10 @@ public:
     const int blackSquare = 0;
     const int whiteSquare = 1;
     
-    static std::map<std::string, glm::vec2> squareCoordinates;
+    static std::map<std::string, ezEngine::Vector2d> squareCoordinates;
 
-    static std::string GetSquareTitleByCoordinates(glm::vec2 coordinates);
-    static glm::vec2 GetCoordinatesFromSquare(const std::string& title);
+    static std::string GetSquareTitleByCoordinates(ezEngine::Vector2d coordinates);
+    static ezEngine::Vector2d GetCoordinatesFromSquare(const std::string& title);
     static bool IsValidSquare(const std::string& square);
     void Init();
 
