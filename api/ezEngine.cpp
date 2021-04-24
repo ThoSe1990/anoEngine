@@ -145,6 +145,37 @@ EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
 
 
 
+EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Create(const Entity entity, const std::string& type, const bool active)
+{
+    auto& components = Components::GetInstance();
+    components.CollisionManager->Create(entity, type, active);
+}
+EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Update(const Entity entity, const std::string& type, const bool active)
+{
+    auto& components = Components::GetInstance();
+    auto& collider = components.CollisionManager->GetComponent(entity);
+    collider->type = type;
+    collider->active = active;
+}
+EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Activate(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    collider->active = true;
+}
+EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Deactivate(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    collider->active = false;
+}
+EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    components.CollisionManager->Remove(entity);
+}
+
+
+
+
 
 EZ_ENGINE_PUBLIC bool ezEngine::UserInputs::MouseClicked()
 {

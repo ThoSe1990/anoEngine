@@ -7,6 +7,7 @@
 #include "Components/ComponentManager.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/TransformComponent.hpp"
+#include "Components/ColliderComponent.hpp"
 
 
 class Components
@@ -23,6 +24,7 @@ public:
     }
     std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
     std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
+    // std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
 
 private:
     Components() {}

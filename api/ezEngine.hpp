@@ -60,6 +60,16 @@ namespace ezEngine
         void Remove(const Entity entity);
     }
 
+
+    namespace ColliderComponent {
+        void Create(const Entity entity, const std::string& type, const bool active);
+        void Update(const Entity entity, const std::string& type, const bool active);
+        void Activate(const Entity entity);
+        void Deactivate(const Entity entity);
+        void Remove(const Entity entity);
+    }
+
+
     namespace UserInputs {
         bool MouseClicked();
         Vector2d GetMouseCoordinates();
