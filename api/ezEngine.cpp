@@ -160,11 +160,13 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Update(const Entity entity, c
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Activate(const Entity entity)
 {
     auto& components = Components::GetInstance();
+    auto& collider = components.CollisionManager->GetComponent(entity);
     collider->active = true;
 }
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Deactivate(const Entity entity)
 {
     auto& components = Components::GetInstance();
+    auto& collider = components.CollisionManager->GetComponent(entity);
     collider->active = false;
 }
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
