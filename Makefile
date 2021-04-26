@@ -77,5 +77,5 @@ clean:
 	rm ./libezEngine.so;
 	rm ./chessExample;
 
-run:
+run_chess:
 	./chessExample;

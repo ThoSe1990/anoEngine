@@ -29,7 +29,7 @@ void Chess::Initialize()
 void Chess::initializeLua()
 {
     lua.open_libraries(sol::lib::base, sol::lib::os, sol::lib::math);
-    lua.script_file("./assets/scripts/config.lua");
+    lua.script_file("./examples/Chess/assets/scripts/config.lua");
 
     sol::optional<int> chespieces_velocity_exists = lua["config"]["chespieces_velocity"];
     Constants::chespieces_velocity = (chespieces_velocity_exists == sol::nullopt) ? Constants::chespieces_velocity : lua["config"]["chespieces_velocity"];
@@ -40,7 +40,7 @@ void Chess::initializeLua()
 
 void Chess::loadAssets()
 {
-    lua.script_file("./assets/scripts/assets.lua");
+    lua.script_file("./examples/Chess/assets/scripts/assets.lua");
     sol::table chessboardAssets = lua["chessboard_assets"];
 
     unsigned int index = 0;
@@ -106,7 +106,7 @@ void Chess::setInitialGameState()
 
 void Chess::loadPieces()
 {
-    lua.script_file("./assets/scripts/default_setup.lua");
+    lua.script_file("./examples/Chess/assets/scripts/default_setup.lua");
     sol::table chessboardSetup = lua["chessboard_setup"];
 
     unsigned int index = 0;

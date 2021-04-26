@@ -12,6 +12,7 @@ def update():
 ezPyEngine.Initialize()
 ezPyEngine.Initialize_sdl()
 
+
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()
     update()

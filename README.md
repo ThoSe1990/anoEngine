@@ -23,7 +23,7 @@ There are different targets in the makefile.
 1. Run `make` to build the engine
 2. Run `make install` (if permission denied, run as sudo) to copy the shared library to /usr/lib
 3. Run `make chess` to build the chess example
-4. Run `make run` or `./chessExample` (if permission denied, run as sudo) to run the example
+4. Run `make run_chess` or `./chessExample` (if permission denied, run as sudo) to run the example
 
 By running the game the first setup with chess figures will look like: 
 

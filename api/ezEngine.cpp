@@ -115,25 +115,45 @@ EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
 
 
 
-
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer)
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, const int layer)
 {
     auto& components = Components::GetInstance();
     components.SpriteManager->Create(entity, 
         Game::assetManager->GetTexture(textureId.c_str()),     
         SDL_Rect{source.x, source.y, source.w, source.h },
         SDL_Rect{destination.x, destination.y, destination.w, destination.h },
-        layer);
+        static_cast<ezEngine::SpriteComponent::Layer>(layer) 
+        );
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Update(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer)
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Update(const Entity entity, const std::string& textureId, ezEngine::Rectangle source,  ezEngine::Rectangle destination, const int layer)
 {
     auto& components = Components::GetInstance();
     auto& sprite = components.SpriteManager->GetComponent(entity);
     sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
     sprite->source = SDL_Rect{source.x, source.y, source.w, source.h };
     sprite->destination = SDL_Rect{destination.x, destination.y, destination.w, destination.h };
-    
+    sprite->layer = static_cast<ezEngine::SpriteComponent::Layer>(layer);
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateSourceRect(const Entity entity, ezEngine::Rectangle source)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    sprite->source = SDL_Rect{source.x, source.y, source.w, source.h };
+}
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateDestinationRect(const Entity entity, ezEngine::Rectangle destination)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    sprite->destination = SDL_Rect{destination.x, destination.y, destination.w, destination.h };
+}
+
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateTexture(const Entity entity, const std::string& textureId)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
 }
 
 EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
@@ -170,7 +190,7 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Deactivate(const Entity entit
     collider->active = false;
 }
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
-{Vector2d
+{
     auto& components = Components::GetInstance();
     components.CollisionManager->Remove(entity);
 }
