@@ -1,7 +1,7 @@
 #ifndef _CHESS_MOVEMENTS_MOVEMENT_HPP_
 #define _CHESS_MOVEMENTS_MOVEMENT_HPP_
 
-#include "api/ezEngine.hpp"
+#include "ezEngine.hpp"
 
 #include "Chessboard.hpp"
 #include "Constants.hpp"

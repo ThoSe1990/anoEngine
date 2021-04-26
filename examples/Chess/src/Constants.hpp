@@ -2,7 +2,7 @@
 #define CHESS_CONSTANTS_H
 
 #include <string>
-#include "api/ezEngine.hpp"
+#include "ezEngine.hpp"
 
 class Constants
 {

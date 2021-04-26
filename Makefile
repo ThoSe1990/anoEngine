@@ -6,6 +6,7 @@ build:
 	-I"./" \
 	-I"./src" \
 	-I"./lib" \
+	-I"./api" \
 	-lboost_log \
 	-lboost_log_setup \
 	-lboost_system \
@@ -17,16 +18,34 @@ build:
 	-lSDL2_mixer \
 	-lpthread;
 
+
+python_api:
+	g++ -shared -std=c++14 -Wfatal-errors -fPIC \
+	-o ezEngine_python.so \
+	./api/ezEngine_python.cpp \
+	-I/usr/include/python3.8 \
+	-I"./api" \
+	-I"./" \
+	-L. \
+	-lezEngine \
+	-lboost_python38 \
+	-lpython3.8;
+
+
+
 chess:
 	g++ -w -std=c++14 -Wfatal-errors \
 	./examples/Chess/src/*.cpp \
 	-o chessExample \
 	-I"./examples/Chess/src" \
+	-I"./api" \
 	-I"./" \
 	-I"./lib" \
 	-L. \
 	-lezEngine \
 	-llua5.3;
+
+
 
 chess_debug:
 	g++ -g -w -std=c++14 -Wfatal-errors \
@@ -52,6 +71,7 @@ chess_debug:
 
 install:
 	cp libezEngine.so /usr/lib 
+	cp ezEngine_python.so /usr/lib 
 
 clean:
 	rm ./libezEngine.so;

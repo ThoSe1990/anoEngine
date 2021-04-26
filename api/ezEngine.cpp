@@ -27,7 +27,7 @@
 #include <SDL2/SDL_image.h>
 
 
-#include "api/ezEngine.hpp"    
+#include "ezEngine.hpp"    
 #include "Components/Components.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"

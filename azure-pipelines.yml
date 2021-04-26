@@ -22,5 +22,6 @@ steps:
     make
     make chess_static
     make chess
+    make python_api
 
   displayName: 'installing libs'

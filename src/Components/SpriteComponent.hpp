@@ -3,7 +3,7 @@
 #define _COMPONENTS_SPRITECOMPONENT_HPP_
 
 #include <SDL2/SDL.h>
-#include "api/ezEngine.hpp"
+#include "ezEngine.hpp"
 
 struct SpriteComponent
 {

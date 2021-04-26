@@ -4,7 +4,7 @@
 #include <lua/sol.hpp>
 #include <unordered_map>
 
-#include "api/ezEngine.hpp"
+#include "ezEngine.hpp"
 #include "State.hpp"
 #include "Chesspiece.hpp"
 
