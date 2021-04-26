@@ -170,7 +170,7 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Deactivate(const Entity entit
     collider->active = false;
 }
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
-{
+{Vector2d
     auto& components = Components::GetInstance();
     components.CollisionManager->Remove(entity);
 }

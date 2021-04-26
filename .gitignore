@@ -5,3 +5,5 @@
 *.so
 chessExample
 chess_debug
+
+examples/python/*.so

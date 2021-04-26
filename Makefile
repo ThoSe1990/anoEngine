@@ -21,8 +21,8 @@ build:
 
 python_api:
 	g++ -shared -std=c++14 -Wfatal-errors -fPIC \
-	-o ezEngine_python.so \
-	./api/ezEngine_python.cpp \
+	-o ezPyEngine.so \
+	./api/ezPyEngine.cpp \
 	-I/usr/include/python3.8 \
 	-I"./api" \
 	-I"./" \

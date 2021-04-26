@@ -1,14 +1,21 @@
-import ezEngine_python
+import ezPyEngine
 
 
-ezEngine_python.Initialize()
-ezEngine_python.Initialize_sdl()
+def update():
+    if ezPyEngine.UserInputs_MouseClicked():
+        vec = ezPyEngine.UserInputs_GetMouseCoordinates()
+        print("mouse clicked", vec.x , vec.y)
+    ezPyEngine.Update()
 
 
-while ezEngine_python.IsRunning():
-    ezEngine_python.ProcessInput()
-    ezEngine_python.Update()
-    ezEngine_python.Render()
+
+ezPyEngine.Initialize()
+ezPyEngine.Initialize_sdl()
+
+while ezPyEngine.IsRunning():
+    ezPyEngine.ProcessInput()
+    update()
+    ezPyEngine.Render()
 
 
-ezEngine_python.Destroy()
+ezPyEngine.Destroy()
