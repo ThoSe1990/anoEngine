@@ -21,7 +21,6 @@ steps:
     sudo apt-get install libboost-all-dev
     sudo apt install python3.8
     make
-    make chess_static
     make chess
     make python_api
 
