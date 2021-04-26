@@ -1,6 +1,6 @@
 build:
 	g++ -shared -w -std=c++14 -Wfatal-errors -fvisibility=hidden -fPIC \
-	./src/*.cpp ./api/*.cpp \
+	./src/*.cpp ./api/ezEngine.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
 	-o libezEngine.so \
 	-I"./" \
