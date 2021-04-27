@@ -37,6 +37,7 @@ namespace ezEngine
     void Update();
     void Render();
     void Destroy();
+    
     void AddTexture(const std::string& textureId, const char* filePath);
 
     const Entity CreateEntity();

@@ -71,7 +71,7 @@ chess_debug:
 
 install:
 	cp libezEngine.so /usr/lib 
-	cp ezEngine_python.so /usr/lib 
+	cp ezPyEngine.so /usr/lib 
 
 clean:
 	rm ./libezEngine.so;

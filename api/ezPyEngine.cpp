@@ -46,12 +46,12 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("TransformComponent_SetPosition", ezEngine::TransformComponent::SetPosition);
     def("TransformComponent_Remove", ezEngine::TransformComponent::Remove);
 
-    // def("SpriteComponent_Create", ezEngine::SpriteComponent::Create);
-    // def("SpriteComponent_Update", ezEngine::SpriteComponent::Update);
-    // def("SpriteComponent_UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);
-    // def("SpriteComponent_UpdateDestinationRect", ezEngine::SpriteComponent::UpdateDestinationRect);
-    // def("SpriteComponent_UpdateTexture", ezEngine::SpriteComponent::UpdateTexture);
-    // def("SpriteComponent_Remove", ezEngine::SpriteComponent::Remove);
+    def("SpriteComponent_Create", ezEngine::SpriteComponent::Create);
+    def("SpriteComponent_Update", ezEngine::SpriteComponent::Update);
+    def("SpriteComponent_UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);
+    def("SpriteComponent_UpdateDestinationRect", ezEngine::SpriteComponent::UpdateDestinationRect);
+    def("SpriteComponent_UpdateTexture", ezEngine::SpriteComponent::UpdateTexture);
+    def("SpriteComponent_Remove", ezEngine::SpriteComponent::Remove);
 
     def("ColliderComponent_Create", ezEngine::ColliderComponent::Create);
     def("ColliderComponent_Update", ezEngine::ColliderComponent::Update);
