@@ -14,18 +14,36 @@
 #include "Systems/SystemsManager.hpp"
 
 
+class UserInputs
+{
+private:
+    UserInputs () {}
+public:
+
+    UserInputs(UserInputs const&) = delete;
+    void operator=(UserInputs const&) = delete;
+
+    static UserInputs& GetInstance() noexcept
+    {
+        static UserInputs instance;
+        return instance;
+    }
+    int mouseX;
+    int mouseY;
+    
+    bool mouseButtonLeftUp;
+    bool mouseButtonLeftDown;
+    bool mouseButtonLeftClick;
+
+    bool mouseButtonRightUp;
+    bool mouseButtonRightDown;
+    bool mouseButtonRightClick;
+};
+
 class Game
 {
+private:
     Game ();
-
-    class UserInputs 
-    {
-        friend class Game;
-        bool click;
-        int mouse_x;
-        int mouse_y;
-        public:
-    };
 
 public:
 
@@ -42,7 +60,6 @@ public:
 
     sol::state lua;
 
-    virtual ~Game() {}
     void Initialize();
     void Initialize_sdl();
     void Update();
@@ -51,11 +68,6 @@ public:
     void Destroy();
     bool IsRunning() const ;
 
-
-    static bool GetClick();
-    static glm::vec2 GetMouseCoordinates();
-    static int GetMouseX();
-    static int GetMouseY();
 
 protected:
 

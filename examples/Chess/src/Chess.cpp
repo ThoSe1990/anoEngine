@@ -63,7 +63,7 @@ void Chess::loadAssets()
 void Chess::Update()
 {
     ezEngine::Update();
-    if (ezEngine::UserInputs::MouseClicked())
+    if (ezEngine::Inputs::MouseButtonLeftClick())
     {               
         auto next = this->currentState->UpdateGame();
         SetState(std::move(next));
@@ -128,6 +128,7 @@ void Chess::loadPieces()
         auto coordinates = Chessboard::GetCoordinatesFromSquare(position);
         auto newEntity = ezEngine::CreateEntity();
         ezEngine::TransformComponent::Create(newEntity, 
+            ezEngine::TransformComponent::ControlType::Position,
             coordinates.x,
             coordinates.y,
             Constants::chesspiece_sidelength,

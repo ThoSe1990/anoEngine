@@ -9,7 +9,7 @@
 
 std::shared_ptr<AssetManager> Game::assetManager = std::make_shared<AssetManager>();
 std::shared_ptr<SystemManager> Game::systemManager = std::make_shared<SystemManager>();
-std::unique_ptr<Game::UserInputs> Game::userInputs = std::make_unique<Game::UserInputs>();
+// std::unique_ptr<Game::UserInputs> Game::userInputs = std::make_unique<Game::UserInputs>();
 
 unsigned int System::entitiesCount = 0;
 std::unordered_map<Entity, size_t>  System::componentsPerEntity;
@@ -31,23 +31,6 @@ Game& Game::GetInstance() noexcept
 bool Game::IsRunning() const 
 {
     return this->isRunning;
-}
-
-bool Game::GetClick() 
-{
-    return userInputs->click;
-}
-glm::vec2 Game::GetMouseCoordinates() 
-{
-    return glm::vec2(userInputs->mouse_x, userInputs->mouse_y);
-}
-int Game::GetMouseX() 
-{
-    return userInputs->mouse_x;
-}
-int Game::GetMouseY() 
-{
-    return userInputs->mouse_y;
 }
 
 
@@ -120,9 +103,10 @@ void Game::Render()
 
 void Game::ProcessInput() 
 {
-    this->userInputs->click = false;
-    this->userInputs->mouse_x = static_cast<int>(event.motion.x);
-    this->userInputs->mouse_y = static_cast<int>(event.motion.y);
+    auto& userInputs = UserInputs::GetInstance();
+    userInputs.mouseButtonLeftClick = false;
+    userInputs.mouseX = static_cast<int>(event.motion.x);
+    userInputs.mouseY = static_cast<int>(event.motion.y);
     while (SDL_PollEvent(&event))
     {
         switch (event.type) 
@@ -137,6 +121,8 @@ void Game::ProcessInput()
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     this->isRunning = false;
                 }
+                if (event.key.keysym.sym == SDLK_w) 
+                    std::cout << "w pressed" << std::endl;
                 break;
             }
             case SDL_MOUSEBUTTONDOWN:
@@ -145,7 +131,7 @@ void Game::ProcessInput()
             }
             case SDL_MOUSEBUTTONUP:
             {
-                this->userInputs->click = true;
+                userInputs.mouseButtonLeftClick = true;
                 break;
             }
             case SDL_MOUSEMOTION:

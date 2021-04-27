@@ -15,6 +15,8 @@ sudo apt install libsdl2-ttf-dev
 sudo apt install libsdl2-mixer-dev
 sudo apt install liblua5.3-dev
 sudo apt-get install libboost-all-dev
+apt-get install python-dev
+sudo apt install python3.8
 ````
 
 

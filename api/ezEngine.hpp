@@ -43,7 +43,12 @@ namespace ezEngine
     const Entity CreateEntity();
 
     namespace TransformComponent {
-        void Create(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale);
+
+        enum class ControlType {
+            Position = 0,
+            Velocity = 1
+        };
+        void Create(const Entity entity, ezEngine::TransformComponent::ControlType controlType, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale);
         void Update(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale);
         void SetPosition(const Entity entity, const int x, const int y);
         void Remove(const Entity entity);
@@ -61,8 +66,8 @@ namespace ezEngine
             layer_4 = 4,
             layer_count = 5
         };
-        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, const int layer);
-        void Update(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, const int layer);
+        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer);
+        void Update(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer);
         void UpdateSourceRect(const Entity entity, Rectangle source);
         void UpdateDestinationRect(const Entity entity, Rectangle  destination);
         void UpdateTexture(const Entity entity, const std::string& textureId);
@@ -80,8 +85,13 @@ namespace ezEngine
     }
 
 
-    namespace UserInputs {
-        bool MouseClicked();
+    namespace Inputs {
+        bool MouseButtonLeftClick();
+        bool MouseButtonLeftUp();
+        bool MouseButtonLeftDown();
+        bool MouseButtonRightClick();
+        bool MouseButtonRightUp();
+        bool MouseButtonRightDown();
         Vector2d GetMouseCoordinates();
     }
 }

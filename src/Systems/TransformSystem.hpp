@@ -23,11 +23,17 @@ public:
         {
             auto transform = components.TransformManager->at(i);
 
-            transform->velocity.x = calculateVelocity(transform->movingSpeed, transform->setPosition.x, transform->actPosition.x);
-            transform->velocity.y = calculateVelocity(transform->movingSpeed, transform->setPosition.y, transform->actPosition.y);
+            if (transform->controlType == ezEngine::TransformComponent::ControlType::Position)
+            {   
+                transform->velocity.x = calculateVelocity(transform->movingSpeed, transform->setPosition.x, transform->actPosition.x);
+                transform->velocity.y = calculateVelocity(transform->movingSpeed, transform->setPosition.y, transform->actPosition.y);
+            } 
 
             transform->actPosition.x += transform->velocity.x * deltaTime;
             transform->actPosition.y += transform->velocity.y * deltaTime;
+
+            if (transform->controlType == ezEngine::TransformComponent::ControlType::Position)
+                transform->setPosition = transform->actPosition;
         }
     }
 

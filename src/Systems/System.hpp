@@ -6,7 +6,7 @@
 #include <vector>
 #include <memory>
 
-using Entity = unsigned int;
+#include "ezEngine.hpp"
 
 template<typename C> class ComponentManager;
 

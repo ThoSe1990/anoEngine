@@ -84,10 +84,10 @@ EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, ezEngine::TransformComponent::ControlType controlType, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
 {
     auto& components = Components::GetInstance();
-    components.TransformManager->Create(entity, glm::vec2(x,y), width, height, movingSpeed,  scale);
+    components.TransformManager->Create(entity, controlType, glm::vec2(x,y), width, height, movingSpeed,  scale);
 }
 
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Update(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
@@ -115,25 +115,25 @@ EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, const int layer)
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, ezEngine::SpriteComponent::Layer layer)
 {
     auto& components = Components::GetInstance();
     components.SpriteManager->Create(entity, 
         Game::assetManager->GetTexture(textureId.c_str()),     
         SDL_Rect{source.x, source.y, source.w, source.h },
         SDL_Rect{destination.x, destination.y, destination.w, destination.h },
-        static_cast<ezEngine::SpriteComponent::Layer>(layer) 
+        layer
         );
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Update(const Entity entity, const std::string& textureId, ezEngine::Rectangle source,  ezEngine::Rectangle destination, const int layer)
+EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Update(const Entity entity, const std::string& textureId, ezEngine::Rectangle source,  ezEngine::Rectangle destination, ezEngine::SpriteComponent::Layer layer)
 {
     auto& components = Components::GetInstance();
     auto& sprite = components.SpriteManager->GetComponent(entity);
     sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
     sprite->source = SDL_Rect{source.x, source.y, source.w, source.h };
     sprite->destination = SDL_Rect{destination.x, destination.y, destination.w, destination.h };
-    sprite->layer = static_cast<ezEngine::SpriteComponent::Layer>(layer);
+    sprite->layer = layer;
 }
 
 EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateSourceRect(const Entity entity, ezEngine::Rectangle source)
@@ -197,15 +197,40 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
 
 
 
-
-
-EZ_ENGINE_PUBLIC bool ezEngine::UserInputs::MouseClicked()
+EZ_ENGINE_PUBLIC bool ezEngine::Inputs::MouseButtonLeftClick()
 {
-    return Game::GetClick();
+    auto& userInuputs = UserInputs::GetInstance();
+    return userInuputs.mouseButtonLeftClick;
+}
+EZ_ENGINE_PUBLIC bool ezEngine::Inputs::MouseButtonLeftUp()
+{
+    auto& userInuputs = UserInputs::GetInstance();
+    return userInuputs.mouseButtonLeftUp;
+}
+EZ_ENGINE_PUBLIC bool ezEngine::Inputs::MouseButtonLeftDown()
+{
+    auto& userInuputs = UserInputs::GetInstance();
+    return userInuputs.mouseButtonLeftDown;
+}
+EZ_ENGINE_PUBLIC bool ezEngine::Inputs::MouseButtonRightClick()
+{
+    auto& userInuputs = UserInputs::GetInstance();
+    return userInuputs.mouseButtonRightClick;
+}
+EZ_ENGINE_PUBLIC bool ezEngine::Inputs::MouseButtonRightUp()
+{
+    auto& userInuputs = UserInputs::GetInstance();
+    return userInuputs.mouseButtonRightUp;
+}
+EZ_ENGINE_PUBLIC bool ezEngine::Inputs::MouseButtonRightDown()
+{
+    auto& userInuputs = UserInputs::GetInstance();
+    return userInuputs.mouseButtonRightDown;
 }
 
-EZ_ENGINE_PUBLIC ezEngine::Vector2d ezEngine::UserInputs::GetMouseCoordinates()
+EZ_ENGINE_PUBLIC ezEngine::Vector2d ezEngine::Inputs::GetMouseCoordinates()
 {
-    return Vector2d{Game::GetMouseX(), Game::GetMouseY()};
+    auto& userInuputs = UserInputs::GetInstance();
+    return Vector2d{userInuputs.mouseX, userInuputs.mouseY};
 }
 

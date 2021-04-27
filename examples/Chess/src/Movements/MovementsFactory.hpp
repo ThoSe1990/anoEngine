@@ -3,6 +3,8 @@
 
 #include <memory>
 
+
+
 #include "Chess.hpp"
 
 #include "Movements/Movement.hpp"
@@ -12,8 +14,6 @@
 #include "Movements/Rook.hpp"
 #include "Movements/Queen.hpp"
 #include "Movements/King.hpp"
-
-using Entity = unsigned int;
 
 
 class MovementFactory

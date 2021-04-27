@@ -1,5 +1,8 @@
 
 #include <boost/python.hpp>
+
+#include <boost/python/scope.hpp>
+
 #include "ezEngine.hpp"
 
 
@@ -20,7 +23,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("w", &ezEngine::Rectangle::w)
         .add_property("h", &ezEngine::Rectangle::h)
         ;
-
+        
     enum_<ezEngine::SpriteComponent::Layer>("Layer")
         .value("layer_0", ezEngine::SpriteComponent::Layer::layer_0)
         .value("layer_1", ezEngine::SpriteComponent::Layer::layer_1)
@@ -28,7 +31,11 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .value("layer_3", ezEngine::SpriteComponent::Layer::layer_3)
         .value("layer_4", ezEngine::SpriteComponent::Layer::layer_4)
         .value("layer_count", ezEngine::SpriteComponent::Layer::layer_count)
-    ;
+        ;
+    enum_<ezEngine::TransformComponent::ControlType>("ControlType")
+        .value("position", ezEngine::TransformComponent::ControlType::Position)
+        .value("velocity", ezEngine::TransformComponent::ControlType::Velocity)
+        ;
 
     def("Initialize", ezEngine::Initialize);
     def("Initialize_sdl", ezEngine::Initialize_sdl);
@@ -40,11 +47,13 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     def("AddTexture", ezEngine::AddTexture);
     def("CreateEntity", ezEngine::CreateEntity);
+    
 
     def("TransformComponent_Create", ezEngine::TransformComponent::Create);
     def("TransformComponent_Update", ezEngine::TransformComponent::Update);
     def("TransformComponent_SetPosition", ezEngine::TransformComponent::SetPosition);
     def("TransformComponent_Remove", ezEngine::TransformComponent::Remove);
+
 
     def("SpriteComponent_Create", ezEngine::SpriteComponent::Create);
     def("SpriteComponent_Update", ezEngine::SpriteComponent::Update);
@@ -59,7 +68,10 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("ColliderComponent_Deactivate", ezEngine::ColliderComponent::Deactivate);
     def("ColliderComponent_Remove", ezEngine::ColliderComponent::Remove);
 
-    def("UserInputs_MouseClicked", ezEngine::UserInputs::MouseClicked);
-    def("UserInputs_GetMouseCoordinates", ezEngine::UserInputs::GetMouseCoordinates);
-
+    def("Inputs_MouseButtonLeftClick", ezEngine::Inputs::MouseButtonLeftClick);
+    def("Inputs_MouseButtonLeftUp", ezEngine::Inputs::MouseButtonLeftUp);
+    def("Inputs_MouseButtonLeftDown", ezEngine::Inputs::MouseButtonLeftDown);
+    def("Inputs_MouseButtonRightClick", ezEngine::Inputs::MouseButtonRightClick);
+    def("Inputs_MouseButtonRightUp", ezEngine::Inputs::MouseButtonRightUp);
+    def("Inputs_MouseButtonRightDown", ezEngine::Inputs::MouseButtonRightDown);
 }

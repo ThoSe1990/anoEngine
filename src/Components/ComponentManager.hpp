@@ -8,8 +8,7 @@
 
 #include "Systems/System.hpp"
 
-using Entity = unsigned int;
-
+#include "ezEngine.hpp"
 
 template<typename C>
 class ComponentManager
