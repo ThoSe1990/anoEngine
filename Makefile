@@ -1,4 +1,4 @@
-all: ezEngine python_api install chess 
+all: ezEngine python_api chess 
 
 ezEngine:
 	g++ -shared -w -std=c++14 -Wfatal-errors -fvisibility=hidden -fPIC \
