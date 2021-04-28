@@ -26,8 +26,8 @@ public:
             if (components.TransformManager->Has(current->owner))
             {
                 auto transform = components.TransformManager->GetComponent(current->owner);
-                current->destination.x = transform->actPosition.x;
-                current->destination.y = transform->actPosition.y;
+                current->destination.x = transform->position.x;
+                current->destination.y = transform->position.y;
             }
         }       
     }

@@ -55,6 +55,12 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("TransformComponent_Remove", ezEngine::TransformComponent::Remove);
 
 
+    def("PositionComponent_Create", ezEngine::PositionComponent::Create);
+    def("PositionComponent_SetPosition", ezEngine::PositionComponent::SetPosition);
+    def("PositionComponent_SetVelocity", ezEngine::PositionComponent::SetVelocity);
+    def("PositionComponent_Remove", ezEngine::PositionComponent::Remove);
+
+
     def("SpriteComponent_Create", ezEngine::SpriteComponent::Create);
     def("SpriteComponent_Update", ezEngine::SpriteComponent::Update);
     def("SpriteComponent_UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);
@@ -62,11 +68,13 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("SpriteComponent_UpdateTexture", ezEngine::SpriteComponent::UpdateTexture);
     def("SpriteComponent_Remove", ezEngine::SpriteComponent::Remove);
 
+
     def("ColliderComponent_Create", ezEngine::ColliderComponent::Create);
     def("ColliderComponent_Update", ezEngine::ColliderComponent::Update);
     def("ColliderComponent_Activate", ezEngine::ColliderComponent::Activate);
     def("ColliderComponent_Deactivate", ezEngine::ColliderComponent::Deactivate);
     def("ColliderComponent_Remove", ezEngine::ColliderComponent::Remove);
+
 
     def("Inputs_MouseButtonLeftClick", ezEngine::Inputs::MouseButtonLeftClick);
     def("Inputs_MouseButtonLeftUp", ezEngine::Inputs::MouseButtonLeftUp);

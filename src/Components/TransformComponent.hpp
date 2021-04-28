@@ -9,17 +9,13 @@ struct TransformComponent
 {
 
     TransformComponent () {}
-    TransformComponent (Entity Owner, ezEngine::TransformComponent::ControlType controlType, glm::vec2 position, int width, int height, unsigned int movingSpeed, int scale) :
-    owner(Owner), controlType(controlType), setPosition(position), actPosition(position), width(width), height(height), movingSpeed(movingSpeed), scale(scale)
+    TransformComponent (Entity Owner, glm::vec2 position, int width, int height, glm::vec2 velocity, int scale) :
+    owner(Owner), position(position), width(width), height(height), velocity(velocity), scale(scale)
     { }
     Entity owner;
 
-    ezEngine::TransformComponent::ControlType controlType;
-
-    unsigned int movingSpeed;
     glm::vec2 velocity;
-    glm::vec2 setPosition;
-    glm::vec2 actPosition;
+    glm::vec2 position;
 
 
     int width;

@@ -128,15 +128,17 @@ void Chess::loadPieces()
         auto coordinates = Chessboard::GetCoordinatesFromSquare(position);
         auto newEntity = ezEngine::CreateEntity();
         ezEngine::TransformComponent::Create(newEntity, 
-            ezEngine::TransformComponent::ControlType::Position,
             coordinates.x,
             coordinates.y,
             Constants::chesspiece_sidelength,
             Constants::chesspiece_sidelength,
-            Constants::chespieces_velocity,
+            ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
             Constants::scale
         );
-
+        ezEngine::PositionComponent::Create(newEntity,
+            ezEngine::Vector2d{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y)},
+            ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity}
+        );
         ezEngine::SpriteComponent::Create(newEntity,
             asset_id.str(),
             ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
@@ -154,11 +156,10 @@ void Chess::loadPieces()
 
 void Chess::updatePieces()
 {
-
     for (const auto& piece : AllPieces)
     {
         auto position = Chessboard::GetCoordinatesFromSquare(piece->square);
-        ezEngine::TransformComponent::SetPosition(piece->owner, position.x, position.y);
+        ezEngine::PositionComponent::SetPosition(piece->owner, position);
     }     
 }
 

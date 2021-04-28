@@ -22,8 +22,6 @@ steps:
     sudo apt-get install libboost-all-dev
     apt-get install python-dev
     sudo apt install python3.8
-    make
-    make chess
-    make python_api
+    make all
 
   displayName: 'installing libs'

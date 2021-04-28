@@ -1,4 +1,6 @@
-build:
+all: ezEngine python_api install chess 
+
+ezEngine:
 	g++ -shared -w -std=c++14 -Wfatal-errors -fvisibility=hidden -fPIC \
 	./src/*.cpp ./api/ezEngine.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
@@ -75,6 +77,8 @@ install:
 
 clean:
 	rm ./libezEngine.so;
+	rm ./libezEngine.so;
+	rm ./ezPyEngine.so
 	rm ./chessExample;
 
 run_chess:

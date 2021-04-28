@@ -84,27 +84,30 @@ EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, ezEngine::TransformComponent::ControlType controlType, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+
+
+
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale)
 {
     auto& components = Components::GetInstance();
-    components.TransformManager->Create(entity, controlType, glm::vec2(x,y), width, height, movingSpeed,  scale);
+    components.TransformManager->Create(entity, glm::vec2(x,y), width, height, glm::vec2(velocity.x, velocity.y),  scale);
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Update(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale)
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Update(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale)
 {
     auto& components = Components::GetInstance();
     auto transform = components.TransformManager->GetComponent(entity);
-    transform->setPosition = glm::vec2(x,y);
+    transform->position = glm::vec2(x,y);
     transform->width = width;
     transform->height = height;
-    transform->movingSpeed = movingSpeed;
+    transform->velocity = glm::vec2(velocity.x, velocity.y);
     transform->scale = scale;
 }
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::SetPosition(const Entity entity, const int x, const int y)
 {
     auto& components = Components::GetInstance();
     auto& transform = components.TransformManager->GetComponent(entity);
-    transform->setPosition = glm::vec2(x,y);
+    transform->position = glm::vec2(x,y);
 }
 
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
@@ -112,6 +115,44 @@ EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
     auto& components = Components::GetInstance();
     components.TransformManager->Remove(entity);
 }
+
+
+
+
+
+
+
+
+
+
+EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Create(const Entity entity, Vector2d setPosition, Vector2d velocity)
+{
+    auto& components = Components::GetInstance();
+    components.PositionManager->Create(entity, glm::vec2(setPosition.x, setPosition.y), glm::vec2(velocity.x, velocity.y));
+}
+EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::SetPosition(const Entity entity, Vector2d position)
+{
+    auto& components = Components::GetInstance();
+    auto positionComponent = components.PositionManager->GetComponent(entity);
+    positionComponent->setPosition = glm::vec2(position.x, position.y);
+}
+EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::SetVelocity(const Entity entity, Vector2d velocity)
+{
+    auto& components = Components::GetInstance();
+    auto position = components.PositionManager->GetComponent(entity);
+    position->velocity = glm::vec2(velocity.x, velocity.y);
+}
+EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Remove(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    components.PositionManager->Remove(entity);
+}
+
+
+
+
+
+
 
 
 
@@ -165,6 +206,11 @@ EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
 
 
 
+
+
+
+
+
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Create(const Entity entity, const std::string& type, const bool active)
 {
     auto& components = Components::GetInstance();
@@ -194,6 +240,12 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
     auto& components = Components::GetInstance();
     components.CollisionManager->Remove(entity);
 }
+
+
+
+
+
+
 
 
 

@@ -6,10 +6,10 @@
 
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/TransformSystem.hpp"
+#include "Systems/PositionSystem.hpp"
 
 std::shared_ptr<AssetManager> Game::assetManager = std::make_shared<AssetManager>();
 std::shared_ptr<SystemManager> Game::systemManager = std::make_shared<SystemManager>();
-// std::unique_ptr<Game::UserInputs> Game::userInputs = std::make_unique<Game::UserInputs>();
 
 unsigned int System::entitiesCount = 0;
 std::unordered_map<Entity, size_t>  System::componentsPerEntity;
@@ -69,6 +69,7 @@ void Game::Initialize()
 {
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
+    systemManager->AddSystem<PositionSystem>();
 
     isRunning = true;
     return;

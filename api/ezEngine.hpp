@@ -48,13 +48,19 @@ namespace ezEngine
             Position = 0,
             Velocity = 1
         };
-        void Create(const Entity entity, ezEngine::TransformComponent::ControlType controlType, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale);
-        void Update(const Entity entity, const int x, const int y, const int width, const int height, const unsigned int movingSpeed, const int scale);
+        void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale);
+        void Update(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale);
         void SetPosition(const Entity entity, const int x, const int y);
         void Remove(const Entity entity);
-        void test(Rectangle test);
     }
 
+    namespace PositionComponent{
+        void Create(const Entity entity, Vector2d setPosition, Vector2d velocity);
+        void SetPosition(const Entity entity, Vector2d position);
+        void SetVelocity(const Entity entity, Vector2d velocity);
+        void Remove(const Entity entity);
+
+    }
 
     namespace SpriteComponent {
 
