@@ -23,8 +23,7 @@ public:
 
         for (size_t i = 0 ; i<components.UserInputManager->GetCount() ; i++)
         {
-            auto inputComponent = components.UserInputManager->at(i);
-            
+            auto inputComponent = components.UserInputManager->at(i);    
             if (inputComponent->active == false) continue;
 
             auto transform = components.TransformManager->GetComponent(inputComponent->owner);
@@ -33,13 +32,13 @@ public:
             transform->velocity = glm::vec2(0,0);
 
             if (inputs.keyboard_a)
-                transform->velocity.x -= 50;    
+                transform->velocity.x -= 250;    
             if (inputs.keyboard_d)
-                transform->velocity.x += 50;         
+                transform->velocity.x += 250;         
             if (inputs.keyboard_s)
-                transform->velocity.y += 50;
+                transform->velocity.y += 250;
             if (inputs.keyboard_w)
-                transform->velocity.y -= 50;
+                transform->velocity.y -= 250;
 
         }
 

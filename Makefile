@@ -74,6 +74,7 @@ chess_debug:
 install:
 	cp libezEngine.so /usr/lib 
 	cp ezPyEngine.so /usr/lib 
+	cp ezPyEngine.so ./examples/pyBird
 
 clean:
 	rm ./libezEngine.so;

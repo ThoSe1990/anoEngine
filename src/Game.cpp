@@ -110,6 +110,7 @@ void Game::ProcessInput()
 {
     auto& userInputs = UserInputs::GetInstance();
     userInputs.mouseButtonLeftClick = false;
+    userInputs.mouseButtonRightClick = false;
     userInputs.mouseX = static_cast<int>(event.motion.x);
     userInputs.mouseY = static_cast<int>(event.motion.y);
 
@@ -142,11 +143,22 @@ void Game::ProcessInput()
             }
             case SDL_MOUSEBUTTONDOWN:
             {
+                if (event.button.button == SDL_BUTTON_LEFT) userInputs.mouseButtonLeftDown = true;
+                if (event.button.button == SDL_BUTTON_RIGHT) userInputs.mouseButtonRightDown = true;
+                if (event.button.button == SDL_BUTTON_LEFT) userInputs.mouseButtonLeftUp = false;
+                if (event.button.button == SDL_BUTTON_RIGHT) userInputs.mouseButtonRightUp = false;
+                
                 break;
             }
             case SDL_MOUSEBUTTONUP:
             {
-                userInputs.mouseButtonLeftClick = true;
+                if (event.button.button == SDL_BUTTON_LEFT) userInputs.mouseButtonLeftClick = true;
+                if (event.button.button == SDL_BUTTON_RIGHT) userInputs.mouseButtonRightClick = true;
+
+                if (event.button.button == SDL_BUTTON_LEFT) userInputs.mouseButtonLeftUp = true;
+                if (event.button.button == SDL_BUTTON_RIGHT) userInputs.mouseButtonRightUp = true;
+                if (event.button.button == SDL_BUTTON_LEFT) userInputs.mouseButtonLeftDown = false;
+                if (event.button.button == SDL_BUTTON_RIGHT) userInputs.mouseButtonRightDown = false;
                 break;
             }
             case SDL_MOUSEMOTION:

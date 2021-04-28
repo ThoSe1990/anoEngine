@@ -43,4 +43,6 @@ Next Steps:
 
 ## Python API
 
-First implementation for the python API done. Run `make python_api` to create the python module. Either use default library directory or copy the library `ezEngine_python.so` into `./examples/python` and run the script `python3.8 create_window.py`  to create a simple sdl window (current development state).
+First implementation for the python API done. Run `make python_api` (in case of missing permission use `sudo`) to create the python module. Run `make install` to install the python library and run the script `python3.8 ./examples/pyBird/pyBird.py`. This will create a simple sdl window. The rendered bird can moved around by using asdw keys (if you cant access the library use `sudo`). Press escape to exit. Further developement a flappy bird game is here planed. 
+
+![pyBird](./screenshots/bird.PNG)
