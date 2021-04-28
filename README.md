@@ -5,9 +5,10 @@
 Welcome to my 2D Game Engine! This game engine is still under development. The long term goal is to create different games by using different interfaces. Aside there will be an artificial intelligence which learns how to play chess (therefore i started implementing a chess game) against human players or another AI. Before starting with AI this will be a coding playground. first of all this will be a independent 2D game engine with an different interfaces (dll, python, lua) and an implemented chess game.
   
 
+## Build 
+There are different targets in the makefile. If there are permission issues by copying to /usr/lib or loading the shared library run with `sudo`.
 
-## External Libraries
-
+1. Install the external dependencies
 ````
 sudo apt install libsdl2-dev
 sudo apt install libsdl2-image-dev
@@ -19,30 +20,25 @@ apt-get install python-dev
 sudo apt install python3.8
 ````
 
+2. Run `make all` to builds the engine, the python api and the chess example
+3. Run `make install` copy shared library to /usr/lib and ./examples/pyBird
 
-## Build & Run
-There are different targets in the makefile. 
-1. Run `make` to build the engine
-2. Run `make install` (if permission denied, run as sudo) to copy the shared library to /usr/lib
-3. Run `make chess` to build the chess example
-4. Run `make run_chess` or `./chessExample` (if permission denied, run as sudo) to run the example
 
-By running the game the first setup with chess figures will look like: 
+## Examples
+
+On the current state of this project there are two examples.
+
+### Chess Example
+
+By running `make run_chess` the Chessgame starts. It's a C++ implementation which uses the ezEngine. All game rules aren' implemented. A running game looks like:
 
 ![first setup](./screenshots/default_setup.PNG)
 ![game running](./screenshots/chessgame.PNG)
   
+### pyBird
 
-Next Steps:
-- finishing chess implementation 
-- refactoring implementation
-- adding further basic engine components/systems (fonts, drawing, collision, game control, hud, etc.)
-- expand current api
-- creating api's
-- starting AI
-
-## Python API
-
-First implementation for the python API done. Run `make python_api` (in case of missing permission use `sudo`) to create the python module. Run `make install` to install the python library and run the script `python3.8 ./examples/pyBird/pyBird.py`. This will create a simple sdl window. The rendered bird can moved around by using asdw keys (if you cant access the library use `sudo`). Press escape to exit. Further developement a flappy bird game is here planed. 
+Long time goal is to create a flappy bird game with python. Currently, first implementation for the python API done. Run the script python3.8 ./examples/pyBird/pyBird.py. This will create a simple sdl window. The rendered bird can moved around by using asdw keys (if you cant access the library use sudo). Press escape to exit. Further developement a flappy bird game is here planed.
 
 ![pyBird](./screenshots/bird.PNG)
+
+

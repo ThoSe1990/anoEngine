@@ -5,7 +5,6 @@
 
 trigger:
 - master
-- python
 
 pool:
   vmImage: ubuntu-latest
@@ -24,4 +23,4 @@ steps:
     sudo apt install python3.8
     make all
 
-  displayName: 'installing libs'
+  displayName: 'installing libs and build'
