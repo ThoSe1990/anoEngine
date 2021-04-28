@@ -28,6 +28,7 @@
 
 
 #include "ezEngine.hpp"    
+#include "UserInputs.hpp"
 #include "Components/Components.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"
@@ -146,6 +147,37 @@ EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.PositionManager->Remove(entity);
+}
+
+
+
+
+
+
+
+
+
+EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Create(const Entity entity, bool active)
+{
+    auto& components = Components::GetInstance();
+    components.UserInputManager->Create(entity, active);
+}
+EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Activate(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto userInput = components.UserInputManager->GetComponent(entity);
+    userInput->active = true;
+}
+EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Deactivate(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto userInput = components.UserInputManager->GetComponent(entity);
+    userInput->active = false;
+}
+EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Remove(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    components.UserInputManager->Remove(entity);
 }
 
 

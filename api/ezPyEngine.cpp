@@ -61,6 +61,12 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("PositionComponent_Remove", ezEngine::PositionComponent::Remove);
 
 
+    def("UserInputComponent_Create", ezEngine::UserInputComponent::Create);
+    def("UserInputComponent_Activate", ezEngine::UserInputComponent::Activate);
+    def("UserInputComponent_Deactivate", ezEngine::UserInputComponent::Deactivate);
+    def("UserInputComponent_Remove", ezEngine::UserInputComponent::Remove);
+
+
     def("SpriteComponent_Create", ezEngine::SpriteComponent::Create);
     def("SpriteComponent_Update", ezEngine::SpriteComponent::Update);
     def("SpriteComponent_UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);

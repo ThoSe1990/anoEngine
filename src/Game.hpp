@@ -14,32 +14,6 @@
 #include "Systems/SystemsManager.hpp"
 
 
-class UserInputs
-{
-private:
-    UserInputs () {}
-public:
-
-    UserInputs(UserInputs const&) = delete;
-    void operator=(UserInputs const&) = delete;
-
-    static UserInputs& GetInstance() noexcept
-    {
-        static UserInputs instance;
-        return instance;
-    }
-    int mouseX;
-    int mouseY;
-    
-    bool mouseButtonLeftUp;
-    bool mouseButtonLeftDown;
-    bool mouseButtonLeftClick;
-
-    bool mouseButtonRightUp;
-    bool mouseButtonRightDown;
-    bool mouseButtonRightClick;
-};
-
 class Game
 {
 private:
@@ -56,7 +30,7 @@ public:
     static std::shared_ptr<AssetManager> assetManager;
     static std::shared_ptr<SystemManager> systemManager;
     static SDL_Event event;
-    static std::unique_ptr<UserInputs> userInputs;
+    // static std::unique_ptr<UserInputs> userInputs;
 
     sol::state lua;
 

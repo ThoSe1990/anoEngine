@@ -3,12 +3,7 @@ import ezPyEngine
 
 def update(entity):
     if ezPyEngine.Inputs_MouseButtonLeftClick():
-        source = ezPyEngine.Rectangle(320,240,320,240)
-        ezPyEngine.SpriteComponent_UpdateSourceRect(entity,source)
-        print("clicked")
-    else :
-        source = ezPyEngine.Rectangle(0,0,320,240)
-        ezPyEngine.SpriteComponent_UpdateSourceRect(entity,source)        
+        print("clicked")  
     ezPyEngine.Update()
 
 
@@ -16,12 +11,16 @@ def update(entity):
 ezPyEngine.Initialize()
 ezPyEngine.Initialize_sdl()
 
-ezPyEngine.AddTexture("bird", "./examples/python/assets/images/bird_up.png")
+ezPyEngine.AddTexture("bird", "./examples/pyBird/assets/images/bird_up.png")
 entity = ezPyEngine.CreateEntity()
 
-source = ezPyEngine.Rectangle(0,0,320,240)
-destination = ezPyEngine.Rectangle(100,100,160,120)
-ezPyEngine.SpriteComponent_Create(entity, "bird", source, destination, ezPyEngine.Layer.layer_0)
+source = ezPyEngine.Rectangle(0,0,300,230)
+destination = ezPyEngine.Rectangle(0,0,300,230)
+ezPyEngine.SpriteComponent_Create(entity, "bird", source, destination, ezPyEngine.Layer.layer_1)
+
+velocity = ezPyEngine.Vector2d(0,0)
+ezPyEngine.TransformComponent_Create(entity, 0,0,300,230, velocity, 1)
+ezPyEngine.UserInputComponent_Create(entity, 1)
 
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()

@@ -4,9 +4,12 @@
 #include "Constants.hpp"
 #include "Log.hpp"
 
+#include "Systems/UserControlSystem.hpp"
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/TransformSystem.hpp"
 #include "Systems/PositionSystem.hpp"
+
+#include "UserInputs.hpp"
 
 std::shared_ptr<AssetManager> Game::assetManager = std::make_shared<AssetManager>();
 std::shared_ptr<SystemManager> Game::systemManager = std::make_shared<SystemManager>();
@@ -67,6 +70,7 @@ void Game::Initialize_sdl()
 }
 void Game::Initialize()
 {
+    systemManager->AddSystem<UserControlSystem>();
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<PositionSystem>();
@@ -108,6 +112,7 @@ void Game::ProcessInput()
     userInputs.mouseButtonLeftClick = false;
     userInputs.mouseX = static_cast<int>(event.motion.x);
     userInputs.mouseY = static_cast<int>(event.motion.y);
+
     while (SDL_PollEvent(&event))
     {
         switch (event.type) 
@@ -119,11 +124,20 @@ void Game::ProcessInput()
             }
             case SDL_KEYDOWN:
             {
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    this->isRunning = false;
-                }
-                if (event.key.keysym.sym == SDLK_w) 
-                    std::cout << "w pressed" << std::endl;
+                if (event.key.keysym.sym == SDLK_ESCAPE) this->isRunning = false;
+
+                if (event.key.keysym.sym == SDLK_a) userInputs.keyboard_a = true;
+                if (event.key.keysym.sym == SDLK_s) userInputs.keyboard_s = true;
+                if (event.key.keysym.sym == SDLK_d) userInputs.keyboard_d = true;
+                if (event.key.keysym.sym == SDLK_w) userInputs.keyboard_w = true;
+                break;
+            }
+            case SDL_KEYUP:
+            {
+                if (event.key.keysym.sym == SDLK_a) userInputs.keyboard_a = false;
+                if (event.key.keysym.sym == SDLK_s) userInputs.keyboard_s = false;
+                if (event.key.keysym.sym == SDLK_d) userInputs.keyboard_d = false;
+                if (event.key.keysym.sym == SDLK_w) userInputs.keyboard_w = false;
                 break;
             }
             case SDL_MOUSEBUTTONDOWN:

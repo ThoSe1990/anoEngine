@@ -6,18 +6,11 @@
 
 struct UserInputComponent {
 
-    Entity Owner;
+    UserInputComponent(Entity owner, bool active) : owner(owner) , active(active) {}
 
-    bool mouseButtonLeftUp;
-    bool mouseButtonLeftDown;
-    bool mouseButtonLeftClick;
+    Entity owner;
 
-    bool mouseButtonRightUp;
-    bool mouseButtonRightDown;
-    bool mouseButtonRightClick;
-
-
-    
+    bool active;
 
 };
 

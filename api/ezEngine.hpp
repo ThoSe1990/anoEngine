@@ -62,6 +62,13 @@ namespace ezEngine
 
     }
 
+    namespace UserInputComponent {
+        void Create(const Entity entity, bool active);
+        void Activate(const Entity entity);
+        void Deactivate(const Entity entity);
+        void Remove(const Entity entity);
+    }
+
     namespace SpriteComponent {
 
         enum class Layer {
@@ -90,7 +97,7 @@ namespace ezEngine
         void Remove(const Entity entity);
     }
 
-
+    
     namespace Inputs {
         bool MouseButtonLeftClick();
         bool MouseButtonLeftUp();
