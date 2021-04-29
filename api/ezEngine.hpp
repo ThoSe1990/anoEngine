@@ -62,9 +62,7 @@ namespace ezEngine
     }
 
     namespace UserInputComponent {
-        void Create(const Entity entity, bool active);
-        void Activate(const Entity entity);
-        void Deactivate(const Entity entity);
+        void Create(const Entity entity, const std::string& inputScript);
         void Remove(const Entity entity);
     }
 

@@ -80,8 +80,6 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     {
         scope s = class_<dummyUserInput>("UserInputComponent");
         def("Create", ezEngine::UserInputComponent::Create);
-        def("Activate", ezEngine::UserInputComponent::Activate);
-        def("Deactivate", ezEngine::UserInputComponent::Deactivate);
         def("Remove", ezEngine::UserInputComponent::Remove);
     }
 

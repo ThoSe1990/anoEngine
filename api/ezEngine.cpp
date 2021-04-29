@@ -148,22 +148,10 @@ EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Remove(const Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Create(const Entity entity, bool active)
+EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Create(const Entity entity, const std::string& inputScript)
 {
     auto& components = Components::GetInstance();
-    components.UserInputManager->Create(entity, active);
-}
-EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Activate(const Entity entity)
-{
-    auto& components = Components::GetInstance();
-    auto userInput = components.UserInputManager->GetComponent(entity);
-    userInput->active = true;
-}
-EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Deactivate(const Entity entity)
-{
-    auto& components = Components::GetInstance();
-    auto userInput = components.UserInputManager->GetComponent(entity);
-    userInput->active = false;
+    components.UserInputManager->Create(entity, inputScript);
 }
 EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Remove(const Entity entity)
 {

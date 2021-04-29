@@ -4,14 +4,13 @@
 
 #include "ezEngine.hpp"
 
-struct UserInputComponent {
+struct UserInputComponent 
+{
 
-    UserInputComponent(Entity owner, bool active) : owner(owner) , active(active) {}
+    UserInputComponent(Entity owner, const std::string& inputScript) : owner(owner) , inputScript(inputScript) {}
 
     Entity owner;
-
-    bool active;
-
+    std::string inputScript;
 };
 
 

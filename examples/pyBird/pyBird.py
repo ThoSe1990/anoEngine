@@ -22,7 +22,7 @@ ezPyEngine.SpriteComponent.Create(background, "background", ezPyEngine.Rectangle
 player = ezPyEngine.CreateEntity()
 ezPyEngine.SpriteComponent.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Layer.layer_1)
 ezPyEngine.TransformComponent.Create(player, 0,0,150,115, ezPyEngine.Vector2d(0,0), 1)
-ezPyEngine.UserInputComponent.Create(player, 1)
+ezPyEngine.UserInputComponent.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
 ezPyEngine.ColliderComponent.Create(player, "player", 1)
 
 
