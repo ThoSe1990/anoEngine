@@ -8,6 +8,7 @@
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/TransformSystem.hpp"
 #include "Systems/PositionSystem.hpp"
+#include "Systems/CollisionSystem.hpp"
 
 #include "UserInputs.hpp"
 
@@ -74,6 +75,7 @@ void Game::Initialize()
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<PositionSystem>();
+    systemManager->AddSystem<CollisionSystem>();
 
     isRunning = true;
     return;

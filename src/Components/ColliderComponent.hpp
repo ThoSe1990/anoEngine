@@ -12,6 +12,8 @@ struct ColliderComponent
     
     std::string type;
     bool active;
+    bool collision;
+    std::string collisionWithType;
 
 };
 

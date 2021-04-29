@@ -30,7 +30,6 @@ public:
     static std::shared_ptr<AssetManager> assetManager;
     static std::shared_ptr<SystemManager> systemManager;
     static SDL_Event event;
-    // static std::unique_ptr<UserInputs> userInputs;
 
     sol::state lua;
 

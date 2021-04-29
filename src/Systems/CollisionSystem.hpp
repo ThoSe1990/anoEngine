@@ -20,15 +20,27 @@ public:
 
         for (size_t i = 0 ; i < components.CollisionManager->GetCount() ; i++ )
         {
-            auto& current = components.CollisionManager->at(i);
+            auto current = components.CollisionManager->at(i);
+            auto currentSprite = components.SpriteManager->GetComponent(current->owner);
+            if (!currentSprite) continue;
 
             for (size_t j = i+1 ; i < components.CollisionManager->GetCount() ; i++ )
             {
-                auto& other = components.CollisionManager->at(j)    
-                if (!other) return;
+                auto other = components.CollisionManager->at(j);
+                auto otherSprite = components.SpriteManager->GetComponent(other->owner);
+                if (!otherSprite) continue;
 
-                // get rectangles and call check collisions.. 
-
+                if (checkCollision(currentSprite->destination, otherSprite->destination))
+                {
+                    current->collision = true;
+                    current->collisionWithType = other->type;
+                    std::cout << "detected collision entities " << current->owner << " " << other->owner << std::endl;
+                } 
+                else
+                {
+                    current->collision = false;
+                    current->collisionWithType = std::string("");
+                }
             } 
         }       
     }

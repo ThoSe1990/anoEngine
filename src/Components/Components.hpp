@@ -30,6 +30,7 @@ public:
     std::shared_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_shared<ComponentManager<PositionComponent>>();
     std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
 
+
 private:
     Components() {}
 };
