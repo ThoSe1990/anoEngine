@@ -39,6 +39,6 @@ By running `make run_chess` the Chessgame starts. It's a C++ implementation whic
 
 Long time goal is to create a flappy bird game with python. Currently, first implementation for the python API done. Run the script python3.8 ./examples/pyBird/pyBird.py. This will create a simple sdl window. The rendered bird can moved around by using asdw keys (if you cant access the library use sudo). Press escape to exit. Further developement a flappy bird game is here planed.
 
-![pybird_example](./screenshots/bird.PNG)
+![pybird example](./screenshots/pybird_example.PNG)
 
 
