@@ -13,11 +13,16 @@ class AssetManager
 {
 private:
     std::map<std::string, SDL_Texture*> textures;
-    
+    std::map<std::string, std::string> tilemaps;
 public:
     void ClearData();
+
     void AddTexture(const std::string& textureId, const char* filePath);
     SDL_Texture* GetTexture(const std::string& textureId);
+
+    void AddMap(const std::string& mapId, const std::string& filePath);
+    std::string GetMap(const std::string& mapId);
+
 };
 
 

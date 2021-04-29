@@ -15,3 +15,14 @@ SDL_Texture* AssetManager::GetTexture(const std::string& textureId)
 {
     return textures[textureId];
 }
+
+
+
+void AssetManager::AddMap(const std::string& mapId, const std::string& filePath)
+{
+    tilemaps.emplace(mapId, filePath);
+}
+std::string AssetManager::GetMap(const std::string& mapId)
+{
+    return tilemaps[mapId];
+}
