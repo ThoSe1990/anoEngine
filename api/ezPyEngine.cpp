@@ -1,9 +1,16 @@
 
 #include <boost/python.hpp>
-
 #include <boost/python/scope.hpp>
 
 #include "ezEngine.hpp"
+
+
+class dummyTransform{};
+class dummyPosition{};
+class dummyUserInput{};
+class dummySprite{};
+class dummyCollider{};
+class dummyInputs{};
 
 
 
@@ -49,43 +56,66 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("CreateEntity", ezEngine::CreateEntity);
     
 
-    def("TransformComponent_Create", ezEngine::TransformComponent::Create);
-    def("TransformComponent_Update", ezEngine::TransformComponent::Update);
-    def("TransformComponent_SetPosition", ezEngine::TransformComponent::SetPosition);
-    def("TransformComponent_Remove", ezEngine::TransformComponent::Remove);
+
+    // scope ezPyEngine.TransformComponent
+    {
+        scope s = class_<dummyTransform>("TransformComponent");
+        def("Create", ezEngine::TransformComponent::Create);
+        def("SetPosition", ezEngine::TransformComponent::SetPosition);
+        def("Remove", ezEngine::TransformComponent::Remove);
+    }
 
 
-    def("PositionComponent_Create", ezEngine::PositionComponent::Create);
-    def("PositionComponent_SetPosition", ezEngine::PositionComponent::SetPosition);
-    def("PositionComponent_SetVelocity", ezEngine::PositionComponent::SetVelocity);
-    def("PositionComponent_Remove", ezEngine::PositionComponent::Remove);
+    // scope ezPyEngine.PositionComponent
+    {
+        scope s = class_<dummyPosition>("PositionComponent");
+        def("Create", ezEngine::PositionComponent::Create);
+        def("SetPosition", ezEngine::PositionComponent::SetPosition);
+        def("SetVelocity", ezEngine::PositionComponent::SetVelocity);
+        def("Remove", ezEngine::PositionComponent::Remove);
+    }
 
 
-    def("UserInputComponent_Create", ezEngine::UserInputComponent::Create);
-    def("UserInputComponent_Activate", ezEngine::UserInputComponent::Activate);
-    def("UserInputComponent_Deactivate", ezEngine::UserInputComponent::Deactivate);
-    def("UserInputComponent_Remove", ezEngine::UserInputComponent::Remove);
+    // scope ezPyEngine.UserInputComponent
+    {
+        scope s = class_<dummyUserInput>("UserInputComponent");
+        def("Create", ezEngine::UserInputComponent::Create);
+        def("Activate", ezEngine::UserInputComponent::Activate);
+        def("Deactivate", ezEngine::UserInputComponent::Deactivate);
+        def("Remove", ezEngine::UserInputComponent::Remove);
+    }
 
 
-    def("SpriteComponent_Create", ezEngine::SpriteComponent::Create);
-    def("SpriteComponent_Update", ezEngine::SpriteComponent::Update);
-    def("SpriteComponent_UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);
-    def("SpriteComponent_UpdateDestinationRect", ezEngine::SpriteComponent::UpdateDestinationRect);
-    def("SpriteComponent_UpdateTexture", ezEngine::SpriteComponent::UpdateTexture);
-    def("SpriteComponent_Remove", ezEngine::SpriteComponent::Remove);
+    // scope ezPyEngine.SpriteComponent
+    {
+        scope s = class_<dummySprite>("SpriteComponent");
+        def("Create", ezEngine::SpriteComponent::Create);
+        def("UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);
+        def("UpdateDestinationRect", ezEngine::SpriteComponent::UpdateDestinationRect);
+        def("UpdateTexture", ezEngine::SpriteComponent::UpdateTexture);
+        def("Remove", ezEngine::SpriteComponent::Remove);
+    }
 
+    // scope ezPyEngine.ColliderComponent
+    {
+        scope s = class_<dummyCollider>("ColliderComponent");
+        def("Create", ezEngine::ColliderComponent::Create);
+        def("Activate", ezEngine::ColliderComponent::Activate);
+        def("Deactivate", ezEngine::ColliderComponent::Deactivate);
+        def("Remove", ezEngine::ColliderComponent::Remove);
+    }
 
-    def("ColliderComponent_Create", ezEngine::ColliderComponent::Create);
-    def("ColliderComponent_Update", ezEngine::ColliderComponent::Update);
-    def("ColliderComponent_Activate", ezEngine::ColliderComponent::Activate);
-    def("ColliderComponent_Deactivate", ezEngine::ColliderComponent::Deactivate);
-    def("ColliderComponent_Remove", ezEngine::ColliderComponent::Remove);
+    // scope ezPyEngine.Inputs
+    {
+        scope s = class_<dummyInputs>("Inputs");
+        def("MouseButtonLeftClick", ezEngine::Inputs::MouseButtonLeftClick);
+        def("MouseButtonLeftUp", ezEngine::Inputs::MouseButtonLeftUp);
+        def("MouseButtonLeftDown", ezEngine::Inputs::MouseButtonLeftDown);
+        def("MouseButtonRightClick", ezEngine::Inputs::MouseButtonRightClick);
+        def("MouseButtonRightUp", ezEngine::Inputs::MouseButtonRightUp);
+        def("MouseButtonRightDown", ezEngine::Inputs::MouseButtonRightDown);
+    }
 
-
-    def("Inputs_MouseButtonLeftClick", ezEngine::Inputs::MouseButtonLeftClick);
-    def("Inputs_MouseButtonLeftUp", ezEngine::Inputs::MouseButtonLeftUp);
-    def("Inputs_MouseButtonLeftDown", ezEngine::Inputs::MouseButtonLeftDown);
-    def("Inputs_MouseButtonRightClick", ezEngine::Inputs::MouseButtonRightClick);
-    def("Inputs_MouseButtonRightUp", ezEngine::Inputs::MouseButtonRightUp);
-    def("Inputs_MouseButtonRightDown", ezEngine::Inputs::MouseButtonRightDown);
 }
+
+

@@ -17,7 +17,6 @@ struct TransformComponent
     glm::vec2 velocity;
     glm::vec2 position;
 
-
     int width;
     int height;
     int scale;  

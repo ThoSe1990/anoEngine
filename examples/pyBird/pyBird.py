@@ -2,7 +2,7 @@ import ezPyEngine
 
 
 def update(entity):
-    if ezPyEngine.Inputs_MouseButtonLeftClick():
+    if ezPyEngine.Inputs.MouseButtonLeftClick():
         print("clicked")  
     ezPyEngine.Update()
 
@@ -16,11 +16,11 @@ entity = ezPyEngine.CreateEntity()
 
 source = ezPyEngine.Rectangle(0,0,300,230)
 destination = ezPyEngine.Rectangle(0,0,300,230)
-ezPyEngine.SpriteComponent_Create(entity, "bird", source, destination, ezPyEngine.Layer.layer_1)
+ezPyEngine.SpriteComponent.Create(entity, "bird", source, destination, ezPyEngine.Layer.layer_1)
 
 velocity = ezPyEngine.Vector2d(0,0)
-ezPyEngine.TransformComponent_Create(entity, 0,0,300,230, velocity, 1)
-ezPyEngine.UserInputComponent_Create(entity, 1)
+ezPyEngine.TransformComponent.Create(entity, 0,0,300,230, velocity, 1)
+ezPyEngine.UserInputComponent.Create(entity, 1)
 
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()

@@ -94,16 +94,7 @@ EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, 
     components.TransformManager->Create(entity, glm::vec2(x,y), width, height, glm::vec2(velocity.x, velocity.y),  scale);
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Update(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale)
-{
-    auto& components = Components::GetInstance();
-    auto transform = components.TransformManager->GetComponent(entity);
-    transform->position = glm::vec2(x,y);
-    transform->width = width;
-    transform->height = height;
-    transform->velocity = glm::vec2(velocity.x, velocity.y);
-    transform->scale = scale;
-}
+
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::SetPosition(const Entity entity, const int x, const int y)
 {
     auto& components = Components::GetInstance();
@@ -199,16 +190,6 @@ EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, con
         );
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Update(const Entity entity, const std::string& textureId, ezEngine::Rectangle source,  ezEngine::Rectangle destination, ezEngine::SpriteComponent::Layer layer)
-{
-    auto& components = Components::GetInstance();
-    auto& sprite = components.SpriteManager->GetComponent(entity);
-    sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
-    sprite->source = SDL_Rect{source.x, source.y, source.w, source.h };
-    sprite->destination = SDL_Rect{destination.x, destination.y, destination.w, destination.h };
-    sprite->layer = layer;
-}
-
 EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateSourceRect(const Entity entity, ezEngine::Rectangle source)
 {
     auto& components = Components::GetInstance();
@@ -228,7 +209,6 @@ EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateTexture(const Entity enti
     auto& sprite = components.SpriteManager->GetComponent(entity);
     sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
 }
-
 EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
@@ -248,13 +228,7 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Create(const Entity entity, c
     auto& components = Components::GetInstance();
     components.CollisionManager->Create(entity, type, active);
 }
-EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Update(const Entity entity, const std::string& type, const bool active)
-{
-    auto& components = Components::GetInstance();
-    auto& collider = components.CollisionManager->GetComponent(entity);
-    collider->type = type;
-    collider->active = active;
-}
+
 EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Activate(const Entity entity)
 {
     auto& components = Components::GetInstance();
@@ -317,4 +291,5 @@ EZ_ENGINE_PUBLIC ezEngine::Vector2d ezEngine::Inputs::GetMouseCoordinates()
     auto& userInuputs = UserInputs::GetInstance();
     return Vector2d{userInuputs.mouseX, userInuputs.mouseY};
 }
+
 
