@@ -37,8 +37,14 @@ By running `make run_chess` the Chessgame starts. It's a C++ implementation whic
   
 ### pyBird
 
-Long time goal is to create a flappy bird game with python. Currently, first implementation for the python API done. Run the script python3.8 ./examples/pyBird/pyBird.py. This will create a simple sdl window. The rendered bird can moved around by using asdw keys (if you cant access the library use sudo). Press escape to exit. Further developement a flappy bird game is here planed.
+Long time goal is to create a flappy bird game with python. Currently, first implementation for the python API done. Run the script `python3.8 ./examples/pyBird/pyBird.py`. This will create a flappy bird game. The bird controls are implemented in `./assets/scirpts/playerMovement.lua` and can easily changed since this script will be executed during runtime.
+  
+Note: this is a first naive approach of the game with keyboard keys a and d for moving left right and clicking for upwards movement
 
-![pybird example](./screenshots/pybird_example.PNG)
+
+
+![pybird example 1](./screenshots/pybird.gif)
+![pybird example 1](./screenshots/pybird_1.PNG)
+![pybird example 2](./screenshots/pybird_2.PNG)
 
 

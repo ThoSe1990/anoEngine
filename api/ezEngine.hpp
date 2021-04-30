@@ -39,7 +39,6 @@ namespace ezEngine
     void Destroy();
     
     void AddTexture(const std::string& textureId, const char* filePath);
-
     const Entity CreateEntity();
 
     namespace TransformComponent {
@@ -48,7 +47,8 @@ namespace ezEngine
             Position = 0,
             Velocity = 1
         };
-        void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale);
+        void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale);
+        void Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale);
         void SetPosition(const Entity entity, const int x, const int y);
         void Remove(const Entity entity);
     }
@@ -90,6 +90,8 @@ namespace ezEngine
         void Activate(const Entity entity);
         void Deactivate(const Entity entity);
         void Remove(const Entity entity);
+        bool CollisionDetected(const Entity entity);
+        std::string CollidesWithType(const Entity entity);
     }
 
     

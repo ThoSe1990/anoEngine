@@ -46,6 +46,7 @@ public:
                 if (layer == static_cast<size_t>(current->layer))
                     TextureManager::Draw(current->texture, current->source, current->destination, SDL_FLIP_NONE);
             }
+            
         }
 
     }

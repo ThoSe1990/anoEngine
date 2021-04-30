@@ -88,13 +88,16 @@ EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d velocity, const int scale)
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale)
 {
     auto& components = Components::GetInstance();
     components.TransformManager->Create(entity, glm::vec2(x,y), width, height, glm::vec2(velocity.x, velocity.y),  scale);
 }
-
-
+EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale)
+{
+    auto& components = Components::GetInstance();
+    components.TransformManager->Create(entity, glm::vec2(size.x,size.y), size.w, size.h, glm::vec2(velocity.x, velocity.y),  scale);
+}
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::SetPosition(const Entity entity, const int x, const int y)
 {
     auto& components = Components::GetInstance();
@@ -233,6 +236,19 @@ EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.CollisionManager->Remove(entity);
+}
+
+EZ_ENGINE_PUBLIC bool ezEngine::ColliderComponent::CollisionDetected(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& collider = components.CollisionManager->GetComponent(entity);
+    return collider->collision;
+}
+EZ_ENGINE_PUBLIC std::string ezEngine::ColliderComponent::CollidesWithType(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& collider = components.CollisionManager->GetComponent(entity);
+    return collider->collisionWithType;
 }
 
 

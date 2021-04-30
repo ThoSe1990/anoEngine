@@ -59,8 +59,12 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     // scope ezPyEngine.TransformComponent
     {
+        void (*Create_1)(const Entity entity, const int x, const int y, const int width, const int height, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::TransformComponent::Create;
+        void (*Create_2)(const Entity entity, const ezEngine::Rectangle& size, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::TransformComponent::Create;
+
         scope s = class_<dummyTransform>("TransformComponent");
-        def("Create", ezEngine::TransformComponent::Create);
+        def("Create", Create_1);
+        def("Create", Create_2);
         def("SetPosition", ezEngine::TransformComponent::SetPosition);
         def("Remove", ezEngine::TransformComponent::Remove);
     }
@@ -101,6 +105,8 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         def("Activate", ezEngine::ColliderComponent::Activate);
         def("Deactivate", ezEngine::ColliderComponent::Deactivate);
         def("Remove", ezEngine::ColliderComponent::Remove);
+        def("CollisionDetected", ezEngine::ColliderComponent::CollisionDetected);
+        def("CollidesWithType", ezEngine::ColliderComponent::CollidesWithType);
     }
 
     // scope ezPyEngine.Inputs

@@ -24,7 +24,7 @@ public:
             auto currentSprite = components.SpriteManager->GetComponent(current->owner);
             if (!currentSprite) continue;
 
-            for (size_t j = i+1 ; i < components.CollisionManager->GetCount() ; i++ )
+            for (size_t j = i+1 ; j < components.CollisionManager->GetCount() ; j++ )
             {
                 auto other = components.CollisionManager->at(j);
                 auto otherSprite = components.SpriteManager->GetComponent(other->owner);
@@ -34,7 +34,7 @@ public:
                 {
                     current->collision = true;
                     current->collisionWithType = other->type;
-                    std::cout << "detected collision entities " << current->owner << " " << other->owner << std::endl;
+                    return;
                 } 
                 else
                 {

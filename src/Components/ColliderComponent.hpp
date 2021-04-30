@@ -6,7 +6,7 @@
 
 struct ColliderComponent
 {
-    ColliderComponent(Entity Owner, const std::string& Type, bool Active) : owner(Owner), type(Type), active(Active) {}
+    ColliderComponent(Entity Owner, const std::string& Type, bool Active) : owner(Owner), type(Type), active(Active), collision(false), collisionWithType(std::string{""}) {}
 
     Entity owner;
     
