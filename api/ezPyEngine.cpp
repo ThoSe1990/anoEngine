@@ -54,7 +54,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     def("AddTexture", ezEngine::AddTexture);
     def("CreateEntity", ezEngine::CreateEntity);
-    
+    def("RemoveAllComponents", ezEngine::RemoveAllComponents);
 
 
     // scope ezPyEngine.TransformComponent

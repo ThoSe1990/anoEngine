@@ -24,10 +24,20 @@ public:
         return instance;
     }
 
+    void RemoveAllComponents(Entity entity)
+    {
+        UserInputManager->Remove(entity);
+        TransformManager->Remove(entity);
+        SpriteManager->Remove(entity);
+        PositionManager->Remove(entity);
+        CollisionManager->Remove(entity);
+    }
+
+
     std::shared_ptr<ComponentManager<UserInputComponent>> UserInputManager = std::make_shared<ComponentManager<UserInputComponent>>();
+    std::shared_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_shared<ComponentManager<PositionComponent>>();
     std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
     std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
-    std::shared_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_shared<ComponentManager<PositionComponent>>();
     std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
 
 

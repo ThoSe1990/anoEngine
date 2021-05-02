@@ -75,13 +75,16 @@ EZ_ENGINE_PUBLIC void ezEngine::AddTexture(const std::string& textureId, const c
 }
 
 
-
-
 EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
 {
     return System::AddEntity(); 
 }
 
+EZ_ENGINE_PUBLIC void ezEngine::RemoveAllComponents(Entity entity)
+{
+    auto& components = Components::GetInstance();
+    components.RemoveAllComponents(entity);
+}
 
 
 
@@ -91,18 +94,18 @@ EZ_ENGINE_PUBLIC const Entity ezEngine::CreateEntity()
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale)
 {
     auto& components = Components::GetInstance();
-    components.TransformManager->Create(entity, glm::vec2(x,y), width, height, glm::vec2(velocity.x, velocity.y),  scale);
+    components.TransformManager->Create(entity, ezEngine::Vector2d{x,y}, width, height, velocity,  scale);
 }
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale)
 {
     auto& components = Components::GetInstance();
-    components.TransformManager->Create(entity, glm::vec2(size.x,size.y), size.w, size.h, glm::vec2(velocity.x, velocity.y),  scale);
+    components.TransformManager->Create(entity, ezEngine::Vector2d{size.x,size.y}, size.w, size.h, velocity, scale);
 }
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::SetPosition(const Entity entity, const int x, const int y)
 {
     auto& components = Components::GetInstance();
     auto& transform = components.TransformManager->GetComponent(entity);
-    transform->position = glm::vec2(x,y);
+    transform->position = ezEngine::Vector2d{x,y};
 }
 
 EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
@@ -110,8 +113,6 @@ EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
     auto& components = Components::GetInstance();
     components.TransformManager->Remove(entity);
 }
-
-
 
 
 

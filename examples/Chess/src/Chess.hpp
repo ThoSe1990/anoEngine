@@ -23,7 +23,6 @@ class Chess
     void createValidation();
     void updatePieces();
     void updateValidation();
-    void doCastle();
     static bool isValidMove(const std::string& toSquare);
     static void captureOpponent(const std::string& square);
 public:

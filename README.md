@@ -48,3 +48,7 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 ![pybird example 2](./screenshots/pybird_2.PNG)
 
 
+## Known Issues
+
+- proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
+- layer rendering of spritesystem

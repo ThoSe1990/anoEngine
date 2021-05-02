@@ -5,6 +5,7 @@
 
 using Entity = unsigned int;
 
+
 namespace ezEngine
 {
     struct Vector2d {
@@ -37,6 +38,8 @@ namespace ezEngine
     void Update();
     void Render();
     void Destroy();
+
+    void RemoveAllComponents(Entity entity);
     
     void AddTexture(const std::string& textureId, const char* filePath);
     const Entity CreateEntity();

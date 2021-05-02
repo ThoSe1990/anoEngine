@@ -33,18 +33,13 @@ def createPipe(now , futur):
 
         if (len(pipes) > 8) :
             popped = pipes.pop(0)
-            deletePipe(popped)
+            ezPyEngine.RemoveAllComponents(popped)
             popped = pipes.pop(0)
-            deletePipe(popped)
+            ezPyEngine.RemoveAllComponents(popped)
         return 1
     else :
         return 0
 
-
-def deletePipe(entity) :
-    ezPyEngine.SpriteComponent.Remove(entity)
-    ezPyEngine.TransformComponent.Remove(entity)
-    ezPyEngine.ColliderComponent.Remove(entity)
 
 def update():
     if ezPyEngine.Inputs.MouseButtonLeftDown():

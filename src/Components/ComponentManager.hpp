@@ -55,10 +55,10 @@ public:
 
     void Remove(Entity entity)
     {
-        std::cout << "removing entity " << entity << std::endl;
         auto it = lookup.find(entity);
         if (it != lookup.end())
         {
+            std::cout << "removing entity " << entity << std::endl;
             const size_t index = it->second;
             const Entity entity = entities[index];
 

@@ -62,7 +62,6 @@ void Chess::loadAssets()
 }
 void Chess::Update()
 {
-    ezEngine::Update();
     if (ezEngine::Inputs::MouseButtonLeftClick())
     {               
         auto next = this->currentState->UpdateGame();
@@ -70,6 +69,8 @@ void Chess::Update()
         updateValidation();
         updatePieces();
     }
+    ezEngine::Update();
+
 }
 
 void Chess::Render()
@@ -158,6 +159,9 @@ void Chess::updatePieces()
 {
     for (const auto& piece : AllPieces)
     {
+        
+        
+
         auto position = Chessboard::GetCoordinatesFromSquare(piece->square);
         ezEngine::PositionComponent::SetPosition(piece->owner, position);
     }     
@@ -208,11 +212,6 @@ std::shared_ptr<Chesspiece> Chess::GetChesspieceFromSquare(const std::string& sq
 
     auto it = std::find_if(Chess::AllPieces.begin(), Chess::AllPieces.end(), lambda);
     return (it != Chess::AllPieces.end()) ? (*it) : nullptr;
-}
-
-void Chess::doCastle()
-{
-    
 }
 
 bool Chess::isValidMove(const std::string& toSquare)

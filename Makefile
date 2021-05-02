@@ -51,7 +51,7 @@ chess:
 
 chess_debug:
 	g++ -g -w -std=c++14 -Wfatal-errors \
-	./src/*.cpp ./api/*.cpp ./examples/Chess/src/*.cpp \
+	./src/*.cpp ./api/ezEngine.cpp ./examples/Chess/src/*.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
 	-o chess_debug \
 	-I"./" \

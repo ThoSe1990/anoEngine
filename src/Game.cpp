@@ -71,10 +71,11 @@ void Game::Initialize_sdl()
 }
 void Game::Initialize()
 {
+    
     systemManager->AddSystem<UserControlSystem>();
+    systemManager->AddSystem<PositionSystem>(); 
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
-    systemManager->AddSystem<PositionSystem>();
     systemManager->AddSystem<CollisionSystem>();
 
     isRunning = true;
