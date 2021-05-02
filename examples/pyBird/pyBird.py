@@ -2,16 +2,14 @@ import ezPyEngine
 import time
 import random
 
-
-# pipe entities are currently not deleted!!!!!!!
-
-
 birdSize = ezPyEngine.Rectangle(0,0,130,105)
 pipe_size = ezPyEngine.Rectangle(0,0,180,800)
 pipe_gap = 200
 pipe_spawn_x = 1920-130
 
 future = 0
+
+pipes = []
 
 def createPipe(now , futur):
     if now > future:
@@ -24,15 +22,29 @@ def createPipe(now , futur):
         ezPyEngine.TransformComponent.Create(pipe_top, pipe_spawn_x, int(pipe_top_spawn_y), pipe_size.w, pipe_size.h, ezPyEngine.Vector2d(-250,0), 1)
         ezPyEngine.ColliderComponent.Create(pipe_top, "pipe", 1)
 
+        pipes.append(pipe_top)
+        
         pipe_bottom = ezPyEngine.CreateEntity()
         ezPyEngine.SpriteComponent.Create(pipe_bottom, "pipe_bottom", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
         ezPyEngine.TransformComponent.Create(pipe_bottom, pipe_spawn_x, int(pipe_bottom_spawn_y),pipe_size.w, pipe_size.h, ezPyEngine.Vector2d(-250,0), 1)
         ezPyEngine.ColliderComponent.Create(pipe_bottom, "pipe", 1)
 
+        pipes.append(pipe_bottom)
+
+        if (len(pipes) > 8) :
+            popped = pipes.pop(0)
+            deletePipe(popped)
+            popped = pipes.pop(0)
+            deletePipe(popped)
         return 1
     else :
         return 0
 
+
+def deletePipe(entity) :
+    ezPyEngine.SpriteComponent.Remove(entity)
+    ezPyEngine.TransformComponent.Remove(entity)
+    ezPyEngine.ColliderComponent.Remove(entity)
 
 def update():
     if ezPyEngine.Inputs.MouseButtonLeftDown():
@@ -45,12 +57,6 @@ def update():
     else :
         ezPyEngine.Update()
     
-
-
-
-
-
-
 
 
 ezPyEngine.Initialize()
@@ -77,8 +83,10 @@ future = time.time() + 3
 
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()
+
     if createPipe(time.time(), future) == 1 :
         future = time.time() + 3
+    
     update()
     ezPyEngine.Render()
 
