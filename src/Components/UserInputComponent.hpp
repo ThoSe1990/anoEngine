@@ -6,7 +6,7 @@
 
 struct UserInputComponent 
 {
-
+    UserInputComponent() {}
     UserInputComponent(Entity owner, const std::string& inputScript) : owner(owner) , inputScript(inputScript) {}
 
     Entity owner;

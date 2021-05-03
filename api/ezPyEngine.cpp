@@ -31,6 +31,8 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("h", &ezEngine::Rectangle::h)
         ;
 
+
+
     class_<TransformComponent>("Transform", init<>())
         .add_property("entity", &TransformComponent::owner)
         .add_property("position", &TransformComponent::position)
@@ -40,14 +42,50 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("scale", &TransformComponent::scale)
         ;
 
-    enum_<ezEngine::SpriteComponent::Layer>("Layer")
-        .value("layer_0", ezEngine::SpriteComponent::Layer::layer_0)
-        .value("layer_1", ezEngine::SpriteComponent::Layer::layer_1)
-        .value("layer_2", ezEngine::SpriteComponent::Layer::layer_2)
-        .value("layer_3", ezEngine::SpriteComponent::Layer::layer_3)
-        .value("layer_4", ezEngine::SpriteComponent::Layer::layer_4)
-        .value("layer_count", ezEngine::SpriteComponent::Layer::layer_count)
+    class_<PositionComponent>("Postion", init<>())
+        .add_property("entity", &PositionComponent::owner)
+        .add_property("setPosition", &PositionComponent::setPosition)
+        .add_property("velocity", &PositionComponent::velocity)
         ;
+
+    class_<UserInputComponent>("UserInput", init<>())
+        .add_property("entity", &UserInputComponent::owner)
+        .add_property("inputScript", &UserInputComponent::inputScript)
+        ;
+
+    class_<SpriteComponent>("Sprite", init<>())
+        .add_property("entity", &SpriteComponent::owner)
+        ;
+
+    class_<ColliderComponent>("Collider", init<>())
+        .add_property("entity", &ColliderComponent::owner)
+        .add_property("type", &ColliderComponent::type)
+        .add_property("active", &ColliderComponent::active)
+        .add_property("collision", &ColliderComponent::collision)
+        .add_property("collisionWithType", &ColliderComponent::collisionWithType)
+        ;
+    
+
+
+
+
+    enum_<ezEngine::Sprite::Layer>("Layer")
+        .value("layer_0", ezEngine::Sprite::Layer::layer_0)
+        .value("layer_1", ezEngine::Sprite::Layer::layer_1)
+        .value("layer_2", ezEngine::Sprite::Layer::layer_2)
+        .value("layer_3", ezEngine::Sprite::Layer::layer_3)
+        .value("layer_4", ezEngine::Sprite::Layer::layer_4)
+        .value("layer_count", ezEngine::Sprite::Layer::layer_count)
+        ;
+
+
+
+
+
+
+
+
+
 
     def("Initialize", ezEngine::Initialize);
     def("Initialize_sdl", ezEngine::Initialize_sdl);
@@ -79,40 +117,40 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     // scope ezPyEngine.PositionComponent
     {
         scope s = class_<dummyPosition>("PositionComponent");
-        def("Create", ezEngine::PositionComponent::Create);
-        def("SetPosition", ezEngine::PositionComponent::SetPosition);
-        def("SetVelocity", ezEngine::PositionComponent::SetVelocity);
-        def("Remove", ezEngine::PositionComponent::Remove);
+        def("Create", ezEngine::Position::Create);
+        def("SetPosition", ezEngine::Position::SetPosition);
+        def("SetVelocity", ezEngine::Position::SetVelocity);
+        def("Remove", ezEngine::Position::Remove);
     }
 
 
     // scope ezPyEngine.UserInputComponent
     {
         scope s = class_<dummyUserInput>("UserInputComponent");
-        def("Create", ezEngine::UserInputComponent::Create);
-        def("Remove", ezEngine::UserInputComponent::Remove);
+        def("Create", ezEngine::UserInput::Create);
+        def("Remove", ezEngine::UserInput::Remove);
     }
 
 
     // scope ezPyEngine.SpriteComponent
     {
         scope s = class_<dummySprite>("SpriteComponent");
-        def("Create", ezEngine::SpriteComponent::Create);
-        def("UpdateSourceRect", ezEngine::SpriteComponent::UpdateSourceRect);
-        def("UpdateDestinationRect", ezEngine::SpriteComponent::UpdateDestinationRect);
-        def("UpdateTexture", ezEngine::SpriteComponent::UpdateTexture);
-        def("Remove", ezEngine::SpriteComponent::Remove);
+        def("Create", ezEngine::Sprite::Create);
+        def("UpdateSourceRect", ezEngine::Sprite::UpdateSourceRect);
+        def("UpdateDestinationRect", ezEngine::Sprite::UpdateDestinationRect);
+        def("UpdateTextureId", ezEngine::Sprite::UpdateTextureId);
+        def("Remove", ezEngine::Sprite::Remove);
     }
 
     // scope ezPyEngine.ColliderComponent
     {
         scope s = class_<dummyCollider>("ColliderComponent");
-        def("Create", ezEngine::ColliderComponent::Create);
-        def("Activate", ezEngine::ColliderComponent::Activate);
-        def("Deactivate", ezEngine::ColliderComponent::Deactivate);
-        def("Remove", ezEngine::ColliderComponent::Remove);
-        def("CollisionDetected", ezEngine::ColliderComponent::CollisionDetected);
-        def("CollidesWithType", ezEngine::ColliderComponent::CollidesWithType);
+        def("Create", ezEngine::Collider::Create);
+        def("Activate", ezEngine::Collider::Activate);
+        def("Deactivate", ezEngine::Collider::Deactivate);
+        def("Remove", ezEngine::Collider::Remove);
+        def("CollisionDetected", ezEngine::Collider::CollisionDetected);
+        def("CollidesWithType", ezEngine::Collider::CollidesWithType);
     }
 
     // scope ezPyEngine.Inputs

@@ -52,7 +52,7 @@ public:
 
 private:
 
-    bool checkCollision(const SDL_Rect& rectangleA, const SDL_Rect& rectangleB) 
+    bool checkCollision(const ezEngine::Rectangle& rectangleA, const ezEngine::Rectangle& rectangleB) 
     {
         return (
             rectangleA.x + rectangleA.w >= rectangleB.x &&

@@ -14,13 +14,12 @@ class Movement
         auto coordinates = Chessboard::GetCoordinatesFromSquare(square);
 
         auto newEntity = ezEngine::CreateEntity();
-        ezEngine::SpriteComponent::Create(newEntity,
+        ezEngine::Sprite::Create(newEntity,
             textureId,
             ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
             ezEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
-            ezEngine::SpriteComponent::Layer::layer_2
+            ezEngine::Sprite::Layer::layer_2
         );          
-        // Chess::validMoves.push_back(newEntity);
         Chess::validMoves[square] = newEntity;
     }
 

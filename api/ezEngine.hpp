@@ -6,6 +6,11 @@
 using Entity = unsigned int;
 
 struct TransformComponent;
+struct PositionComponent;
+struct SpriteComponent;
+struct ColliderComponent;
+struct UserInputComponent;
+
 
 namespace ezEngine
 {
@@ -58,20 +63,22 @@ namespace ezEngine
         void Remove(const Entity entity);
     }
 
-    namespace PositionComponent{
+    namespace Position {
         void Create(const Entity entity, Vector2d setPosition, Vector2d velocity);
+        const PositionComponent GetComponent(const Entity entity);
         void SetPosition(const Entity entity, Vector2d position);
         void SetVelocity(const Entity entity, Vector2d velocity);
         void Remove(const Entity entity);
 
     }
 
-    namespace UserInputComponent {
+    namespace UserInput {
         void Create(const Entity entity, const std::string& inputScript);
+        const UserInputComponent GetComponent(const Entity entity);
         void Remove(const Entity entity);
     }
 
-    namespace SpriteComponent {
+    namespace Sprite {
 
         enum class Layer {
             layer_0 = 0,
@@ -81,17 +88,19 @@ namespace ezEngine
             layer_4 = 4,
             layer_count = 5
         };
-        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::SpriteComponent::Layer layer);
+        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::Sprite::Layer layer);
+        const SpriteComponent GetComponent(const Entity entity); 
         void UpdateSourceRect(const Entity entity, Rectangle source);
         void UpdateDestinationRect(const Entity entity, Rectangle  destination);
-        void UpdateTexture(const Entity entity, const std::string& textureId);
+        void UpdateTextureId(const Entity entity, const std::string& textureId);
         void Remove(const Entity entity);
     }
 
 
-    namespace ColliderComponent {
+    namespace Collider {
 
         void Create(const Entity entity, const std::string& type, const bool active);
+        const ColliderComponent GetComponent(const Entity entity);
         void Activate(const Entity entity);
         void Deactivate(const Entity entity);
         void Remove(const Entity entity);
@@ -114,6 +123,9 @@ namespace ezEngine
 
 
 #include "Components/TransformComponent.hpp"
-
+#include "Components/PositionComponent.hpp"
+#include "Components/SpriteComponent.hpp"
+#include "Components/ColliderComponent.hpp"
+#include "Components/UserInputComponent.hpp"
 
 #endif

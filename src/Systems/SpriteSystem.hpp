@@ -38,13 +38,13 @@ public:
         auto& components = Components::GetInstance();
 
         // TODO not the best, but it will do it for now --> refactor
-        for (size_t layer = static_cast<size_t>(ezEngine::SpriteComponent::Layer::layer_0) ; layer < static_cast<size_t>(ezEngine::SpriteComponent::Layer::layer_count) ; layer++)
+        for (size_t layer = static_cast<size_t>(ezEngine::Sprite::Layer::layer_0) ; layer < static_cast<size_t>(ezEngine::Sprite::Layer::layer_count) ; layer++)
         {
             for (size_t i = 0 ; i<components.SpriteManager->GetCount() ; i++)
             {
                 auto current = components.SpriteManager->at(i);
                 if (layer == static_cast<size_t>(current->layer))
-                    TextureManager::Draw(current->texture, current->source, current->destination, SDL_FLIP_NONE);
+                    TextureManager::Draw(current->textureId, current->source, current->destination);
             }
             
         }

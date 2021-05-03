@@ -136,15 +136,15 @@ void Chess::loadPieces()
             ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
             Constants::scale
         );
-        ezEngine::PositionComponent::Create(newEntity,
+        ezEngine::Position::Create(newEntity,
             ezEngine::Vector2d{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y)},
             ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity}
         );
-        ezEngine::SpriteComponent::Create(newEntity,
+        ezEngine::Sprite::Create(newEntity,
             asset_id.str(),
             ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
             ezEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
-            ezEngine::SpriteComponent::Layer::layer_1 
+            ezEngine::Sprite::Layer::layer_1 
         );
         
         
@@ -163,14 +163,14 @@ void Chess::updatePieces()
         
 
         auto position = Chessboard::GetCoordinatesFromSquare(piece->square);
-        ezEngine::PositionComponent::SetPosition(piece->owner, position);
+        ezEngine::Position::SetPosition(piece->owner, position);
     }     
 }
 
 void Chess::updateValidation()
 {
     for (const auto& e : validMoves)
-        ezEngine::SpriteComponent::Remove(e.second);
+        ezEngine::Sprite::Remove(e.second);
 
     validMoves.clear();
 
@@ -227,7 +227,7 @@ void Chess::captureOpponent(const std::string& square)
 
     if (!opponent) return;
 
-    ezEngine::SpriteComponent::Remove(opponent->owner);
+    ezEngine::Sprite::Remove(opponent->owner);
     ezEngine::Transform::Remove(opponent->owner);
 
     auto it = std::find_if(AllPieces.begin(), AllPieces.end(), [&opponent](const auto& current){

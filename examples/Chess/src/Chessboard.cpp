@@ -50,11 +50,11 @@ void Chessboard::addSquare(const int sourceRectX, const int sourceRectY, const i
 
     auto newEntity = ezEngine::CreateEntity();
 
-    ezEngine::SpriteComponent::Create(newEntity,
+    ezEngine::Sprite::Create(newEntity,
         std::string("board_squares"),
         ezEngine::Rectangle{sourceRectX, sourceRectY, Constants::square_sidelength, Constants::square_sidelength},
         ezEngine::Rectangle{x, y, Constants::square_sidelength, Constants::square_sidelength},
-        ezEngine::SpriteComponent::Layer::layer_0
+        ezEngine::Sprite::Layer::layer_0
     );
 
     return;

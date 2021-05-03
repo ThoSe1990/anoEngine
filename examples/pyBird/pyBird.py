@@ -43,12 +43,12 @@ def createPipe(now , futur):
 
 def update():
     if ezPyEngine.Inputs.MouseButtonLeftDown():
-        ezPyEngine.SpriteComponent.UpdateTexture(player, "bird_up")
+        ezPyEngine.SpriteComponent.UpdateTextureId(player, "bird_up")
     else:
-        ezPyEngine.SpriteComponent.UpdateTexture(player, "bird_down")
+        ezPyEngine.SpriteComponent.UpdateTextureId(player, "bird_down")
     
     if ezPyEngine.ColliderComponent.CollidesWithType(player) == "pipe" :
-        ezPyEngine.SpriteComponent.UpdateTexture(player, "bird_dead")
+        ezPyEngine.SpriteComponent.UpdateTextureId(player, "bird_dead")
     else :
         ezPyEngine.Update()
     

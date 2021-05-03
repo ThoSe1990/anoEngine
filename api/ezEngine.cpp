@@ -127,24 +127,30 @@ EZ_ENGINE_PUBLIC void ezEngine::Transform::Remove(const Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Create(const Entity entity, Vector2d setPosition, Vector2d velocity)
+EZ_ENGINE_PUBLIC void ezEngine::Position::Create(const Entity entity, Vector2d setPosition, Vector2d velocity)
 {
     auto& components = Components::GetInstance();
-    components.PositionManager->Create(entity, glm::vec2(setPosition.x, setPosition.y), glm::vec2(velocity.x, velocity.y));
+    components.PositionManager->Create(entity, setPosition, velocity);
 }
-EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::SetPosition(const Entity entity, Vector2d position)
+EZ_ENGINE_PUBLIC const PositionComponent ezEngine::Position::GetComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& position = components.PositionManager->GetComponent(entity);
+    return *position.get();
+}
+EZ_ENGINE_PUBLIC void ezEngine::Position::SetPosition(const Entity entity, Vector2d position)
 {
     auto& components = Components::GetInstance();
     auto positionComponent = components.PositionManager->GetComponent(entity);
-    positionComponent->setPosition = glm::vec2(position.x, position.y);
+    positionComponent->setPosition = position;
 }
-EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::SetVelocity(const Entity entity, Vector2d velocity)
+EZ_ENGINE_PUBLIC void ezEngine::Position::SetVelocity(const Entity entity, Vector2d velocity)
 {
     auto& components = Components::GetInstance();
     auto position = components.PositionManager->GetComponent(entity);
-    position->velocity = glm::vec2(velocity.x, velocity.y);
+    position->velocity = velocity;
 }
-EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Remove(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::Position::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.PositionManager->Remove(entity);
@@ -158,12 +164,18 @@ EZ_ENGINE_PUBLIC void ezEngine::PositionComponent::Remove(const Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Create(const Entity entity, const std::string& inputScript)
+EZ_ENGINE_PUBLIC void ezEngine::UserInput::Create(const Entity entity, const std::string& inputScript)
 {
     auto& components = Components::GetInstance();
     components.UserInputManager->Create(entity, inputScript);
 }
-EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Remove(const Entity entity)
+EZ_ENGINE_PUBLIC const UserInputComponent ezEngine::UserInput::GetComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& userInput = components.UserInputManager->GetComponent(entity);
+    return *userInput.get();
+}
+EZ_ENGINE_PUBLIC void ezEngine::UserInput::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.UserInputManager->Remove(entity);
@@ -177,37 +189,42 @@ EZ_ENGINE_PUBLIC void ezEngine::UserInputComponent::Remove(const Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, ezEngine::SpriteComponent::Layer layer)
+EZ_ENGINE_PUBLIC void ezEngine::Sprite::Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, ezEngine::Sprite::Layer layer)
 {
     auto& components = Components::GetInstance();
     components.SpriteManager->Create(entity, 
-        Game::assetManager->GetTexture(textureId.c_str()),     
-        SDL_Rect{source.x, source.y, source.w, source.h },
-        SDL_Rect{destination.x, destination.y, destination.w, destination.h },
+        textureId,  
+        source, 
+        destination,
         layer
         );
 }
+EZ_ENGINE_PUBLIC const SpriteComponent ezEngine::Sprite::GetComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    return *sprite.get();
+}
+EZ_ENGINE_PUBLIC void ezEngine::Sprite::UpdateSourceRect(const Entity entity, ezEngine::Rectangle source)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    sprite->source = source;
+}
+EZ_ENGINE_PUBLIC void ezEngine::Sprite::UpdateDestinationRect(const Entity entity, ezEngine::Rectangle destination)
+{
+    auto& components = Components::GetInstance();
+    auto& sprite = components.SpriteManager->GetComponent(entity);
+    sprite->destination = destination;
+}
 
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateSourceRect(const Entity entity, ezEngine::Rectangle source)
+EZ_ENGINE_PUBLIC void ezEngine::Sprite::UpdateTextureId(const Entity entity, const std::string& textureId)
 {
     auto& components = Components::GetInstance();
     auto& sprite = components.SpriteManager->GetComponent(entity);
-    sprite->source = SDL_Rect{source.x, source.y, source.w, source.h };
+    sprite->textureId = textureId;
 }
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateDestinationRect(const Entity entity, ezEngine::Rectangle destination)
-{
-    auto& components = Components::GetInstance();
-    auto& sprite = components.SpriteManager->GetComponent(entity);
-    sprite->destination = SDL_Rect{destination.x, destination.y, destination.w, destination.h };
-}
-
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::UpdateTexture(const Entity entity, const std::string& textureId)
-{
-    auto& components = Components::GetInstance();
-    auto& sprite = components.SpriteManager->GetComponent(entity);
-    sprite->texture = Game::assetManager->GetTexture(textureId.c_str());
-}
-EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::Sprite::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.SpriteManager->Remove(entity);
@@ -221,37 +238,42 @@ EZ_ENGINE_PUBLIC void ezEngine::SpriteComponent::Remove(const Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Create(const Entity entity, const std::string& type, const bool active)
+EZ_ENGINE_PUBLIC void ezEngine::Collider::Create(const Entity entity, const std::string& type, const bool active)
 {
     auto& components = Components::GetInstance();
     components.CollisionManager->Create(entity, type, active);
 }
-
-EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Activate(const Entity entity)
+EZ_ENGINE_PUBLIC const ColliderComponent ezEngine::Collider::GetComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& collider = components.CollisionManager->GetComponent(entity);
+    return *collider.get();
+}
+EZ_ENGINE_PUBLIC void ezEngine::Collider::Activate(const Entity entity)
 {
     auto& components = Components::GetInstance();
     auto& collider = components.CollisionManager->GetComponent(entity);
     collider->active = true;
 }
-EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Deactivate(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::Collider::Deactivate(const Entity entity)
 {
     auto& components = Components::GetInstance();
     auto& collider = components.CollisionManager->GetComponent(entity);
     collider->active = false;
 }
-EZ_ENGINE_PUBLIC void ezEngine::ColliderComponent::Remove(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::Collider::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.CollisionManager->Remove(entity);
 }
 
-EZ_ENGINE_PUBLIC bool ezEngine::ColliderComponent::CollisionDetected(const Entity entity)
+EZ_ENGINE_PUBLIC bool ezEngine::Collider::CollisionDetected(const Entity entity)
 {
     auto& components = Components::GetInstance();
     auto& collider = components.CollisionManager->GetComponent(entity);
     return collider->collision;
 }
-EZ_ENGINE_PUBLIC std::string ezEngine::ColliderComponent::CollidesWithType(const Entity entity)
+EZ_ENGINE_PUBLIC std::string ezEngine::Collider::CollidesWithType(const Entity entity)
 {
     auto& components = Components::GetInstance();
     auto& collider = components.CollisionManager->GetComponent(entity);
