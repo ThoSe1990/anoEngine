@@ -14,8 +14,8 @@ struct TransformComponent
     { }
     Entity owner;
 
-    ezEngine::Vector2d velocity;
     ezEngine::Vector2d position;
+    ezEngine::Vector2d velocity;
 
     int width;
     int height;

@@ -30,7 +30,16 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("w", &ezEngine::Rectangle::w)
         .add_property("h", &ezEngine::Rectangle::h)
         ;
-        
+
+    class_<TransformComponent>("Transform", init<>())
+        .add_property("entity", &TransformComponent::owner)
+        .add_property("position", &TransformComponent::position)
+        .add_property("velocity", &TransformComponent::velocity)
+        .add_property("width", &TransformComponent::width)
+        .add_property("height", &TransformComponent::height)
+        .add_property("scale", &TransformComponent::scale)
+        ;
+
     enum_<ezEngine::SpriteComponent::Layer>("Layer")
         .value("layer_0", ezEngine::SpriteComponent::Layer::layer_0)
         .value("layer_1", ezEngine::SpriteComponent::Layer::layer_1)
@@ -38,10 +47,6 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .value("layer_3", ezEngine::SpriteComponent::Layer::layer_3)
         .value("layer_4", ezEngine::SpriteComponent::Layer::layer_4)
         .value("layer_count", ezEngine::SpriteComponent::Layer::layer_count)
-        ;
-    enum_<ezEngine::TransformComponent::ControlType>("ControlType")
-        .value("position", ezEngine::TransformComponent::ControlType::Position)
-        .value("velocity", ezEngine::TransformComponent::ControlType::Velocity)
         ;
 
     def("Initialize", ezEngine::Initialize);
@@ -59,14 +64,15 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     // scope ezPyEngine.TransformComponent
     {
-        void (*Create_1)(const Entity entity, const int x, const int y, const int width, const int height, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::TransformComponent::Create;
-        void (*Create_2)(const Entity entity, const ezEngine::Rectangle& size, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::TransformComponent::Create;
+        void (*Create_1)(const Entity entity, const int x, const int y, const int width, const int height, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
+        void (*Create_2)(const Entity entity, const ezEngine::Rectangle& size, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
 
         scope s = class_<dummyTransform>("TransformComponent");
         def("Create", Create_1);
         def("Create", Create_2);
-        def("SetPosition", ezEngine::TransformComponent::SetPosition);
-        def("Remove", ezEngine::TransformComponent::Remove);
+        def("GetComponent", ezEngine::Transform::GetComponent);
+        def("SetPosition", ezEngine::Transform::SetPosition);
+        def("Remove", ezEngine::Transform::Remove);
     }
 
 

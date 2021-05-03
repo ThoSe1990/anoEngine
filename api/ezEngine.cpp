@@ -91,24 +91,30 @@ EZ_ENGINE_PUBLIC void ezEngine::RemoveAllComponents(Entity entity)
 
 
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale)
+EZ_ENGINE_PUBLIC void ezEngine::Transform::Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale)
 {
     auto& components = Components::GetInstance();
     components.TransformManager->Create(entity, ezEngine::Vector2d{x,y}, width, height, velocity,  scale);
 }
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale)
+EZ_ENGINE_PUBLIC void ezEngine::Transform::Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale)
 {
     auto& components = Components::GetInstance();
     components.TransformManager->Create(entity, ezEngine::Vector2d{size.x,size.y}, size.w, size.h, velocity, scale);
 }
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::SetPosition(const Entity entity, const int x, const int y)
+EZ_ENGINE_PUBLIC const TransformComponent ezEngine::Transform::GetComponent(const Entity entity)
+{
+    auto& components = Components::GetInstance();
+    auto& transform = components.TransformManager->GetComponent(entity);
+    return *transform.get();
+}
+EZ_ENGINE_PUBLIC void ezEngine::Transform::SetPosition(const Entity entity, const int x, const int y)
 {
     auto& components = Components::GetInstance();
     auto& transform = components.TransformManager->GetComponent(entity);
     transform->position = ezEngine::Vector2d{x,y};
 }
 
-EZ_ENGINE_PUBLIC void ezEngine::TransformComponent::Remove(const Entity entity)
+EZ_ENGINE_PUBLIC void ezEngine::Transform::Remove(const Entity entity)
 {
     auto& components = Components::GetInstance();
     components.TransformManager->Remove(entity);

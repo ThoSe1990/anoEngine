@@ -79,6 +79,9 @@ future = time.time() + 3
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()
 
+    player_bird = ezPyEngine.TransformComponent.GetComponent(player)
+    print ("position: " , player_bird.position.x, " ", player_bird.position.y)
+
     if createPipe(time.time(), future) == 1 :
         future = time.time() + 3
     

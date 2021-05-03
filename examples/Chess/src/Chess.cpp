@@ -128,7 +128,7 @@ void Chess::loadPieces()
 
         auto coordinates = Chessboard::GetCoordinatesFromSquare(position);
         auto newEntity = ezEngine::CreateEntity();
-        ezEngine::TransformComponent::Create(newEntity, 
+        ezEngine::Transform::Create(newEntity, 
             coordinates.x,
             coordinates.y,
             Constants::chesspiece_sidelength,
@@ -228,7 +228,7 @@ void Chess::captureOpponent(const std::string& square)
     if (!opponent) return;
 
     ezEngine::SpriteComponent::Remove(opponent->owner);
-    ezEngine::TransformComponent::Remove(opponent->owner);
+    ezEngine::Transform::Remove(opponent->owner);
 
     auto it = std::find_if(AllPieces.begin(), AllPieces.end(), [&opponent](const auto& current){
         return opponent->owner == current->owner;

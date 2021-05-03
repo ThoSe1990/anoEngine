@@ -27,7 +27,8 @@ python_api:
 	./api/ezPyEngine.cpp \
 	-I/usr/include/python3.8 \
 	-I"./api" \
-	-I"./" \
+	-I"./src" \
+	-I"./lib" \
 	-L. \
 	-lezEngine \
 	-lboost_python38 \
@@ -41,7 +42,7 @@ chess:
 	-o chessExample \
 	-I"./examples/Chess/src" \
 	-I"./api" \
-	-I"./" \
+	-I"./src" \
 	-I"./lib" \
 	-L. \
 	-lezEngine \

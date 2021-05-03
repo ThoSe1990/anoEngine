@@ -5,6 +5,7 @@
 
 using Entity = unsigned int;
 
+struct TransformComponent;
 
 namespace ezEngine
 {
@@ -44,7 +45,7 @@ namespace ezEngine
     void AddTexture(const std::string& textureId, const char* filePath);
     const Entity CreateEntity();
 
-    namespace TransformComponent {
+    namespace Transform {
 
         enum class ControlType {
             Position = 0,
@@ -52,6 +53,7 @@ namespace ezEngine
         };
         void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale);
         void Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale);
+        const TransformComponent GetComponent(const Entity entity);
         void SetPosition(const Entity entity, const int x, const int y);
         void Remove(const Entity entity);
     }
@@ -111,6 +113,7 @@ namespace ezEngine
 }
 
 
+#include "Components/TransformComponent.hpp"
 
 
 #endif
