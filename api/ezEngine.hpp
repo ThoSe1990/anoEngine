@@ -42,7 +42,7 @@ namespace ezEngine
         unsigned char g;
         unsigned char b;
         unsigned char a;
-    }
+    };
 
     void Initialize_sdl();
     void Initialize();
