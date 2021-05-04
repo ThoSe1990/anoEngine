@@ -20,7 +20,8 @@ This engine works with an Entity-Component-System which is illustrated below (si
 ![ecs](./screenshots/ecs.png)
 
   
-To create a game there is only the api needed. For instance we want to create an Entity and assign some components like:
+To create a game there is only the api needed. For instance we want to create an Entity and assign some components like:  
+  
 Python:
 ````UserControlSystem
 # add some components to the entity
