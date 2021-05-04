@@ -5,6 +5,23 @@
 Welcome to my 2D Game Engine! This game engine is still under development. The long term goal is to create different games by using different interfaces. Aside there will be an artificial intelligence which learns how to play chess (therefore i started implementing a chess game) against human players or another AI. Before starting with AI this will be a coding playground. first of all this will be a independent 2D game engine with an different interfaces (dll, python, lua) and an implemented chess game.
   
 
+## ezEngine Documentation
+
+This engine works with an Entity-Component-System which is illustrated below (simplified). 
+
+1. Each entity is represented as an id, as just a integer number. 
+2. Each Entity can have multiple components. 
+3. The components are just plain data, no logic. 
+4. Each component is handled by a component manager (instantiated inside singelton class Components, see `./Components/Components.hpp`).
+5. Components are modified by the systems, which means one system can modify multiple components.
+6. All systems inherit from the same interface, to store them in a container inside the Systemsmanager, see `./Systems/SystemManager.hpp`. 
+  
+    
+![ecs](./screenshots/ecs.png)
+  
+
+
+
 ## Build 
 There are different targets in the makefile. If there are permission issues by copying to /usr/lib or loading the shared library run with `sudo`.
 
