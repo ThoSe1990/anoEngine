@@ -18,9 +18,50 @@ This engine works with an Entity-Component-System which is illustrated below (si
   
     
 ![ecs](./screenshots/ecs.png)
+
   
+To create a game there is only the api needed. For instance we want to create an Entity and assign some components like:
+Python:
+````UserControlSystem
+# add some components to the entity
+ezPyEngine.SpriteComponent.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
+ezPyEngine.TransformComponent.Create(player, birdSize, ezPyEngine.Vector2d(0,0), 1)
+ezPyEngine.UserInputComponent.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
+ezPyEngine.ColliderComponent.Create(player, "player", 1)
+....
+````
+  
+C++:
+````
+// create an entity
+auto newEntity = ezEngine::CreateEntity();
 
+// add one or more components to it 
+ezEngine::Transform::Create(newEntity, 
+    coordinates.x,
+    coordinates.y,
+    Constants::chesspiece_sidelength,
+    Constants::chesspiece_sidelength,
+    ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
+    Constants::scale
+);
+...
+````
 
+## Systems
+
+Within this section all provided systems are described to get an overview which systems accessing which components (therefore which data specifically)
+
+### UserControlSystem
+...
+### PositionSystem
+...
+### SpriteSystem
+...
+### TransformSystem
+...
+### CollisionSystem
+...
 
 ## Build 
 There are different targets in the makefile. If there are permission issues by copying to /usr/lib or loading the shared library run with `sudo`.
@@ -67,5 +108,6 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 
 ## Known Issues
 
+- api function to add custom systems
 - proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
 - layer rendering of spritesystem
