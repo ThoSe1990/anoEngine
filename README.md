@@ -16,7 +16,7 @@ This engine works with an Entity-Component-System which is illustrated below (si
 5. Components are modified by the systems, which means one system can modify multiple components.
 6. All systems inherit from the same interface, to store them in a container inside the Systemsmanager, see `./Systems/SystemManager.hpp`. 
   
-    
+  
 ![ecs](./screenshots/ecs.png)
 
   

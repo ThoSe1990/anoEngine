@@ -37,6 +37,13 @@ namespace ezEngine
         int h;
     };
 
+    struct Color {
+        unsigned char r;
+        unsigned char g;
+        unsigned char b;
+        unsigned char a;
+    }
+
     void Initialize_sdl();
     void Initialize();
     bool IsRunning();
