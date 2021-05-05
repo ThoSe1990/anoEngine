@@ -94,10 +94,10 @@ ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(sou
 ### SpriteComponent
 Every information to render an image/sprite in the SpriteSystem. To access given sprites it is mandatory to add the image with an id to the assetmanager.  
 
-Affected by: 
+**Affected by:** 
 - TransfromComponent: sets destination rectangle
   
-Datafields:
+**Datafields:**
 - Entity: owner 
 - String: textureId -> id which was passed to the assetmanager
 - Rectangle: source -> source rectangle of provided image
@@ -107,11 +107,11 @@ Datafields:
 ### TransformComponent
 Transform represents 2d coordinates and size of an arbitrary component. If the same entity has a sprite component, sprites destination rectangle will be overwritten by position, width and height from this transform component. To move an object around, velocity needs to set. 
 
-Affected by: 
+**Affected by:** 
 - UserInputComponent: sets velocity 
 - PositionComponent: sets velocity
 
-Datafields:
+**Datafields:**
 - Entity: owner
 - Vector2d: position
 - Vector2d: velocity
@@ -123,10 +123,10 @@ Datafields:
 ### PositionComponent
 Moves a transform component to a specific location.
    
-Requires:
+**Requires:**
 - TransformComponent
   
-Datafields:
+**Datafields:**
 - Entity: owner
 - Vector2d: setPosition 
 - Vector2d: velocity
@@ -151,7 +151,7 @@ else
 end
 ````
   
-Datafields:
+**Datafields:**
 - Entity: owner
 - String: inputScript -> relativ path to script location
 
@@ -159,10 +159,10 @@ Datafields:
 ### ColliderComponent
 Colliders are checking if transform components colliding with each other.
   
-Requires:
+**Requires:**
 - TransformComponent
   
-Datafields:
+**Datafields:**
 - Entity: owner
 - String: type -> arbitrary type which can passed by the user
 - Bool: active -> inactive (False) collision aren't detected
