@@ -57,11 +57,10 @@ ezPyEngine.ColliderComponent.Create(player, "player", 1)
 
 ## Components
 
-Within this section the provided components are described and illustrated with some examples how to create and use them.
+Within this section the provided components are described. Every component holds the entity to which it belongs to as owner. 
   
-### SpriteComponent
-A SpriteComponent holds the information to render an image or a sprite. To access given sprites it is mandatory to add the image with an id to the assetmanager. All sprite components are rendered by the sprite system. 
-  
+Any component can created by the corresponding Create() function on the api. So for instance a sprite component would be created as following.
+
 ````
 // C++ 
 
@@ -92,36 +91,90 @@ ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(sou
 
 ````
   
-Note: If an enttiy has also a transfrom component, the destination position will be overwritten by it.
+### SpriteComponent
+Every information to render an image/sprite in the SpriteSystem. To access given sprites it is mandatory to add the image with an id to the assetmanager.  
+
+Affected by: 
+- TransfromComponent: sets destination rectangle
+  
+Datafields:
+- Entity: owner 
+- String: textureId -> id which was passed to the assetmanager
+- Rectangle: source -> source rectangle of provided image
+- Rectangle: destination -> destination where it should be rendered in the game
+- Layer: layer -> rendering layer in ascending order
 
 ### TransformComponent
-...
+Transform represents 2d coordinates and size of an arbitrary component. If the same entity has a sprite component, sprites destination rectangle will be overwritten by position, width and height from this transform component. To move an object around, velocity needs to set. 
+
+Affected by: 
+- UserInputComponent: sets velocity 
+- PositionComponent: sets velocity
+
+Datafields:
+- Entity: owner
+- Vector2d: position
+- Vector2d: velocity
+- Integer: width
+- Integer: heigth
+- Integer: scale
+
+
 ### PositionComponent
-...
-### UserInputComponent
-...
-### ColliderComponent
-...
-### TileComponent
-...
-### TextlabelComponent
-...
-## Systems
-
-Within this section all provided systems are described, to get an overview which systems accessing which components (therefore which data specifically)
-
-### SpriteSystem
-The sprite system renders all spritecomponents according to the given rendering layers.
+Moves a transform component to a specific location.
+   
+Requires:
+- TransformComponent
   
-If a sprite should be moveable then the destination possition will be overwritten in the update function by the according transform component.
-### TransformSystem
+Datafields:
+- Entity: owner
+- Vector2d: setPosition 
+- Vector2d: velocity
 
-### PositionSystem
-...
-### UserControlSystem
-...
-### CollisionSystem
-...
+### UserInputComponent
+Moves a transform component around by user inputs (keyboard or mouse). To map all keys to game specific movements / actions write a short Lua script. The Lua script has access to all user inputs (see `./Userinputs.hpp`)
+   
+  
+Example for scripting (see `./examples/pyBird/assets/scripts/playerMovement.lua`):
+````
+-- lua scripting for user inputs
+-- get instance of all user inputs
+local inputs = UserInputs.GetInstance()
+
+-- set velocity x and y like following
+if inputs.keyboard_a == true then
+    velocity["x"] = -800
+elseif inputs.keyboard_d == true then
+    velocity["x"] = 800
+else    
+    velocity["x"] = 0
+end
+````
+  
+Datafields:
+- Entity: owner
+- String: inputScript -> relativ path to script location
+
+
+### ColliderComponent
+Colliders are checking if transform components colliding with each other.
+  
+Requires:
+- TransformComponent
+  
+Datafields:
+- Entity: owner
+- String: type -> arbitrary type which can passed by the user
+- Bool: active -> inactive (False) collision aren't detected
+- Bool: collision -> True / False if a collision is detected
+- String: collisionWithType -> holds the type of a collided component in case of a collision
+
+### TileComponent
+to be implemented
+### TextlabelComponent
+to be implemented
+
+  
 
 ## Build 
 There are different targets in the makefile. If there are permission issues by copying to /usr/lib or loading the shared library run with `sudo`.
