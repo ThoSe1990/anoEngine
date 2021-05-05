@@ -10,6 +10,7 @@
 #include "Components/TransformComponent.hpp"
 #include "Components/PositionComponent.hpp"
 #include "Components/ColliderComponent.hpp"
+#include "Components/TextlabelComponent.hpp"
 
 class Components
 {
@@ -39,7 +40,7 @@ public:
     std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
     std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
     std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
-
+    std::shared_ptr<ComponentManager<TextlabelComponent>> TextlabelManager = std::make_shared<ComponentManager<TextlabelComponent>>();
 
 private:
     Components() {}

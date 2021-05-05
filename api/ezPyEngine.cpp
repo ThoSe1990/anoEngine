@@ -10,6 +10,7 @@ class dummyPosition{};
 class dummyUserInput{};
 class dummySprite{};
 class dummyCollider{};
+class dummyTextlabel{};
 class dummyInputs{};
 
 
@@ -29,6 +30,13 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("y", &ezEngine::Rectangle::y)
         .add_property("w", &ezEngine::Rectangle::w)
         .add_property("h", &ezEngine::Rectangle::h)
+        ;
+    class_<ezEngine::Color>("Color", init<>())
+        .def(init<const unsigned char, const unsigned char, const unsigned char, const unsigned char>())
+        .add_property("r", &ezEngine::Color::r)
+        .add_property("g", &ezEngine::Color::g)
+        .add_property("b", &ezEngine::Color::b)
+        .add_property("a", &ezEngine::Color::a)
         ;
 
 
@@ -96,6 +104,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("Destroy", ezEngine::Destroy);
 
     def("AddTexture", ezEngine::AddTexture);
+    def("AddFont", ezEngine::AddFont);
     def("CreateEntity", ezEngine::CreateEntity);
     def("RemoveAllComponents", ezEngine::RemoveAllComponents);
 
@@ -151,6 +160,12 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         def("Remove", ezEngine::Collider::Remove);
         def("CollisionDetected", ezEngine::Collider::CollisionDetected);
         def("CollidesWithType", ezEngine::Collider::CollidesWithType);
+    }
+
+    // scope ezPyEngine.Textlabel
+    {
+        scope s = class_<dummyTextlabel>("TextlabelComponent");
+        def("Create", ezEngine::Textlabel::Create);
     }
 
     // scope ezPyEngine.Inputs

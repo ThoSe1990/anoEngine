@@ -21,16 +21,17 @@ public:
         for (size_t i = 0 ; i < components.CollisionManager->GetCount() ; i++ )
         {
             auto current = components.CollisionManager->at(i);
-            auto currentSprite = components.SpriteManager->GetComponent(current->owner);
-            if (!currentSprite) continue;
+            auto currentTransform = components.TransformManager->GetComponent(current->owner);
+            if (!currentTransform) continue;
 
             for (size_t j = i+1 ; j < components.CollisionManager->GetCount() ; j++ )
             {
                 auto other = components.CollisionManager->at(j);
-                auto otherSprite = components.SpriteManager->GetComponent(other->owner);
-                if (!otherSprite) continue;
+                auto otherTransform = components.TransformManager->GetComponent(other->owner);
+                if (!otherTransform) continue;
 
-                if (checkCollision(currentSprite->destination, otherSprite->destination))
+                // if (checkCollision(currentTransform->position, otherTransform->position))
+                if (checkCollision(currentTransform, otherTransform))
                 {
                     current->collision = true;
                     current->collisionWithType = other->type;
@@ -52,14 +53,23 @@ public:
 
 private:
 
-    bool checkCollision(const ezEngine::Rectangle& rectangleA, const ezEngine::Rectangle& rectangleB) 
+
+    
+    // bool checkCollision(const ezEngine::Rectangle& rectangleA, const ezEngine::Rectangle& rectangleB) 
+    bool checkCollision(const std::shared_ptr<TransformComponent>& TransformA, const std::shared_ptr<TransformComponent>& TransformB) 
     {
         return (
-            rectangleA.x + rectangleA.w >= rectangleB.x &&
-            rectangleB.x + rectangleB.w >= rectangleA.x &&
-            rectangleA.y + rectangleA.h >= rectangleB.y &&
-            rectangleB.y + rectangleB.h >= rectangleA.y
+            TransformA->position.x + TransformA->width >= TransformB->position.x &&
+            TransformB->position.x + TransformB->width >= TransformA->position.x &&
+            TransformA->position.y + TransformA->height >= TransformB->position.y &&
+            TransformB->position.y + TransformB->height >= TransformA->position.y
         );
+        // return (
+        //     rectangleA.x + rectangleA.w >= rectangleB.x &&
+        //     rectangleB.x + rectangleB.w >= rectangleA.x &&
+        //     rectangleA.y + rectangleA.h >= rectangleB.y &&
+        //     rectangleB.y + rectangleB.h >= rectangleA.y
+        // );
     }
 
 };

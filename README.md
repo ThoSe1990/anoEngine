@@ -215,12 +215,12 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 
 
 ![pybird example 1](./screenshots/pybird.gif)
-![pybird example 1](./screenshots/pybird_1.PNG)
-![pybird example 2](./screenshots/pybird_2.PNG)
+![pybird example 1](./screenshots/pybird_running.png)
+![pybird example 2](./screenshots/pybird_gameover.png)
 
 
 ## Known Issues
 
-- api function to add custom systems
+- add a collision rectangle to have some more space 
 - proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
 - layer rendering of spritesystem

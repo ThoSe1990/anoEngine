@@ -69,9 +69,22 @@ EZ_ENGINE_PUBLIC void ezEngine::Destroy()
     Game::GetInstance().Destroy();
 }
 
+
+
+
+
+
+
+
+
+
 EZ_ENGINE_PUBLIC void ezEngine::AddTexture(const std::string& textureId, const char* filePath)
 {
     Game::assetManager->AddTexture(textureId, filePath);
+}
+EZ_ENGINE_PUBLIC void ezEngine::AddFont(const std::string& fontId, const char* filePath, int fontSize)
+{
+    Game::assetManager->AddFont(fontId, filePath, fontSize);
 }
 
 
@@ -85,6 +98,9 @@ EZ_ENGINE_PUBLIC void ezEngine::RemoveAllComponents(Entity entity)
     auto& components = Components::GetInstance();
     components.RemoveAllComponents(entity);
 }
+
+
+
 
 
 
@@ -279,6 +295,24 @@ EZ_ENGINE_PUBLIC std::string ezEngine::Collider::CollidesWithType(const Entity e
     auto& collider = components.CollisionManager->GetComponent(entity);
     return collider->collisionWithType;
 }
+
+
+
+
+
+
+
+
+
+#include "Systems/TextlabelSystem.hpp"
+EZ_ENGINE_PUBLIC void ezEngine::Textlabel::Create(const Entity entity, const std::string& text, const ezEngine::Rectangle& position, const std::string& fontId, const ezEngine::Color& color)
+{
+    auto& components = Components::GetInstance();
+    auto textlabelComponent = components.TextlabelManager->Create(entity, text, position, fontId, color);
+    Game::systemManager->GetSystem<TextlabelSystem>()->AddTextlabel(textlabelComponent);
+
+}
+
 
 
 

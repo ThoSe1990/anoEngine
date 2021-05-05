@@ -63,6 +63,8 @@ ezPyEngine.AddTexture("bird_down", "./examples/pyBird/assets/images/bird_down.pn
 ezPyEngine.AddTexture("bird_dead", "./examples/pyBird/assets/images/bird_dead.png")
 ezPyEngine.AddTexture("pipe_bottom", "./examples/pyBird/assets/images/pipe_bottom.png")
 ezPyEngine.AddTexture("pipe_top", "./examples/pyBird/assets/images/pipe_top.png")
+ezPyEngine.AddFont("font", "./examples/pyBird/assets/fonts/TakeChances.ttf", 75)
+
 
 background = ezPyEngine.CreateEntity()
 ezPyEngine.SpriteComponent.Create(background, "background", ezPyEngine.Rectangle(0,0,1912,855), ezPyEngine.Rectangle(0,0,1920,1080), ezPyEngine.Layer.layer_0)
@@ -74,13 +76,17 @@ ezPyEngine.UserInputComponent.Create(player, "./examples/pyBird/assets/scripts/p
 ezPyEngine.ColliderComponent.Create(player, "player", 1)
 
 
+textlabel = ezPyEngine.CreateEntity()
+ezPyEngine.TextlabelComponent.Create(textlabel, "pyBird: an easy flappy bird!!!", ezPyEngine.Rectangle(20,50,200,50), "font", ezPyEngine.Color(255,255,255,255))
+
+
 future = time.time() + 3
 
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()
 
     player_bird = ezPyEngine.TransformComponent.GetComponent(player)
-    print ("position: " , player_bird.position.x, " ", player_bird.position.y)
+    # print ("position: " , player_bird.position.x, " ", player_bird.position.y)
 
     if createPipe(time.time(), future) == 1 :
         future = time.time() + 3

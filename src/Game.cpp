@@ -9,6 +9,7 @@
 #include "Systems/TransformSystem.hpp"
 #include "Systems/PositionSystem.hpp"
 #include "Systems/CollisionSystem.hpp"
+#include "Systems/TextlabelSystem.hpp"
 
 #include "UserInputs.hpp"
 
@@ -47,7 +48,11 @@ void Game::Initialize_sdl()
         std::cerr << "Error initializing SDL." << std::endl;
         return;
     }
-   window = SDL_CreateWindow(
+    if (TTF_Init() != 0) {
+        std::cerr << "Error initializing SDL TTF" << std::endl;
+        return;
+    }
+    window = SDL_CreateWindow(
         NULL,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
@@ -71,12 +76,12 @@ void Game::Initialize_sdl()
 }
 void Game::Initialize()
 {
-    
     systemManager->AddSystem<UserControlSystem>();
     systemManager->AddSystem<PositionSystem>(); 
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<CollisionSystem>();
+    systemManager->AddSystem<TextlabelSystem>();
 
     isRunning = true;
     return;

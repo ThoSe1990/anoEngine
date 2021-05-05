@@ -38,6 +38,8 @@ namespace ezEngine
     };
 
     struct Color {
+        Color() {}
+        Color(const int r, const int g, const int b, const int a) : r(r), g(g), b(b), a(a) {}
         unsigned char r;
         unsigned char g;
         unsigned char b;
@@ -55,6 +57,7 @@ namespace ezEngine
     void RemoveAllComponents(Entity entity);
     
     void AddTexture(const std::string& textureId, const char* filePath);
+    void AddFont(const std::string& fontId, const char* filePath, int fontSize);
     const Entity CreateEntity();
 
     namespace Transform {
@@ -113,6 +116,11 @@ namespace ezEngine
         void Remove(const Entity entity);
         bool CollisionDetected(const Entity entity);
         std::string CollidesWithType(const Entity entity);
+    }
+
+
+    namespace Textlabel {
+        void Create(const Entity entity, const std::string& text, const ezEngine::Rectangle& position, const std::string& fontId, const ezEngine::Color& color);
     }
 
     

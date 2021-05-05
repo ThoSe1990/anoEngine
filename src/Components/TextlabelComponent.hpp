@@ -8,15 +8,15 @@ struct TextlabelComponent
 {
 
     TextlabelComponent () {}
-    TextlabelComponent (Entity Owner) { }
+    TextlabelComponent (Entity owner, const std::string& text, const ezEngine::Rectangle& position, const std::string& fontId, const ezEngine::Color& color) :
+    owner(owner), text(text), position(position), fontId(fontId), color(color) { }
     
     Entity owner;
 
     ezEngine::Rectangle position;
     std::string text;
-    std::string fontFamily;
+    std::string fontId;
     ezEngine::Color color;
-    std::string textureId;
 
 };
 

@@ -72,6 +72,28 @@ chess_debug:
 	-lSDL2_mixer \
 	-lpthread;
 
+playground_debug:
+	g++ -g -w -std=c++14 -Wfatal-errors \
+	./src/*.cpp ./api/ezEngine.cpp ./examples/playground/src/*.cpp \
+	-DBOOST_LOG_DYN_LINK=1 \
+	-o playground \
+	-I"./" \
+	-I"./examples/playground/src" \
+	-I"./api" \
+	-I"./src" \
+	-I"./lib" \
+	-I"./src/lua" \
+	-lboost_log \
+	-lboost_log_setup \
+	-lboost_system \
+	-lboost_thread \
+	-llua5.3 \
+	-lSDL2 \
+	-lSDL2_image \
+	-lSDL2_ttf \
+	-lSDL2_mixer \
+	-lpthread;
+
 install:
 	cp libezEngine.so /usr/lib 
 	cp ezPyEngine.so /usr/lib 

@@ -19,7 +19,8 @@ SDL_Texture* AssetManager::GetTexture(const std::string& textureId)
 
 void AssetManager::AddFont(std::string fontId, const char* filePath, int fontSize) 
 {
-    fonts.emplace(fontId, FontManager::LoadFont(filePath, fontSize));
+    auto font = FontManager::LoadFont(filePath, fontSize);
+    fonts.emplace(fontId, font);
 }
 TTF_Font* AssetManager::GetFont(std::string fontId) 
 {
