@@ -20,20 +20,15 @@ This engine works with an Entity-Component-System which is illustrated below (si
 ![ecs](./screenshots/ecs.png)
 
   
+All given API function are defined in `./api/ezEngine.hpp`. A description will follow. For now see the two examples, this readme or the function singatures how to use.
+  
+  
 To create a game there is only the api needed. For instance we want to create an Entity and assign some components like:  
   
-Python:
-````UserControlSystem
-# add some components to the entity
-ezPyEngine.SpriteComponent.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
-ezPyEngine.TransformComponent.Create(player, birdSize, ezPyEngine.Vector2d(0,0), 1)
-ezPyEngine.UserInputComponent.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
-ezPyEngine.ColliderComponent.Create(player, "player", 1)
-....
-````
   
-C++:
+C++ (see `./examples/Chess/src/Chess.cpp`):
 ````
+...
 // create an entity
 auto newEntity = ezEngine::CreateEntity();
 
@@ -49,17 +44,81 @@ ezEngine::Transform::Create(newEntity,
 ...
 ````
 
+Python (see `./examples/pyBird/pyBird.py`):
+````
+...
+# add some components to the entity
+ezPyEngine.SpriteComponent.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
+ezPyEngine.TransformComponent.Create(player, birdSize, ezPyEngine.Vector2d(0,0), 1)
+ezPyEngine.UserInputComponent.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
+ezPyEngine.ColliderComponent.Create(player, "player", 1)
+....
+````
+
+## Components
+
+Within this section the provided components are described and illustrated with some examples how to create and use them.
+  
+### SpriteComponent
+A SpriteComponent holds the information to render an image or a sprite. To access given sprites it is mandatory to add the image with an id to the assetmanager. All sprite components are rendered by the sprite system. 
+  
+````
+// C++ 
+
+// add your sprite 
+ezEngine::AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE");
+
+// create an enttiy
+auto newEntity = ezEngine::CreateEntity();
+
+// create a sprite component
+ezEngine::Sprite::Create(
+    newEntity,
+    "YOUR_ID",
+    ezEngine::Rectangle{}, // source position in given sprite file
+    ezEngine::Rectangle{}, // destination position in game
+    ezEngine::Sprite::Layer::layer_0 
+);
+
+
+# Python:
+ezPyEngine.AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE")
+# add your sprite
+
+# create Entity
+newEntity = ezPyEngine.CreateEntity()
+# create a entity
+ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(source position), ezPyEngine.Rectangle(destination position in game), ezPyEngine.Layer.layer_0)
+
+````
+  
+Note: If an enttiy has also a transfrom component, the destination position will be overwritten by it.
+
+### TransformComponent
+...
+### PositionComponent
+...
+### UserInputComponent
+...
+### ColliderComponent
+...
+### TileComponent
+...
+### TextlabelComponent
+...
 ## Systems
 
-Within this section all provided systems are described to get an overview which systems accessing which components (therefore which data specifically)
+Within this section all provided systems are described, to get an overview which systems accessing which components (therefore which data specifically)
 
-### UserControlSystem
-...
+### SpriteSystem
+The sprite system renders all spritecomponents according to the given rendering layers.
+  
+If a sprite should be moveable then the destination possition will be overwritten in the update function by the according transform component.
+### TransformSystem
+
 ### PositionSystem
 ...
-### SpriteSystem
-...
-### TransformSystem
+### UserControlSystem
 ...
 ### CollisionSystem
 ...
