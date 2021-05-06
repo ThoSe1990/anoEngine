@@ -87,6 +87,12 @@ void Game::Initialize()
     return;
 }
 
+
+float Game::GetDeltaTime()
+{
+    return this->deltaTime;
+}
+
 void Game::Update()
 {
     int timeToWait = FRAME_TARGET_TIME - (SDL_GetTicks() - ticksLastFrame);
@@ -95,12 +101,12 @@ void Game::Update()
         SDL_Delay(timeToWait);
     
 
-    float deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
-    deltaTime = (deltaTime > 0.05f) ? 0.05f : deltaTime;
+    this->deltaTime = (SDL_GetTicks() - ticksLastFrame) / 1000.0f;
+    this->deltaTime = (this->deltaTime > 0.05f) ? 0.05f : this->deltaTime;
 
     ticksLastFrame = SDL_GetTicks();
 
-    systemManager->Update(deltaTime);
+    systemManager->Update(this->deltaTime);
 }
 
 

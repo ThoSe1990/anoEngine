@@ -16,8 +16,7 @@
 
 class Game
 {
-private:
-    Game ();
+
 
 public:
 
@@ -41,10 +40,13 @@ public:
     void Destroy();
     bool IsRunning() const ;
 
+    float GetDeltaTime();
 
-protected:
+private:
 
+    Game ();
     bool isRunning;
+    float deltaTime;
     SDL_Window* window;
     int ticksLastFrame = 0;
     void InitializeLua();

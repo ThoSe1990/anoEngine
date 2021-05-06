@@ -11,7 +11,7 @@ future = 0
 
 pipes = []
 
-def createPipe(now , futur):
+def createPipe(now , future):
     if now > future:
         
         pipe_top_spawn_y = pipe_size.h*random.uniform(0.1, 0.9) - pipe_size.h 
@@ -86,7 +86,6 @@ while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()
 
     player_bird = ezPyEngine.TransformComponent.GetComponent(player)
-    # print ("position: " , player_bird.position.x, " ", player_bird.position.y)
 
     if createPipe(time.time(), future) == 1 :
         future = time.time() + 3

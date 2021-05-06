@@ -55,6 +55,8 @@ namespace ezEngine
     void Update();
     void Render();
     void Destroy();
+    float GetDeltaTime();
+
 
     void RemoveAllComponents(Entity entity);
     

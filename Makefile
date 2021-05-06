@@ -72,13 +72,14 @@ chess_debug:
 	-lSDL2_mixer \
 	-lpthread;
 
+
 debug_playground:
 	g++ -g -w -std=c++14 -Wfatal-errors \
-	./src/*.cpp ./api/ezEngine.cpp ./examples/debug_playground/src/*.cpp \
+	./src/*.cpp ./api/ezEngine.cpp ./examples/debug_playground/cpp/*.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
 	-o debug_playground \
 	-I"./" \
-	-I"./examples/debug_playground/src" \
+	-I"./examples/debug_playground/cpp" \
 	-I"./api" \
 	-I"./src" \
 	-I"./lib" \
@@ -98,6 +99,7 @@ install:
 	cp libezEngine.so /usr/lib 
 	cp ezPyEngine.so /usr/lib 
 	cp ezPyEngine.so ./examples/pyBird
+	cp ezPyEngine.so ./examples/debug_playground/python
 
 clean:
 	rm ./libezEngine.so;

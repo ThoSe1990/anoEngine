@@ -102,6 +102,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("Update", ezEngine::Update);
     def("Render", ezEngine::Render);
     def("Destroy", ezEngine::Destroy);
+    def("GetDeltaTime", ezEngine::GetDeltaTime);
 
     def("AddTexture", ezEngine::AddTexture);
     def("AddFont", ezEngine::AddFont);
@@ -109,12 +110,12 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("RemoveAllComponents", ezEngine::RemoveAllComponents);
 
 
-    // scope ezPyEngine.TransformComponent
+    // scope ezPyEngine.Transform
     {
         void (*Create_1)(const Entity entity, const int x, const int y, const int width, const int height, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
         void (*Create_2)(const Entity entity, const ezEngine::Rectangle& size, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
 
-        scope s = class_<dummyTransform>("TransformComponent");
+        scope s = class_<dummyTransform>("Transform");
         def("Create", Create_1);
         def("Create", Create_2);
         def("GetComponent", ezEngine::Transform::GetComponent);
@@ -123,9 +124,9 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     }
 
 
-    // scope ezPyEngine.PositionComponent
+    // scope ezPyEngine.Position
     {
-        scope s = class_<dummyPosition>("PositionComponent");
+        scope s = class_<dummyPosition>("Position");
         def("Create", ezEngine::Position::Create);
         def("SetPosition", ezEngine::Position::SetPosition);
         def("SetVelocity", ezEngine::Position::SetVelocity);
@@ -133,17 +134,17 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     }
 
 
-    // scope ezPyEngine.UserInputComponent
+    // scope ezPyEngine.UserInput
     {
-        scope s = class_<dummyUserInput>("UserInputComponent");
+        scope s = class_<dummyUserInput>("UserInput");
         def("Create", ezEngine::UserInput::Create);
         def("Remove", ezEngine::UserInput::Remove);
     }
 
 
-    // scope ezPyEngine.SpriteComponent
+    // scope ezPyEngine.Sprite
     {
-        scope s = class_<dummySprite>("SpriteComponent");
+        scope s = class_<dummySprite>("Sprite");
         def("Create", ezEngine::Sprite::Create);
         def("UpdateSourceRect", ezEngine::Sprite::UpdateSourceRect);
         def("UpdateDestinationRect", ezEngine::Sprite::UpdateDestinationRect);
@@ -151,9 +152,9 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         def("Remove", ezEngine::Sprite::Remove);
     }
 
-    // scope ezPyEngine.ColliderComponent
+    // scope ezPyEngine.Collider
     {
-        scope s = class_<dummyCollider>("ColliderComponent");
+        scope s = class_<dummyCollider>("Collider");
         def("Create", ezEngine::Collider::Create);
         def("Activate", ezEngine::Collider::Activate);
         def("Deactivate", ezEngine::Collider::Deactivate);
@@ -164,7 +165,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     // scope ezPyEngine.Textlabel
     {
-        scope s = class_<dummyTextlabel>("TextlabelComponent");
+        scope s = class_<dummyTextlabel>("Textlabel");
         def("Create", ezEngine::Textlabel::Create);
     }
 

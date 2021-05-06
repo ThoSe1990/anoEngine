@@ -76,6 +76,10 @@ namespace ezEngine {
         Game::GetInstance().Destroy();
     }
 
+    EZ_ENGINE_PUBLIC float GetDeltaTime()
+    {
+        return Game::GetInstance().GetDeltaTime();
+    }
 
 
 

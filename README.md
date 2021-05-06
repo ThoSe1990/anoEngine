@@ -4,7 +4,10 @@
   
 Welcome to my 2D Game Engine! This game engine is still under development. The long term goal is to create different games by using different interfaces. Aside there will be an artificial intelligence which learns how to play chess (therefore i started implementing a chess game) against human players or another AI. Before starting with AI this will be a coding playground. first of all this will be a independent 2D game engine with an different interfaces (dll, python, lua) and an implemented chess game.
   
-
+  
+![playground](./screenshots/playground.png)
+  
+  
 ## ezEngine Documentation
 
 This engine works with an Entity-Component-System which is illustrated below (simplified). 
