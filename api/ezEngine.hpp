@@ -2,6 +2,8 @@
 #define _API_EZENGINE_HPP_
 
 #include <string>
+#include<algorithm>
+
 
 using Entity = unsigned int;
 
@@ -62,10 +64,6 @@ namespace ezEngine
 
     namespace Transform {
 
-        enum class ControlType {
-            Position = 0,
-            Velocity = 1
-        };
         void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale);
         void Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale);
         const TransformComponent GetComponent(const Entity entity);
@@ -98,7 +96,12 @@ namespace ezEngine
             layer_4 = 4,
             layer_count = 5
         };
-        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, ezEngine::Sprite::Layer layer);
+        Layer operator++(Layer& next);
+        Layer operator*(Layer layer);
+        Layer begin(Layer layer);
+        Layer end(Layer layer);
+
+        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, Layer layer);
         const SpriteComponent GetComponent(const Entity entity); 
         void UpdateSourceRect(const Entity entity, Rectangle source);
         void UpdateDestinationRect(const Entity entity, Rectangle  destination);

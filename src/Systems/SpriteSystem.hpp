@@ -5,15 +5,19 @@
 #include "Components/Components.hpp"
 #include "TextureManager.hpp"
 
+
 class SpriteSystem : public System
 {
 public:
 
     void Initialize() override 
     {
+        auto& components = Components::GetInstance();
 
+        for (const auto& layer : ezEngine::Sprite::Layer() )
+            components.SpriteManagers.emplace(layer, std::make_shared<ComponentManager<SpriteComponent>>());
+    
     }
-
 
     void Update(float deltaTime) override 
     {

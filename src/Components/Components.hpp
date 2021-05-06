@@ -4,6 +4,7 @@
 
 
 #include <memory>
+#include <map>
 #include "Components/ComponentManager.hpp"
 #include "Components/UserInputComponent.hpp"
 #include "Components/SpriteComponent.hpp"
@@ -42,8 +43,12 @@ public:
     std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
     std::shared_ptr<ComponentManager<TextlabelComponent>> TextlabelManager = std::make_shared<ComponentManager<TextlabelComponent>>();
 
+
+    std::map<ezEngine::Sprite::Layer, std::shared_ptr<ComponentManager<SpriteComponent>>> SpriteManagers;
+
+
 private:
-    Components() {}
+    Components() { }
 };
 
 

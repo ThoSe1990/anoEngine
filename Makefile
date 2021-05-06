@@ -72,13 +72,13 @@ chess_debug:
 	-lSDL2_mixer \
 	-lpthread;
 
-playground_debug:
+debug_playground:
 	g++ -g -w -std=c++14 -Wfatal-errors \
-	./src/*.cpp ./api/ezEngine.cpp ./examples/playground/src/*.cpp \
+	./src/*.cpp ./api/ezEngine.cpp ./examples/debug_playground/src/*.cpp \
 	-DBOOST_LOG_DYN_LINK=1 \
-	-o playground \
+	-o debug_playground \
 	-I"./" \
-	-I"./examples/playground/src" \
+	-I"./examples/debug_playground/src" \
 	-I"./api" \
 	-I"./src" \
 	-I"./lib" \
@@ -104,6 +104,7 @@ clean:
 	rm ./libezEngine.so;
 	rm ./ezPyEngine.so
 	rm ./chessExample;
+	rm ./debug_playground;
 
 run_chess:
 	./chessExample;
