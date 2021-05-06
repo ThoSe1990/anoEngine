@@ -25,33 +25,31 @@ All given API function are defined in `./api/ezEngine.hpp`. A description will f
   
 To create a game there is only the api needed. For instance we want to create an Entity and assign some components like:  
   
-  
-C++ (see `./examples/Chess/src/Chess.cpp`):
+
+C++ :
 ````
 ...
 // create an entity
 auto newEntity = ezEngine::CreateEntity();
 
 // add one or more components to it 
-ezEngine::Transform::Create(newEntity, 
-    coordinates.x,
-    coordinates.y,
-    Constants::chesspiece_sidelength,
-    Constants::chesspiece_sidelength,
-    ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
-    Constants::scale
-);
+ezEngine::Sprite::Create(...);
+ezEngine::Transform::Create(...);
+ezEngine::Collider::Create(...);
 ...
 ````
-
+  
 Python (see `./examples/pyBird/pyBird.py`):
 ````
 ...
+#create an entity
+newEntity = ezPyEngine.CreateEntity()
+
 # add some components to the entity
-ezPyEngine.SpriteComponent.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
-ezPyEngine.TransformComponent.Create(player, birdSize, ezPyEngine.Vector2d(0,0), 1)
-ezPyEngine.UserInputComponent.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
-ezPyEngine.ColliderComponent.Create(player, "player", 1)
+ezPyEngine.SpriteComponent.Create(...)
+ezPyEngine.TransformComponent.Create(...)
+ezPyEngine.UserInputComponent.Create(...)
+ezPyEngine.ColliderComponent.Create(...)
 ....
 ````
 
@@ -168,12 +166,21 @@ Colliders are checking if transform components colliding with each other.
 - Bool: active -> inactive (False) collision aren't detected
 - Bool: collision -> True / False if a collision is detected
 - String: collisionWithType -> holds the type of a collided component in case of a collision
+  
+### TextlabelComponent
+Display customized Textlabels. It is mandatory to provide the font (*.ttf) to the assetmanager. Use the api function `ezEngine::AddFont(fontId, filePath, fontSize)`. The textlabel components itself looks like the following.
+  
+**Datafields:**
+- Entity: owner
+- Rectangle position
+- String text -> displayed text
+- String fontId -> which was passed to the assetmanager
+- Color -> ezEngine::Color with red, green, blue, alpha (each 0-255)
 
 ### TileComponent
 to be implemented
-### TextlabelComponent
-to be implemented
 
+ 
   
 
 ## Build 
