@@ -72,8 +72,8 @@ auto newEntity = ezEngine::CreateEntity();
 ezEngine::Sprite::Create(
     newEntity,
     "YOUR_ID",
-    ezEngine::Rectangle{}, // source position in given sprite file
-    ezEngine::Rectangle{}, // destination position in game
+    ezEngine::Rectangle{...}, // source position in given sprite file
+    ezEngine::Rectangle{...}, // destination position in game
     ezEngine::Sprite::Layer::layer_0 
 );
 
