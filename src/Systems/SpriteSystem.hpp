@@ -23,11 +23,12 @@ public:
     {
         auto& components = Components::GetInstance();
 
-        for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+        // for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+        for (const auto& spriteManager : components.SpriteManagers)
         {
-            for (size_t i = 0 ; i < it->second->GetCount() ; i++)
+            for (size_t i = 0 ; i < spriteManager.second->GetCount() ; i++)
             {
-                auto current = it->second->at(i);
+                auto current = spriteManager.second->at(i);
 
                 if (components.TransformManager->Has(current->owner))
                 {
@@ -45,12 +46,12 @@ public:
     void Render() override  
     {
         auto& components = Components::GetInstance();
-        
-        for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+
+        for (const auto& spriteManager : components.SpriteManagers)
         {
-            for (size_t i = 0 ; i < it->second->GetCount() ; i++)
+            for (size_t i = 0 ; i < spriteManager.second->GetCount() ; i++)
             {
-                auto current = it->second->at(i);
+                auto current = spriteManager.second->at(i);
                 TextureManager::Draw(current->textureId, current->source, current->destination);
             }
         }

@@ -241,7 +241,6 @@ namespace ezEngine {
         {
             auto& components = Components::GetInstance();
             components.SpriteManagers.at(layer)->Create(entity,
-            // components.SpriteManager->Create(entity, 
                 textureId,  
                 source, 
                 destination,
@@ -251,18 +250,18 @@ namespace ezEngine {
         EZ_ENGINE_PUBLIC const SpriteComponent GetComponent(const Entity entity)
         {
             auto& components = Components::GetInstance();
-            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            for (const auto& spriteManager : components.SpriteManagers)
             {
-                auto& sprite = it->second->GetComponent(entity);
+                auto& sprite = spriteManager.second->GetComponent(entity);
                 if (sprite) return *sprite.get();
             }
         }
         EZ_ENGINE_PUBLIC void UpdateSourceRect(const Entity entity, Rectangle source)
         {
             auto& components = Components::GetInstance();
-            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            for (const auto& spriteManager : components.SpriteManagers)
             {
-                auto& sprite = it->second->GetComponent(entity);
+                auto& sprite = spriteManager.second->GetComponent(entity);
                 if (!sprite) continue;
                 sprite->source = source;
             }
@@ -270,9 +269,9 @@ namespace ezEngine {
         EZ_ENGINE_PUBLIC void UpdateDestinationRect(const Entity entity, Rectangle destination)
         {
             auto& components = Components::GetInstance();
-            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            for (const auto& spriteManager : components.SpriteManagers)
             {
-                auto& sprite = it->second->GetComponent(entity);
+                auto& sprite = spriteManager.second->GetComponent(entity);
                 if (!sprite) continue;
                 sprite->destination = destination;
             }
@@ -281,9 +280,9 @@ namespace ezEngine {
         EZ_ENGINE_PUBLIC void UpdateTextureId(const Entity entity, const std::string& textureId)
         {
             auto& components = Components::GetInstance();
-            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            for (const auto& spriteManager : components.SpriteManagers)
             {
-                auto& sprite = it->second->GetComponent(entity);
+                auto& sprite = spriteManager.second->GetComponent(entity);
                 if (!sprite) continue;
                 sprite->textureId = textureId;
             }
@@ -291,9 +290,9 @@ namespace ezEngine {
         EZ_ENGINE_PUBLIC void Remove(const Entity entity)
         {
             auto& components = Components::GetInstance();
-            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            for (const auto& spriteManager : components.SpriteManagers)
             {
-                it->second->Remove(entity);
+                spriteManager.second->Remove(entity);
             }
         }
 

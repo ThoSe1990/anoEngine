@@ -34,9 +34,9 @@ public:
         CollisionManager->Remove(entity);
         TextlabelManager->Remove(entity);
 
-        for (const auto& layer : ezEngine::Sprite::Layer())
-            SpriteManagers[layer]->Remove(entity);
-        
+        for (const auto& spriteManager : SpriteManagers)
+            spriteManager.second->Remove(entity);
+  
     }
 
 

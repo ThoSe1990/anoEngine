@@ -1,5 +1,5 @@
 
-next_turn = "black"
+next_turn = "white"
 
 chessboard_setup = {
     [0] = {
