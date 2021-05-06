@@ -23,7 +23,6 @@ public:
     {
         auto& components = Components::GetInstance();
 
-        // for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
         for (const auto& spriteManager : components.SpriteManagers)
         {
             for (size_t i = 0 ; i < spriteManager.second->GetCount() ; i++)
