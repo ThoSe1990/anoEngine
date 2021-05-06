@@ -6,6 +6,7 @@
 chessExample
 chess_debug
 debug_playground
+playground
 
 examples/python/*.so
 examples/debug_playground/python/*.so
