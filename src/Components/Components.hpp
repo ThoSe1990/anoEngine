@@ -30,22 +30,22 @@ public:
     {
         UserInputManager->Remove(entity);
         TransformManager->Remove(entity);
-        SpriteManager->Remove(entity);
         PositionManager->Remove(entity);
         CollisionManager->Remove(entity);
+
+        for (const auto& layer : ezEngine::Sprite::Layer())
+            SpriteManagers[layer]->Remove(entity);
+        
     }
 
 
     std::shared_ptr<ComponentManager<UserInputComponent>> UserInputManager = std::make_shared<ComponentManager<UserInputComponent>>();
     std::shared_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_shared<ComponentManager<PositionComponent>>();
     std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
-    std::shared_ptr<ComponentManager<SpriteComponent>> SpriteManager = std::make_shared<ComponentManager<SpriteComponent>>();
     std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
     std::shared_ptr<ComponentManager<TextlabelComponent>> TextlabelManager = std::make_shared<ComponentManager<TextlabelComponent>>();
 
-
     std::map<ezEngine::Sprite::Layer, std::shared_ptr<ComponentManager<SpriteComponent>>> SpriteManagers;
-
 
 private:
     Components() { }

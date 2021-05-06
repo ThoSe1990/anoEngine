@@ -14,6 +14,7 @@ struct SpriteComponent
     std::string textureId;
     ezEngine::Rectangle source;
     ezEngine::Rectangle destination;
+    // TODO: still needed in component??
     ezEngine::Sprite::Layer layer;
 
 };

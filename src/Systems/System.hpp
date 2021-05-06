@@ -12,6 +12,24 @@ template<typename C> class ComponentManager;
 
 class System
 {
+
+public:
+    virtual ~System() {}
+    virtual void Initialize() {}
+    virtual void Update(float deltaTime) {}
+    virtual void Render() {}
+    
+    static Entity AddEntity()
+    {   
+        auto newEntity = getEntity();
+        std::cout << "adding entity " << newEntity << " max:" << entitiesCount << std::endl;
+        componentsPerEntity[newEntity] = 0;
+        return newEntity;
+    }
+
+
+
+private:
     template<typename C> friend class ComponentManager;
 
     static unsigned int entitiesCount;
@@ -46,19 +64,6 @@ class System
         }
     }
 
-public:
-    virtual ~System() {}
-    virtual void Initialize() {}
-    virtual void Update(float deltaTime) {}
-    virtual void Render() {}
-    
-    static Entity AddEntity()
-    {   
-        auto newEntity = getEntity();
-        std::cout << "adding entity " << newEntity << " max:" << entitiesCount << std::endl;
-        componentsPerEntity[newEntity] = 0;
-        return newEntity;
-    }
 };
 
 

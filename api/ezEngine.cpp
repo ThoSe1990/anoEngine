@@ -37,71 +37,74 @@
 
 namespace ezEngine {
 
-EZ_ENGINE_PUBLIC void Initialize ()
-{
-    Game::GetInstance().Initialize();
-}
-
-EZ_ENGINE_PUBLIC void Initialize_sdl ()
-{
-    Game::GetInstance().Initialize_sdl();
-}
-
-EZ_ENGINE_PUBLIC bool IsRunning()
-{
-    auto& game = Game::GetInstance();
-    return game.IsRunning();
-}
-
-EZ_ENGINE_PUBLIC void ProcessInput()
-{
-    Game::GetInstance().ProcessInput();
-}
-
-EZ_ENGINE_PUBLIC void Update()
-{
-    Game::GetInstance().Update();
-}
-
-EZ_ENGINE_PUBLIC void Render()
-{
-    Game::GetInstance().Render();
-}
-
-EZ_ENGINE_PUBLIC void Destroy()
-{
-    Game::GetInstance().Destroy();
-}
 
 
 
+    EZ_ENGINE_PUBLIC void Initialize ()
+    {
+        Game::GetInstance().Initialize();
+    }
 
+    EZ_ENGINE_PUBLIC void Initialize_sdl ()
+    {
+        Game::GetInstance().Initialize_sdl();
+    }
 
+    EZ_ENGINE_PUBLIC bool IsRunning()
+    {
+        auto& game = Game::GetInstance();
+        return game.IsRunning();
+    }
+
+    EZ_ENGINE_PUBLIC void ProcessInput()
+    {
+        Game::GetInstance().ProcessInput();
+    }
+
+    EZ_ENGINE_PUBLIC void Update()
+    {
+        Game::GetInstance().Update();
+    }
+
+    EZ_ENGINE_PUBLIC void Render()
+    {
+        Game::GetInstance().Render();
+    }
+
+    EZ_ENGINE_PUBLIC void Destroy()
+    {
+        Game::GetInstance().Destroy();
+    }
 
 
 
 
 
-EZ_ENGINE_PUBLIC void AddTexture(const std::string& textureId, const char* filePath)
-{
-    Game::assetManager->AddTexture(textureId, filePath);
-}
-EZ_ENGINE_PUBLIC void AddFont(const std::string& fontId, const char* filePath, int fontSize)
-{
-    Game::assetManager->AddFont(fontId, filePath, fontSize);
-}
 
 
-EZ_ENGINE_PUBLIC const Entity CreateEntity()
-{
-    return System::AddEntity(); 
-}
 
-EZ_ENGINE_PUBLIC void RemoveAllComponents(Entity entity)
-{
-    auto& components = Components::GetInstance();
-    components.RemoveAllComponents(entity);
-}
+
+
+    EZ_ENGINE_PUBLIC void AddTexture(const std::string& textureId, const char* filePath)
+    {
+        Game::assetManager->AddTexture(textureId, filePath);
+    }
+    EZ_ENGINE_PUBLIC void AddFont(const std::string& fontId, const char* filePath, int fontSize)
+    {
+        Game::assetManager->AddFont(fontId, filePath, fontSize);
+    }
+
+
+    EZ_ENGINE_PUBLIC const Entity CreateEntity()
+    {
+        return System::AddEntity(); 
+    }
+
+    EZ_ENGINE_PUBLIC void RemoveAllComponents(Entity entity)
+    {
+        auto& components = Components::GetInstance();
+        components.RemoveAllComponents(entity);
+    }
 
 
 
@@ -237,7 +240,8 @@ EZ_ENGINE_PUBLIC void RemoveAllComponents(Entity entity)
         EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, Layer layer)
         {
             auto& components = Components::GetInstance();
-            components.SpriteManager->Create(entity, 
+            components.SpriteManagers.at(layer)->Create(entity,
+            // components.SpriteManager->Create(entity, 
                 textureId,  
                 source, 
                 destination,
@@ -247,32 +251,50 @@ EZ_ENGINE_PUBLIC void RemoveAllComponents(Entity entity)
         EZ_ENGINE_PUBLIC const SpriteComponent GetComponent(const Entity entity)
         {
             auto& components = Components::GetInstance();
-            auto& sprite = components.SpriteManager->GetComponent(entity);
-            return *sprite.get();
+            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            {
+                auto& sprite = it->second->GetComponent(entity);
+                if (sprite) return *sprite.get();
+            }
         }
         EZ_ENGINE_PUBLIC void UpdateSourceRect(const Entity entity, Rectangle source)
         {
             auto& components = Components::GetInstance();
-            auto& sprite = components.SpriteManager->GetComponent(entity);
-            sprite->source = source;
+            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            {
+                auto& sprite = it->second->GetComponent(entity);
+                if (!sprite) continue;
+                sprite->source = source;
+            }
         }
         EZ_ENGINE_PUBLIC void UpdateDestinationRect(const Entity entity, Rectangle destination)
         {
             auto& components = Components::GetInstance();
-            auto& sprite = components.SpriteManager->GetComponent(entity);
-            sprite->destination = destination;
+            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            {
+                auto& sprite = it->second->GetComponent(entity);
+                if (!sprite) continue;
+                sprite->destination = destination;
+            }
         }
 
         EZ_ENGINE_PUBLIC void UpdateTextureId(const Entity entity, const std::string& textureId)
         {
             auto& components = Components::GetInstance();
-            auto& sprite = components.SpriteManager->GetComponent(entity);
-            sprite->textureId = textureId;
+            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            {
+                auto& sprite = it->second->GetComponent(entity);
+                if (!sprite) continue;
+                sprite->textureId = textureId;
+            }
         }
         EZ_ENGINE_PUBLIC void Remove(const Entity entity)
         {
             auto& components = Components::GetInstance();
-            components.SpriteManager->Remove(entity);
+            for (auto it = components.SpriteManagers.begin() ; it != components.SpriteManagers.end() ; it++)
+            {
+                it->second->Remove(entity);
+            }
         }
 
 

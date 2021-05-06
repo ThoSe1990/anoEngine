@@ -101,7 +101,6 @@ install:
 
 clean:
 	rm ./libezEngine.so;
-	rm ./libezEngine.so;
 	rm ./ezPyEngine.so
 	rm ./chessExample;
 	rm ./debug_playground;

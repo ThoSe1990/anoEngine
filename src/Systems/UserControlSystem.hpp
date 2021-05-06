@@ -60,10 +60,6 @@ public:
 
     }
 
-    void SetVelocity(int value_x, int value_y)
-    {
-
-    }
 };
 
 
