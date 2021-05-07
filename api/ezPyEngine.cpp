@@ -63,6 +63,11 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     class_<SpriteComponent>("Sprite", init<>())
         .add_property("entity", &SpriteComponent::owner)
+        .add_property("textureId", &SpriteComponent::textureId)
+        .add_property("source", &SpriteComponent::source)
+        .add_property("destination", &SpriteComponent::destination)
+        .add_property("flip", &SpriteComponent::flip)        
+        .add_property("layer", &SpriteComponent::layer)        
         ;
 
     class_<ColliderComponent>("Collider", init<>())
@@ -73,21 +78,6 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("collisionWithType", &ColliderComponent::collisionWithType)
         ;
     
-
-
-
-
-    enum_<ezEngine::Sprite::Layer>("Layer")
-        .value("layer_0", ezEngine::Sprite::Layer::layer_0)
-        .value("layer_1", ezEngine::Sprite::Layer::layer_1)
-        .value("layer_2", ezEngine::Sprite::Layer::layer_2)
-        .value("layer_3", ezEngine::Sprite::Layer::layer_3)
-        .value("layer_4", ezEngine::Sprite::Layer::layer_4)
-        .value("layer_count", ezEngine::Sprite::Layer::layer_count)
-        ;
-
-
-
 
 
 
@@ -103,6 +93,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     def("Render", ezEngine::Render);
     def("Destroy", ezEngine::Destroy);
     def("GetDeltaTime", ezEngine::GetDeltaTime);
+    def("GetWindowSize", ezEngine::GetWindowSize);
 
     def("AddTexture", ezEngine::AddTexture);
     def("AddFont", ezEngine::AddFont);
@@ -115,11 +106,21 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         void (*Create_1)(const Entity entity, const int x, const int y, const int width, const int height, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
         void (*Create_2)(const Entity entity, const ezEngine::Rectangle& size, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
 
+        void (*SetPosition_1)(const Entity entity, const int x, const int y) = &ezEngine::Transform::SetPosition;
+        void (*SetPosition_2)(const Entity entity, const ezEngine::Vector2d& position) = &ezEngine::Transform::SetPosition;
+
+        void (*SetVelocity_1)(const Entity entity, const int x, const int y) = &ezEngine::Transform::SetVelocity;
+        void (*SetVelocity_2)(const Entity entity, const ezEngine::Vector2d& position) = &ezEngine::Transform::SetVelocity;
+
+
         scope s = class_<dummyTransform>("Transform");
         def("Create", Create_1);
         def("Create", Create_2);
         def("GetComponent", ezEngine::Transform::GetComponent);
-        def("SetPosition", ezEngine::Transform::SetPosition);
+        def("SetPosition", SetPosition_1);
+        def("SetPosition", SetPosition_2);
+        def("SetVelocity", SetVelocity_1);
+        def("SetVelocity", SetVelocity_2);
         def("Remove", ezEngine::Transform::Remove);
     }
 
@@ -145,10 +146,28 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     // scope ezPyEngine.Sprite
     {
         scope s = class_<dummySprite>("Sprite");
+
+        enum_<ezEngine::Sprite::Layer>("Layer")
+            .value("layer_0", ezEngine::Sprite::Layer::layer_0)
+            .value("layer_1", ezEngine::Sprite::Layer::layer_1)
+            .value("layer_2", ezEngine::Sprite::Layer::layer_2)
+            .value("layer_3", ezEngine::Sprite::Layer::layer_3)
+            .value("layer_4", ezEngine::Sprite::Layer::layer_4)
+            .value("layer_count", ezEngine::Sprite::Layer::layer_count)
+            ;
+
+        enum_<ezEngine::Sprite::Flip>("Flip")
+            .value("none", ezEngine::Sprite::Flip::none)
+            .value("horizontal", ezEngine::Sprite::Flip::horizontal)
+            .value("vertical", ezEngine::Sprite::Flip::vertical)
+            ;
+
         def("Create", ezEngine::Sprite::Create);
+        def("GetComponent", ezEngine::Sprite::GetComponent);
         def("UpdateSourceRect", ezEngine::Sprite::UpdateSourceRect);
         def("UpdateDestinationRect", ezEngine::Sprite::UpdateDestinationRect);
         def("UpdateTextureId", ezEngine::Sprite::UpdateTextureId);
+        def("FlipSprite", ezEngine::Sprite::FlipSprite);
         def("Remove", ezEngine::Sprite::Remove);
     }
 
@@ -156,6 +175,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     {
         scope s = class_<dummyCollider>("Collider");
         def("Create", ezEngine::Collider::Create);
+        def("GetComponent", ezEngine::Collider::GetComponent);
         def("Activate", ezEngine::Collider::Activate);
         def("Deactivate", ezEngine::Collider::Deactivate);
         def("Remove", ezEngine::Collider::Remove);

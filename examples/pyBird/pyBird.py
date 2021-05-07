@@ -1,3 +1,5 @@
+#!/usr/bin/python3.8
+
 import ezPyEngine
 import time
 import random
@@ -18,14 +20,14 @@ def createPipe(now , future):
         pipe_bottom_spawn_y = pipe_top_spawn_y + pipe_size.h + pipe_gap
 
         pipe_top = ezPyEngine.CreateEntity()
-        ezPyEngine.Sprite.Create(pipe_top, "pipe_top", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
+        ezPyEngine.Sprite.Create(pipe_top, "pipe_top", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
         ezPyEngine.Transform.Create(pipe_top, pipe_spawn_x, int(pipe_top_spawn_y), pipe_size.w, pipe_size.h, ezPyEngine.Vector2d(-250,0), 1)
         ezPyEngine.Collider.Create(pipe_top, "pipe", 1)
 
         pipes.append(pipe_top)
         
         pipe_bottom = ezPyEngine.CreateEntity()
-        ezPyEngine.Sprite.Create(pipe_bottom, "pipe_bottom", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
+        ezPyEngine.Sprite.Create(pipe_bottom, "pipe_bottom", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
         ezPyEngine.Transform.Create(pipe_bottom, pipe_spawn_x, int(pipe_bottom_spawn_y),pipe_size.w, pipe_size.h, ezPyEngine.Vector2d(-250,0), 1)
         ezPyEngine.Collider.Create(pipe_bottom, "pipe", 1)
 
@@ -67,10 +69,10 @@ ezPyEngine.AddFont("font", "./examples/pyBird/assets/fonts/TakeChances.ttf", 75)
 
 
 background = ezPyEngine.CreateEntity()
-ezPyEngine.Sprite.Create(background, "background", ezPyEngine.Rectangle(0,0,1912,855), ezPyEngine.Rectangle(0,0,1920,1080), ezPyEngine.Layer.layer_0)
+ezPyEngine.Sprite.Create(background, "background", ezPyEngine.Rectangle(0,0,1912,855), ezPyEngine.Rectangle(0,0,1920,1080), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_0)
 
 player = ezPyEngine.CreateEntity()
-ezPyEngine.Sprite.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Layer.layer_1)
+ezPyEngine.Sprite.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
 ezPyEngine.Transform.Create(player, birdSize, ezPyEngine.Vector2d(0,0), 1)
 ezPyEngine.UserInput.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
 ezPyEngine.Collider.Create(player, "player", 1)

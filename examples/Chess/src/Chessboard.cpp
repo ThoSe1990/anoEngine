@@ -54,6 +54,7 @@ void Chessboard::addSquare(const int sourceRectX, const int sourceRectY, const i
         std::string("board_squares"),
         ezEngine::Rectangle{sourceRectX, sourceRectY, Constants::square_sidelength, Constants::square_sidelength},
         ezEngine::Rectangle{x, y, Constants::square_sidelength, Constants::square_sidelength},
+        ezEngine::Sprite::Flip::none,
         ezEngine::Sprite::Layer::layer_0
     );
 

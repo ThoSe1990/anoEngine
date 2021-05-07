@@ -51,7 +51,7 @@ public:
             for (size_t i = 0 ; i < spriteManager.second->GetCount() ; i++)
             {
                 auto current = spriteManager.second->at(i);
-                TextureManager::Draw(current->textureId, current->source, current->destination);
+                TextureManager::Draw(current->textureId, current->source, current->destination, current->flip);
             }
         }
 

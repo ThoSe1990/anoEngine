@@ -33,7 +33,7 @@ Game& Game::GetInstance() noexcept
     return instance;
 }
 
-bool Game::IsRunning() const 
+bool Game::IsRunning() const noexcept 
 {
     return this->isRunning;
 }
@@ -56,8 +56,8 @@ void Game::Initialize_sdl()
         NULL,
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        WINDOW_WIDTH,
-        WINDOW_HEIGHT,
+        this->windowWidth,
+        this->windowHeight,
         SDL_WINDOW_BORDERLESS
     );
 
@@ -76,6 +76,8 @@ void Game::Initialize_sdl()
 }
 void Game::Initialize()
 {
+    this->frameTargetTime = 1000 / this->fps;
+
     systemManager->AddSystem<UserControlSystem>();
     systemManager->AddSystem<PositionSystem>(); 
     systemManager->AddSystem<SpriteSystem>();
@@ -87,17 +89,25 @@ void Game::Initialize()
     return;
 }
 
-
-float Game::GetDeltaTime()
+const float Game::GetDeltaTime() const noexcept
 {
     return this->deltaTime;
 }
+const unsigned int Game::GetWindowWidth() const noexcept
+{
+    return this->windowWidth;
+}
+const unsigned int Game::GetWindowHeight() const noexcept
+{
+    return this->windowHeight;
+}
+
 
 void Game::Update()
 {
-    int timeToWait = FRAME_TARGET_TIME - (SDL_GetTicks() - ticksLastFrame);
+    int timeToWait = this->frameTargetTime - (SDL_GetTicks() - ticksLastFrame);
 
-    if (timeToWait > 0 && timeToWait <= FRAME_TARGET_TIME) 
+    if (timeToWait > 0 && timeToWait <= this->frameTargetTime) 
         SDL_Delay(timeToWait);
     
 

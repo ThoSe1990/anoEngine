@@ -18,6 +18,7 @@ class Movement
             textureId,
             ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
             ezEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
+            ezEngine::Sprite::Flip::none,
             ezEngine::Sprite::Layer::layer_2
         );          
         Chess::validMoves[square] = newEntity;

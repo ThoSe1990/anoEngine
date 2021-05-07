@@ -77,6 +77,7 @@ ezEngine::Sprite::Create(
     "YOUR_ID",
     ezEngine::Rectangle{...}, // source position in given sprite file
     ezEngine::Rectangle{...}, // destination position in game
+    ezEngine::Sprite::Flip::none, 
     ezEngine::Sprite::Layer::layer_0 
 );
 
@@ -88,7 +89,7 @@ ezPyEngine.AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE")
 # create Entity
 newEntity = ezPyEngine.CreateEntity()
 # create a entity
-ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(source position), ezPyEngine.Rectangle(destination position in game), ezPyEngine.Layer.layer_0)
+ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(source position), ezPyEngine.Rectangle(destination position in game), ezPyEngine.Sprite.Layer.layer_0)
 
 ````
   
@@ -103,6 +104,7 @@ Every information to render an image/sprite in the SpriteSystem. To access given
 - String: textureId -> id which was passed to the assetmanager
 - Rectangle: source -> source rectangle of provided image
 - Rectangle: destination -> destination where it should be rendered in the game
+- Flip: flip -> none, horizontal or vertical flip (defined enum in api)
 - Layer: layer -> rendering layer in ascending order
 
 ### TransformComponent
@@ -218,7 +220,7 @@ By running `make run_chess` the Chessgame starts. It's a C++ implementation whic
   
 ### pyBird
 
-Long time goal is to create a flappy bird game with python. Currently, first implementation for the python API done. Run the script `python3.8 ./examples/pyBird/pyBird.py`. This will create a flappy bird game. The bird controls are implemented in `./assets/scirpts/playerMovement.lua` and can easily changed since this script will be executed during runtime.
+Long time goal is to create a flappy bird game with python. Currently, first implementation for the python API done. Run the script `./examples/pyBird/pyBird.py`. This will create a flappy bird game. The bird controls are implemented in `./assets/scirpts/playerMovement.lua` and can easily changed since this script will be executed during runtime.
   
 Note: this is a first naive approach of the game with keyboard keys a and d for moving left right and clicking for upwards movement
 

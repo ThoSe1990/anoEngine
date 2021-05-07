@@ -38,17 +38,29 @@ public:
     void Render();
     void ProcessInput();
     void Destroy();
-    bool IsRunning() const ;
+    bool IsRunning() const noexcept;
 
-    float GetDeltaTime();
+    const float GetDeltaTime() const noexcept;
+    const unsigned int GetWindowWidth() const noexcept;
+    const unsigned int GetWindowHeight() const noexcept;
 
 private:
 
     Game ();
     bool isRunning;
     float deltaTime;
+    
     SDL_Window* window;
+    
     int ticksLastFrame = 0;
+    
+
+    const unsigned int fps = 60;
+    unsigned int frameTargetTime;
+    const unsigned int windowWidth = 1920;
+    const unsigned int windowHeight = 1080;
+
+
     void InitializeLua();
     void LoadAssets();
 };

@@ -48,6 +48,9 @@ namespace ezEngine
         unsigned char a;
     };
 
+
+
+
     void Initialize_sdl();
     void Initialize();
     bool IsRunning();
@@ -55,8 +58,9 @@ namespace ezEngine
     void Update();
     void Render();
     void Destroy();
-    float GetDeltaTime();
 
+    const float GetDeltaTime();
+    const Vector2d GetWindowSize();
 
     void RemoveAllComponents(Entity entity);
     
@@ -64,14 +68,23 @@ namespace ezEngine
     void AddFont(const std::string& fontId, const char* filePath, int fontSize);
     const Entity CreateEntity();
 
+
+
+
     namespace Transform {
 
         void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale);
         void Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale);
         const TransformComponent GetComponent(const Entity entity);
         void SetPosition(const Entity entity, const int x, const int y);
+        void SetPosition(const Entity entity, const Vector2d& position);
+        void SetVelocity(const Entity entity, const int x, const int y);
+        void SetVelocity(const Entity entity, const Vector2d& velocity);
         void Remove(const Entity entity);
     }
+
+
+
 
     namespace Position {
         void Create(const Entity entity, Vector2d setPosition, Vector2d velocity);
@@ -82,11 +95,17 @@ namespace ezEngine
 
     }
 
+
+
+
     namespace UserInput {
         void Create(const Entity entity, const std::string& inputScript);
         const UserInputComponent GetComponent(const Entity entity);
         void Remove(const Entity entity);
     }
+
+
+
 
     namespace Sprite {
 
@@ -98,18 +117,28 @@ namespace ezEngine
             layer_4 = 4,
             layer_count = 5
         };
+
+        enum class Flip {
+            none = 0,
+            horizontal = 1,
+            vertical = 2
+        };
+
         Layer operator++(Layer& next);
         Layer operator*(Layer layer);
         Layer begin(Layer layer);
         Layer end(Layer layer);
 
-        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, Layer layer);
+        void Create(const Entity entity, const std::string& textureId, Rectangle source, Rectangle destination, Flip flip, Layer layer);
         const SpriteComponent GetComponent(const Entity entity); 
         void UpdateSourceRect(const Entity entity, Rectangle source);
         void UpdateDestinationRect(const Entity entity, Rectangle  destination);
         void UpdateTextureId(const Entity entity, const std::string& textureId);
+        void FlipSprite(const Entity entity, const Flip flip);
         void Remove(const Entity entity);
     }
+
+
 
 
     namespace Collider {
@@ -124,9 +153,13 @@ namespace ezEngine
     }
 
 
+
+
     namespace Textlabel {
         void Create(const Entity entity, const std::string& text, const ezEngine::Rectangle& position, const std::string& fontId, const ezEngine::Color& color);
     }
+
+
 
     
     namespace Inputs {
@@ -140,6 +173,8 @@ namespace ezEngine
     }
 
 }
+
+
 
 
 #include "Components/TransformComponent.hpp"

@@ -76,12 +76,16 @@ namespace ezEngine {
         Game::GetInstance().Destroy();
     }
 
-    EZ_ENGINE_PUBLIC float GetDeltaTime()
+    EZ_ENGINE_PUBLIC const float GetDeltaTime()
     {
         return Game::GetInstance().GetDeltaTime();
     }
 
-
+    EZ_ENGINE_PUBLIC const Vector2d GetWindowSize()
+    {
+        auto& game = Game::GetInstance();
+        return Vector2d{ game.GetWindowWidth() , game.GetWindowHeight() };
+    }
 
 
 
@@ -142,7 +146,25 @@ namespace ezEngine {
             auto& transform = components.TransformManager->GetComponent(entity);
             transform->position = Vector2d{x,y};
         }
-
+        EZ_ENGINE_PUBLIC void SetPosition(const Entity entity, const Vector2d& position)
+        {
+            auto& components = Components::GetInstance();
+            auto& transform = components.TransformManager->GetComponent(entity);
+            transform->position = position;
+        }
+        EZ_ENGINE_PUBLIC void SetVelocity(const Entity entity, const int x, const int y)
+        {
+            auto& components = Components::GetInstance();
+            auto& transform = components.TransformManager->GetComponent(entity);
+            transform->velocity = Vector2d{x,y};
+        }
+        EZ_ENGINE_PUBLIC void SetVelocity(const Entity entity, const Vector2d& velocity)
+        {
+            auto& components = Components::GetInstance();
+            auto& transform = components.TransformManager->GetComponent(entity);
+            transform->velocity = velocity;
+        }
+        
         EZ_ENGINE_PUBLIC void Remove(const Entity entity)
         {
             auto& components = Components::GetInstance();
@@ -241,13 +263,14 @@ namespace ezEngine {
 
 
 
-        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, Layer layer)
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, Flip flip, Layer layer)
         {
             auto& components = Components::GetInstance();
             components.SpriteManagers.at(layer)->Create(entity,
                 textureId,  
                 source, 
                 destination,
+                flip,
                 layer
                 );
         }
@@ -280,7 +303,6 @@ namespace ezEngine {
                 sprite->destination = destination;
             }
         }
-
         EZ_ENGINE_PUBLIC void UpdateTextureId(const Entity entity, const std::string& textureId)
         {
             auto& components = Components::GetInstance();
@@ -289,6 +311,16 @@ namespace ezEngine {
                 auto& sprite = spriteManager.second->GetComponent(entity);
                 if (!sprite) continue;
                 sprite->textureId = textureId;
+            }
+        }
+        EZ_ENGINE_PUBLIC void FlipSprite(const Entity entity, const Flip flip)
+        {
+            auto& components = Components::GetInstance();
+            for (const auto& spriteManager : components.SpriteManagers)
+            {
+                auto& sprite = spriteManager.second->GetComponent(entity);
+                if (!sprite) continue;
+                sprite->flip = flip;
             }
         }
         EZ_ENGINE_PUBLIC void Remove(const Entity entity)
