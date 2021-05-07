@@ -34,12 +34,14 @@ public:
                 {
                     current->collision = true;
                     current->collisionWithType = other->type;
+                    current->collisionWithEntity = other->owner;
                     return;
                 } 
                 else
                 {
                     current->collision = false;
                     current->collisionWithType = std::string("");
+                    current->collisionWithEntity = 0;
                 }
             } 
         }       

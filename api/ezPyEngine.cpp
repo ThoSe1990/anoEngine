@@ -76,6 +76,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         .add_property("active", &ColliderComponent::active)
         .add_property("collision", &ColliderComponent::collision)
         .add_property("collisionWithType", &ColliderComponent::collisionWithType)
+        .add_property("collisionWithEntity", &ColliderComponent::collisionWithEntity)
         ;
     
 

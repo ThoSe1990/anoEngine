@@ -42,7 +42,7 @@ private:
             if (entity.second == 0)
                 return entity.first;
         }
-        return entitiesCount++;
+        return ++entitiesCount;
     }
 
 
