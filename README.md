@@ -30,8 +30,7 @@ To create a game there is only the api needed. For instance we want to create an
   
 
 C++ :
-````
-...
+```cpp
 // create an entity
 auto newEntity = ezEngine::CreateEntity();
 
@@ -39,11 +38,11 @@ auto newEntity = ezEngine::CreateEntity();
 ezEngine::Sprite::Create(...);
 ezEngine::Transform::Create(...);
 ezEngine::Collider::Create(...);
-...
-````
+
+```
   
-Python (see `./examples/pyBird/pyBird.py`):
-````
+Python :
+```python
 ...
 #create an entity
 newEntity = ezPyEngine.CreateEntity()
@@ -53,8 +52,8 @@ ezPyEngine.SpriteComponent.Create(...)
 ezPyEngine.TransformComponent.Create(...)
 ezPyEngine.UserInputComponent.Create(...)
 ezPyEngine.ColliderComponent.Create(...)
-....
-````
+
+```
 
 ## Components
 
@@ -62,9 +61,7 @@ Within this section the provided components are described. Every component holds
   
 Any component can created by the corresponding Create() function on the api. So for instance a sprite component would be created as following.
 
-````
-// C++ 
-
+```cpp
 // add your sprite 
 ezEngine::AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE");
 
@@ -80,9 +77,9 @@ ezEngine::Sprite::Create(
     ezEngine::Sprite::Flip::none, 
     ezEngine::Sprite::Layer::layer_0 
 );
+```
 
-
-# Python:
+```python
 ezPyEngine.AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE")
 # add your sprite
 
@@ -91,7 +88,7 @@ newEntity = ezPyEngine.CreateEntity()
 # create a entity
 ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(source position), ezPyEngine.Rectangle(destination position in game), ezPyEngine.Sprite.Layer.layer_0)
 
-````
+```
   
 ### SpriteComponent
 Every information to render an image/sprite in the SpriteSystem. To access given sprites it is mandatory to add the image with an id to the assetmanager.  
@@ -139,7 +136,7 @@ Moves a transform component around by user inputs (keyboard or mouse). To map al
    
   
 Example for scripting (see `./examples/pyBird/assets/scripts/playerMovement.lua`):
-````
+```lua
 -- lua scripting for user inputs
 -- get instance of all user inputs
 local inputs = UserInputs.GetInstance()
@@ -152,7 +149,7 @@ elseif inputs.keyboard_d == true then
 else    
     velocity["x"] = 0
 end
-````
+```
   
 **Datafields:**
 - Entity: owner
@@ -192,7 +189,7 @@ to be implemented
 There are different targets in the makefile. If there are permission issues by copying to /usr/lib or loading the shared library run with `sudo`.
 
 1. Install the external dependencies
-````
+```bash
 sudo apt install libsdl2-dev
 sudo apt install libsdl2-image-dev
 sudo apt install libsdl2-ttf-dev
@@ -201,7 +198,7 @@ sudo apt install liblua5.3-dev
 sudo apt-get install libboost-all-dev
 apt-get install python-dev
 sudo apt install python3.8
-````
+```
 
 2. Run `make all` to builds the engine, the python api and the chess example
 3. Run `make install` copy shared library to /usr/lib and ./examples/pyBird
@@ -235,3 +232,12 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 
 - add a collision rectangle to have some more space 
 - proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
+
+
+## Sources of Inspiration
+
+Special thanks to following people for making their contents available which inspired and teached me for this project.
+
+- [PIKUMA](https://pikuma.com/)
+- [Wicked Engine](https://wickedengine.net/)
+
