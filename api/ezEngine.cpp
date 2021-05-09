@@ -19,7 +19,7 @@
         #define EZ_ENGINE_HIDDEN __attribute__((visibility("hidden")))
     #else
         #define EZ_ENGINE_PUBLIC
-        #define EZ_ENGINE_HIDDEN
+        #define EZ_ENGCINE_HIDDEN
     #endif
 #endif
 
@@ -127,12 +127,12 @@ namespace ezEngine {
         EZ_ENGINE_PUBLIC void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale)
         {
             auto& components = Components::GetInstance();
-            components.TransformManager->Create(entity, Vector2d{x,y}, width, height, velocity,  scale);
+            components.TransformManager->Create(entity, Rectangle{x, y, width, height}, velocity,  scale);
         }
-        EZ_ENGINE_PUBLIC void Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale)
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const Rectangle& rectangle, const Vector2d& velocity, const int scale)
         {
             auto& components = Components::GetInstance();
-            components.TransformManager->Create(entity, Vector2d{size.x,size.y}, size.w, size.h, velocity, scale);
+            components.TransformManager->Create(entity, rectangle, velocity, scale);
         }
         EZ_ENGINE_PUBLIC const TransformComponent GetComponent(const Entity entity)
         {
@@ -140,17 +140,11 @@ namespace ezEngine {
             auto& transform = components.TransformManager->GetComponent(entity);
             return *transform.get();
         }
-        EZ_ENGINE_PUBLIC void SetPosition(const Entity entity, const int x, const int y)
+        EZ_ENGINE_PUBLIC void SetRectangle(const Entity entity, const Rectangle& rectangle)
         {
             auto& components = Components::GetInstance();
             auto& transform = components.TransformManager->GetComponent(entity);
-            transform->position = Vector2d{x,y};
-        }
-        EZ_ENGINE_PUBLIC void SetPosition(const Entity entity, const Vector2d& position)
-        {
-            auto& components = Components::GetInstance();
-            auto& transform = components.TransformManager->GetComponent(entity);
-            transform->position = position;
+            transform->rectangle = rectangle;
         }
         EZ_ENGINE_PUBLIC void SetVelocity(const Entity entity, const int x, const int y)
         {
@@ -341,10 +335,10 @@ namespace ezEngine {
 
     namespace Collider {
 
-        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& type, const bool active)
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const float offset, const std::string& type, const bool active)
         {
             auto& components = Components::GetInstance();
-            components.CollisionManager->Create(entity, type, active);
+            components.CollisionManager->Create(entity, offset, type, active);
         }
         EZ_ENGINE_PUBLIC const ColliderComponent GetComponent(const Entity entity)
         {

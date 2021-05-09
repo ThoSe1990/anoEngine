@@ -160,9 +160,6 @@ void Chess::updatePieces()
 {
     for (const auto& piece : AllPieces)
     {
-        
-        
-
         auto position = Chessboard::GetCoordinatesFromSquare(piece->square);
         ezEngine::Position::SetPosition(piece->owner, position);
     }     

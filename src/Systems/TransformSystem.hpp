@@ -23,8 +23,8 @@ public:
         {
             auto transform = components.TransformManager->at(i);
 
-            transform->position.x += transform->velocity.x * deltaTime;
-            transform->position.y += transform->velocity.y * deltaTime;
+            transform->rectangle.x += transform->velocity.x * deltaTime;
+            transform->rectangle.y += transform->velocity.y * deltaTime;
         }
     }
 

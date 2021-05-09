@@ -30,7 +30,8 @@ public:
                 auto otherTransform = components.TransformManager->GetComponent(other->owner);
                 if (!otherTransform) continue;
 
-                if (checkCollision(currentTransform, otherTransform))
+                if ( checkCollision( currentTransform->rectangle * current->offset, 
+                                    otherTransform->rectangle * other->offset) ) 
                 {
                     current->collision = true;
                     current->collisionWithType = other->type;
@@ -54,13 +55,13 @@ public:
 
 private:
 
-    bool checkCollision(const std::shared_ptr<TransformComponent>& TransformA, const std::shared_ptr<TransformComponent>& TransformB) 
+    bool checkCollision(const ezEngine::Rectangle& rectangleA, const ezEngine::Rectangle& rectangleB) 
     {
         return (
-            TransformA->position.x + TransformA->width >= TransformB->position.x &&
-            TransformB->position.x + TransformB->width >= TransformA->position.x &&
-            TransformA->position.y + TransformA->height >= TransformB->position.y &&
-            TransformB->position.y + TransformB->height >= TransformA->position.y
+            rectangleA.x + rectangleA.w >= rectangleB.x &&
+            rectangleB.x + rectangleB.w >= rectangleA.x &&
+            rectangleA.y + rectangleA.h >= rectangleB.y &&
+            rectangleB.y + rectangleB.h >= rectangleA.y
         );
 
     }

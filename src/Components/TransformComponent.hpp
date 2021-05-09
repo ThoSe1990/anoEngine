@@ -7,16 +7,15 @@
 struct TransformComponent
 {
     TransformComponent () {}
-    TransformComponent (Entity Owner, ezEngine::Vector2d position, int width, int height, ezEngine::Vector2d velocity, int scale) :
-    owner(Owner), position(position), width(width), height(height), velocity(velocity), scale(scale)
+    TransformComponent (Entity Owner, const ezEngine::Rectangle& rectangle, const ezEngine::Vector2d& velocity, int scale) :
+    owner(Owner), rectangle(rectangle), velocity(velocity), scale(scale)
     { }
+    
     Entity owner;
 
-    ezEngine::Vector2d position;
+    ezEngine::Rectangle rectangle;
     ezEngine::Vector2d velocity;
 
-    int width;
-    int height;
     int scale;  
 };
 

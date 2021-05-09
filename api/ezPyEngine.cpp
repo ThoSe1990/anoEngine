@@ -26,6 +26,11 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         ;
     class_<ezEngine::Rectangle>("Rectangle", init<>())
         .def(init<const int, const int, const int, const int>())
+        .def(self / float())
+        .def(self * float())
+        .def(self + float())
+        .def(self - float())
+        .def("GetCenter", &ezEngine::Rectangle::GetCenter)
         .add_property("x", &ezEngine::Rectangle::x)
         .add_property("y", &ezEngine::Rectangle::y)
         .add_property("w", &ezEngine::Rectangle::w)
@@ -43,10 +48,8 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     class_<TransformComponent>("Transform", init<>())
         .add_property("entity", &TransformComponent::owner)
-        .add_property("position", &TransformComponent::position)
+        .add_property("rectangle", &TransformComponent::rectangle)
         .add_property("velocity", &TransformComponent::velocity)
-        .add_property("width", &TransformComponent::width)
-        .add_property("height", &TransformComponent::height)
         .add_property("scale", &TransformComponent::scale)
         ;
 
@@ -72,6 +75,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
     class_<ColliderComponent>("Collider", init<>())
         .add_property("entity", &ColliderComponent::owner)
+        .add_property("offset", &ColliderComponent::offset)
         .add_property("type", &ColliderComponent::type)
         .add_property("active", &ColliderComponent::active)
         .add_property("collision", &ColliderComponent::collision)
@@ -107,19 +111,14 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         void (*Create_1)(const Entity entity, const int x, const int y, const int width, const int height, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
         void (*Create_2)(const Entity entity, const ezEngine::Rectangle& size, const ezEngine::Vector2d& velocity, const int scale) = &ezEngine::Transform::Create;
 
-        void (*SetPosition_1)(const Entity entity, const int x, const int y) = &ezEngine::Transform::SetPosition;
-        void (*SetPosition_2)(const Entity entity, const ezEngine::Vector2d& position) = &ezEngine::Transform::SetPosition;
-
         void (*SetVelocity_1)(const Entity entity, const int x, const int y) = &ezEngine::Transform::SetVelocity;
         void (*SetVelocity_2)(const Entity entity, const ezEngine::Vector2d& position) = &ezEngine::Transform::SetVelocity;
-
 
         scope s = class_<dummyTransform>("Transform");
         def("Create", Create_1);
         def("Create", Create_2);
         def("GetComponent", ezEngine::Transform::GetComponent);
-        def("SetPosition", SetPosition_1);
-        def("SetPosition", SetPosition_2);
+        def("SetRectangle", ezEngine::Transform::SetRectangle);
         def("SetVelocity", SetVelocity_1);
         def("SetVelocity", SetVelocity_2);
         def("Remove", ezEngine::Transform::Remove);

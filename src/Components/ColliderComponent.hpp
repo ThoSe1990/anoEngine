@@ -7,10 +7,10 @@
 struct ColliderComponent
 {
     ColliderComponent() {}
-    ColliderComponent(Entity Owner, const std::string& Type, bool Active) : owner(Owner), type(Type), active(Active), collision(false), collisionWithType(std::string{""}), collisionWithEntity(0) {}
+    ColliderComponent(Entity Owner, const float offset, const std::string& Type, bool Active) : owner(Owner), offset(offset),type(Type), active(Active), collision(false), collisionWithType(std::string{""}), collisionWithEntity(0) {}
 
     Entity owner;
-    
+    float offset;
     std::string type;
     bool active;
     bool collision;

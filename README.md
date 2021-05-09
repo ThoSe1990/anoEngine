@@ -230,7 +230,6 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 
 ## Known Issues
 
-- add a collision rectangle to have some more space 
 - proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
 
 

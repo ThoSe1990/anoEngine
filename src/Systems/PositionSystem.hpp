@@ -25,8 +25,8 @@ public:
             auto transform = components.TransformManager->GetComponent(positionComponent->owner);
             if (!transform) continue;
 
-            transform->velocity.x = getDirection(positionComponent->velocity.x, positionComponent->setPosition.x, transform->position.x);
-            transform->velocity.y = getDirection(positionComponent->velocity.y, positionComponent->setPosition.y, transform->position.y);
+            transform->velocity.x = getDirection(positionComponent->velocity.x, positionComponent->setPosition.x, transform->rectangle.x);
+            transform->velocity.y = getDirection(positionComponent->velocity.y, positionComponent->setPosition.y, transform->rectangle.y);
         }
     }
 

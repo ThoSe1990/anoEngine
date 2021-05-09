@@ -32,10 +32,7 @@ public:
                 if (components.TransformManager->Has(current->owner))
                 {
                     auto transform = components.TransformManager->GetComponent(current->owner);
-                    current->destination.x = transform->position.x;
-                    current->destination.y = transform->position.y;
-                    current->destination.w = transform->width;
-                    current->destination.h = transform->height;
+                    current->destination = transform->rectangle;
                 }
             }
         }   

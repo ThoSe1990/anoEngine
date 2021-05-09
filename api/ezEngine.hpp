@@ -4,7 +4,6 @@
 #include <string>
 #include<algorithm>
 
-
 using Entity = unsigned int;
 
 struct TransformComponent;
@@ -14,42 +13,10 @@ struct ColliderComponent;
 struct UserInputComponent;
 
 
+#include "types/types.hpp"
+
 namespace ezEngine
 {
-    struct Vector2d {
-        Vector2d() {}
-        Vector2d(const int x, const int y) : x(x), y(y) {}
-        int x; 
-        int y;
-        Vector2d operator+(const Vector2d& other)
-        {
-            Vector2d v(*this);
-            v.x += other.x;
-            v.y += other.y;
-            return v;
-        }
-    };
-
-    struct Rectangle {
-        Rectangle() {}
-        Rectangle(const int x, const int y, const int w, const int h) : x(x), y(y), w(w), h(h) {}
-        int x;
-        int y;
-        int w;
-        int h;
-    };
-
-    struct Color {
-        Color() {}
-        Color(const int r, const int g, const int b, const int a) : r(r), g(g), b(b), a(a) {}
-        unsigned char r;
-        unsigned char g;
-        unsigned char b;
-        unsigned char a;
-    };
-
-
-
 
     void Initialize_sdl();
     void Initialize();
@@ -74,10 +41,9 @@ namespace ezEngine
     namespace Transform {
 
         void Create(const Entity entity, const int x, const int y, const int width, const int height, const Vector2d& velocity, const int scale);
-        void Create(const Entity entity, const Rectangle& size, const Vector2d& velocity, const int scale);
+        void Create(const Entity entity, const Rectangle& rectangle, const Vector2d& velocity, const int scale);
         const TransformComponent GetComponent(const Entity entity);
-        void SetPosition(const Entity entity, const int x, const int y);
-        void SetPosition(const Entity entity, const Vector2d& position);
+        void SetRectangle(const Entity entity, const Rectangle& position);
         void SetVelocity(const Entity entity, const int x, const int y);
         void SetVelocity(const Entity entity, const Vector2d& velocity);
         void Remove(const Entity entity);
@@ -143,7 +109,7 @@ namespace ezEngine
 
     namespace Collider {
 
-        void Create(const Entity entity, const std::string& type, const bool active);
+        void Create(const Entity entity, const float offset, const std::string& type, const bool active);
         const ColliderComponent GetComponent(const Entity entity);
         void Activate(const Entity entity);
         void Deactivate(const Entity entity);
