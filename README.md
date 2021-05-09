@@ -164,6 +164,7 @@ Colliders are checking if transform components colliding with each other.
   
 **Datafields:**
 - Entity: owner
+- Float: offset -> offset between transform's rectangle and the considered rectangle for collision (e.g. if 0.5 then the rectangle for the collision has half of the transform's, rectangles center remains)
 - String: type -> arbitrary type which can passed by the user
 - Bool: active -> inactive (False) collision aren't detected
 - Bool: collision -> True / False if a collision is detected
