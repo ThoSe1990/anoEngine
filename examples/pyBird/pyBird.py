@@ -22,14 +22,14 @@ def createPipe(now , future):
         pipe_top = ezPyEngine.CreateEntity()
         ezPyEngine.Sprite.Create(pipe_top, "pipe_top", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
         ezPyEngine.Transform.Create(pipe_top, pipe_spawn_x, int(pipe_top_spawn_y), pipe_size.w, pipe_size.h, ezPyEngine.Vector2d(-250,0), 1)
-        ezPyEngine.Collider.Create(pipe_top,ezPyEngine.Transform.GetComponent(pipe_top), "pipe", 1)
+        ezPyEngine.Collider.Create(pipe_top, 1.0, "pipe", 1)
 
         pipes.append(pipe_top)
         
         pipe_bottom = ezPyEngine.CreateEntity()
         ezPyEngine.Sprite.Create(pipe_bottom, "pipe_bottom", ezPyEngine.Rectangle(0,0,261,1000), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
         ezPyEngine.Transform.Create(pipe_bottom, pipe_spawn_x, int(pipe_bottom_spawn_y),pipe_size.w, pipe_size.h, ezPyEngine.Vector2d(-250,0), 1)
-        ezPyEngine.Collider.Create(pipe_bottom, ezPyEngine.Transform.GetComponent(pipe_bottom), "pipe", 1)
+        ezPyEngine.Collider.Create(pipe_bottom, 1.0, "pipe", 1)
 
         pipes.append(pipe_bottom)
 
@@ -75,7 +75,7 @@ player = ezPyEngine.CreateEntity()
 ezPyEngine.Sprite.Create(player, "bird_up", ezPyEngine.Rectangle(0,0,300,230), ezPyEngine.Rectangle(0,0,0,0), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
 ezPyEngine.Transform.Create(player, birdSize, ezPyEngine.Vector2d(0,0), 1)
 ezPyEngine.UserInput.Create(player, "./examples/pyBird/assets/scripts/playerMovement.lua")
-ezPyEngine.Collider.Create(player, ezPyEngine.Transform.GetComponent(player), "player", 1)
+ezPyEngine.Collider.Create(player, 0.5, "player", 1)
 
 
 textlabel = ezPyEngine.CreateEntity()
