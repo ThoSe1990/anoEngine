@@ -15,7 +15,7 @@ public:
         auto& components = Components::GetInstance();
 
         for (const auto& layer : ezEngine::Sprite::Layer())
-            components.SpriteManagers.emplace(layer, std::make_shared<ComponentManager<SpriteComponent>>());
+            components.SpriteManagers.emplace(layer, std::make_unique<ComponentManager<SpriteComponent>>());
 
     }
 

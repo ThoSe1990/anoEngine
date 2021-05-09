@@ -40,13 +40,13 @@ public:
     }
 
 
-    std::shared_ptr<ComponentManager<UserInputComponent>> UserInputManager = std::make_shared<ComponentManager<UserInputComponent>>();
-    std::shared_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_shared<ComponentManager<PositionComponent>>();
-    std::shared_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_shared<ComponentManager<TransformComponent>>();
-    std::shared_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_shared<ComponentManager<ColliderComponent>>();
-    std::shared_ptr<ComponentManager<TextlabelComponent>> TextlabelManager = std::make_shared<ComponentManager<TextlabelComponent>>();
+    std::unique_ptr<ComponentManager<UserInputComponent>> UserInputManager = std::make_unique<ComponentManager<UserInputComponent>>();
+    std::unique_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_unique<ComponentManager<PositionComponent>>();
+    std::unique_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_unique<ComponentManager<TransformComponent>>();
+    std::unique_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_unique<ComponentManager<ColliderComponent>>();
+    std::unique_ptr<ComponentManager<TextlabelComponent>> TextlabelManager = std::make_unique<ComponentManager<TextlabelComponent>>();
 
-    std::map<ezEngine::Sprite::Layer, std::shared_ptr<ComponentManager<SpriteComponent>>> SpriteManagers;
+    std::map<ezEngine::Sprite::Layer, std::unique_ptr<ComponentManager<SpriteComponent>>> SpriteManagers;
 
 private:
     Components() { }
