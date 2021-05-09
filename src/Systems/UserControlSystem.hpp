@@ -23,13 +23,6 @@ public:
             "x",0,
             "y",0
         );
-
-        lua["rectangle"] = lua.create_table_with(
-            "x",0,
-            "y",0,
-            "w",0,
-            "h",0
-        );
     
         lua.new_usertype<UserInputs>("UserInputs",
 		    "new", sol::no_constructor,
@@ -57,13 +50,9 @@ public:
             
             lua.script_file(inputComponent->inputScript);
 
-            transform->velocity.x = lua["velocity"]["x"].get_or(0);
-            transform->velocity.y = lua["velocity"]["y"].get_or(0);
-
-            transform->rectangle.x = lua["rectangle"]["x"].get_or(transform->rectangle.x);
-            transform->rectangle.y = lua["rectangle"]["y"].get_or(transform->rectangle.y);
-            transform->rectangle.w = lua["rectangle"]["w"].get_or(transform->rectangle.w);
-            transform->rectangle.h = lua["rectangle"]["h"].get_or(transform->rectangle.h);
+            transform->velocity.x = lua["velocity"]["x"];
+            transform->velocity.y = lua["velocity"]["y"];
+            
         }        
     }
 

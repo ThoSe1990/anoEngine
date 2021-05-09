@@ -17,7 +17,6 @@
 class Game
 {
 
-
 public:
 
     Game(Game const&) = delete;
@@ -33,7 +32,6 @@ public:
     sol::state lua;
 
     void Initialize();
-    void Initialize_sdl();
     void Update();
     void Render();
     void ProcessInput();

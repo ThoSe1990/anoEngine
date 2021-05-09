@@ -55,9 +55,8 @@ def update():
         ezPyEngine.Update()
     
 
-
 ezPyEngine.Initialize()
-ezPyEngine.Initialize_sdl()
+
 
 ezPyEngine.AddTexture("background", "./examples/pyBird/assets/images/background.png")
 ezPyEngine.AddTexture("bird_up", "./examples/pyBird/assets/images/bird_up.png")

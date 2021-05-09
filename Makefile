@@ -98,8 +98,6 @@ debug_playground:
 install:
 	cp libezEngine.so /usr/lib 
 	cp ezPyEngine.so /usr/lib/python3.8
-	# cp ezPyEngine.so ./examples/pyBird
-	# cp ezPyEngine.so ./examples/debug_playground/python
 
 clean:
 	rm ./libezEngine.so;

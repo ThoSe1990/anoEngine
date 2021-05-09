@@ -38,11 +38,8 @@ bool Game::IsRunning() const noexcept
     return this->isRunning;
 }
 
-
-
-void Game::Initialize_sdl()
+void Game::Initialize()
 {
-    
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) 
     {
         std::cerr << "Error initializing SDL." << std::endl;
@@ -73,9 +70,8 @@ void Game::Initialize_sdl()
         std::cerr << "Error creating SDL renderer." << std::endl;
         return;
     }
-}
-void Game::Initialize()
-{
+
+
     this->frameTargetTime = 1000 / this->fps;
 
     systemManager->AddSystem<UserControlSystem>();

@@ -91,7 +91,6 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
 
     def("Initialize", ezEngine::Initialize);
-    def("Initialize_sdl", ezEngine::Initialize_sdl);
     def("IsRunning", ezEngine::IsRunning);
     def("ProcessInput", ezEngine::ProcessInput);
     def("Update", ezEngine::Update);

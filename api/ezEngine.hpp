@@ -17,8 +17,6 @@ struct UserInputComponent;
 
 namespace ezEngine
 {
-
-    void Initialize_sdl();
     void Initialize();
     bool IsRunning();
     void ProcessInput();

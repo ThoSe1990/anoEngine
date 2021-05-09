@@ -13,10 +13,10 @@ std::shared_ptr<Chesspiece> Chess::selectedPiece;
 
 void Chess::Initialize()
 {
-    ezEngine::Initialize_sdl();
+    ezEngine::Initialize();
+    
     initializeLua();
     loadAssets();
-    ezEngine::Initialize(); // init systems
 
     chessboard = std::make_shared<Chessboard>();
     chessboard->Init();

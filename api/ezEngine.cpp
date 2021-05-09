@@ -38,16 +38,9 @@
 namespace ezEngine {
 
 
-
-
     EZ_ENGINE_PUBLIC void Initialize ()
     {
         Game::GetInstance().Initialize();
-    }
-
-    EZ_ENGINE_PUBLIC void Initialize_sdl ()
-    {
-        Game::GetInstance().Initialize_sdl();
     }
 
     EZ_ENGINE_PUBLIC bool IsRunning()
