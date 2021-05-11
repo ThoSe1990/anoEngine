@@ -5,8 +5,11 @@
 *.so
 chessExample
 chess_debug
+chess
 debug_playground
 playground
 
 examples/python/*.so
 examples/debug_playground/python/*.so
+
+/build

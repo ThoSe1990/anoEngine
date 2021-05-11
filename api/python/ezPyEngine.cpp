@@ -1,4 +1,7 @@
 
+
+#define BOOST_PYTHON_STATIC_LIB
+
 #include <boost/python.hpp>
 #include <boost/python/scope.hpp>
 
@@ -18,6 +21,8 @@ class dummyInputs{};
 BOOST_PYTHON_MODULE(ezPyEngine)
 {
     using namespace boost::python;
+
+    Py_Initialize();
 
     class_<ezEngine::Vector2d>("Vector2d", init<>())
         .def(init<const int, const int>())
@@ -87,9 +92,6 @@ BOOST_PYTHON_MODULE(ezPyEngine)
 
 
 
-
-
-
     def("Initialize", ezEngine::Initialize);
     def("IsRunning", ezEngine::IsRunning);
     def("ProcessInput", ezEngine::ProcessInput);
@@ -122,7 +124,6 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         def("SetVelocity", SetVelocity_2);
         def("Remove", ezEngine::Transform::Remove);
     }
-
 
     // scope ezPyEngine.Position
     {

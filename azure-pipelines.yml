@@ -21,6 +21,9 @@ steps:
     sudo apt-get install libboost-all-dev
     apt-get install python-dev
     sudo apt install python3.8
-    make all
+    mkdir build
+    cd build
+    cmake .. -G "Unix Makefiles"
+    make
 
   displayName: 'installing libs and build'

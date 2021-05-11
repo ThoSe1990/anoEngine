@@ -201,8 +201,16 @@ apt-get install python-dev
 sudo apt install python3.8
 ```
 
-2. Run `make all` to builds the engine, the python api and the chess example
-3. Run `make install` copy shared library to /usr/lib and ./examples/pyBird
+2. Create build directory and build all
+```bash
+mkdir build
+cd build
+cmake .. -G "Unix Makefiles"
+make
+make install
+```
+
+3. **All python scripts have relative paths inside so make sure to run it from projects root directory**
 
 
 ## Examples
