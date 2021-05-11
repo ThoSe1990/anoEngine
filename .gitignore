@@ -3,13 +3,8 @@
 /.vscode
 /log
 *.so
-chessExample
-chess_debug
-chess
-debug_playground
+chess_example
 playground
 
-examples/python/*.so
-examples/debug_playground/python/*.so
 
 /build
