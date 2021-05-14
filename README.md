@@ -180,7 +180,7 @@ Display customized Textlabels. It is mandatory to provide the font (*.ttf) to th
 - String fontId -> which was passed to the assetmanager
 - Color -> ezEngine::Color with red, green, blue, alpha (each 0-255)
 
-### TileComponent
+### TileMapComponent
 to be implemented
 
  
@@ -239,6 +239,7 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 
 ## Known Issues
 
+- creating tilemaps doesnt casts string to int properly, doesnt matter now because tilemaps will be read from json -> next: json reader for tilemaps
 - proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
 
 

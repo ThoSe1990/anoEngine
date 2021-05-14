@@ -125,6 +125,14 @@ namespace ezEngine
 
 
 
+
+
+    namespace TileMap {
+        void Create(const Entity entity, const std::string& filePath, const std::string& textureId, const ezEngine::Vector2d& mapSize, const ezEngine::Vector2d& tileSize, const float scale);
+        void LoadMap(const Entity entity);
+    }
+
+
     
     namespace Inputs {
         bool MouseButtonLeftClick();

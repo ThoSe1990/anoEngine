@@ -14,6 +14,7 @@ class dummyUserInput{};
 class dummySprite{};
 class dummyCollider{};
 class dummyTextlabel{};
+class dummyTilemap{};
 class dummyInputs{};
 
 
@@ -187,6 +188,13 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     {
         scope s = class_<dummyTextlabel>("Textlabel");
         def("Create", ezEngine::Textlabel::Create);
+    }
+
+    // scope ezPyEngine.Tilemap
+    {
+        scope s = class_<dummyTilemap>("Tilemap");
+        def("Create", ezEngine::TileMap::Create);
+        def("LoadMap", ezEngine::TileMap::LoadMap);
     }
 
     // scope ezPyEngine.Inputs

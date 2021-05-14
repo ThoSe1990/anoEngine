@@ -31,6 +31,7 @@
 #include "UserInputs.hpp"
 #include "Components/Components.hpp"
 #include "Systems/TextlabelSystem.hpp"
+#include "Systems/TileMapSystem.hpp"
 #include "Constants.hpp"
 #include "Game.hpp"
 
@@ -77,7 +78,7 @@ namespace ezEngine {
     EZ_ENGINE_PUBLIC const Vector2d GetWindowSize()
     {
         auto& game = Game::GetInstance();
-        return Vector2d{ game.GetWindowWidth() , game.GetWindowHeight() };
+        return Vector2d{ static_cast<int>(game.GetWindowWidth()) , static_cast<int>(game.GetWindowHeight()) };
     }
 
 
@@ -390,6 +391,20 @@ namespace ezEngine {
     }
 
 
+
+
+
+    namespace TileMap {
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& filePath, const std::string& textureId, const ezEngine::Vector2d& mapSize, const ezEngine::Vector2d& tileSize, const float scale)
+        {
+            auto& components = Components::GetInstance();
+            components.TilemapManager->Create(entity, filePath, textureId, mapSize, tileSize, scale);
+        }
+        EZ_ENGINE_PUBLIC void LoadMap(const Entity entity)
+        {
+            Game::systemManager->GetSystem<TileMapSystem>()->LoadMap(entity);
+        }
+    }
 
 
 

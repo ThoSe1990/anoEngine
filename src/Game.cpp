@@ -5,6 +5,7 @@
 #include "Log.hpp"
 
 #include "Systems/UserControlSystem.hpp"
+#include "Systems/TileMapSystem.hpp"
 #include "Systems/SpriteSystem.hpp"
 #include "Systems/TransformSystem.hpp"
 #include "Systems/PositionSystem.hpp"
@@ -76,11 +77,12 @@ void Game::Initialize()
 
     systemManager->AddSystem<UserControlSystem>();
     systemManager->AddSystem<PositionSystem>(); 
+    systemManager->AddSystem<TileMapSystem>();
     systemManager->AddSystem<SpriteSystem>();
     systemManager->AddSystem<TransformSystem>();
     systemManager->AddSystem<CollisionSystem>();
     systemManager->AddSystem<TextlabelSystem>();
-
+    
     isRunning = true;
     return;
 }

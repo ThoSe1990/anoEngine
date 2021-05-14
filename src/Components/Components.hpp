@@ -7,6 +7,7 @@
 #include <map>
 #include "Components/ComponentManager.hpp"
 #include "Components/UserInputComponent.hpp"
+#include "Components/TileMapComponent.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Components/TransformComponent.hpp"
 #include "Components/PositionComponent.hpp"
@@ -39,7 +40,7 @@ public:
   
     }
 
-
+    std::unique_ptr<ComponentManager<TileMapComponent>> TilemapManager = std::make_unique<ComponentManager<TileMapComponent>>();
     std::unique_ptr<ComponentManager<UserInputComponent>> UserInputManager = std::make_unique<ComponentManager<UserInputComponent>>();
     std::unique_ptr<ComponentManager<PositionComponent>> PositionManager = std::make_unique<ComponentManager<PositionComponent>>();
     std::unique_ptr<ComponentManager<TransformComponent>> TransformManager = std::make_unique<ComponentManager<TransformComponent>>();
