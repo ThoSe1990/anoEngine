@@ -12,7 +12,7 @@ ezPyEngine.Initialize()
 ezPyEngine.AddTexture("mymap", "./examples/tilemap/assets/images/32x32_map_tile v3.1.png")
 
 map = ezPyEngine.CreateEntity()
-ezPyEngine.Tilemap.Create(map, "./examples/tilemap/assets/map/tilemap.map", "mymap", mapsize, tilesize, 1.0)
+ezPyEngine.Tilemap.Create(map, "./examples/tilemap/assets/map/tilemap.json", "mymap")
 
 ezPyEngine.Tilemap.LoadMap(map)
 

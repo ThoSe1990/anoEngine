@@ -239,7 +239,6 @@ Note: this is a first naive approach of the game with keyboard keys a and d for 
 
 ## Known Issues
 
-- creating tilemaps doesnt casts string to int properly, doesnt matter now because tilemaps will be read from json -> next: json reader for tilemaps
 - proper position control (refactor 2point control, chess figure jiggles on arriving at given square)
 
 

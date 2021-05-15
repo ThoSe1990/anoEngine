@@ -7,6 +7,10 @@
 #include "Systems/System.hpp"
 #include "Components/Components.hpp"
 
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/foreach.hpp>
+
 #include <fstream>
 
 
@@ -29,6 +33,9 @@ public:
 
     }
 
+    
+    // TODO: Delete map method, store entities of map (e.g. container or something)
+    // TODO: Add Tilecomponents and json format to readme
     void LoadMap(Entity entity)
     {
         auto& components = Components::GetInstance();
@@ -40,40 +47,54 @@ private:
     void CreateTiles(const std::shared_ptr<TileMapComponent>& tilemap)
     {
 
-        std::fstream mapFile;
-        mapFile.open(tilemap->filePath);
-
-
-        for (int y = 0; y < tilemap->mapSize.y; y++) 
+        try
         {
-            for (int x = 0; x < tilemap->mapSize.x; x++) 
+            boost::property_tree::ptree pt;
+            boost::property_tree::read_json(tilemap->filePath, pt);
+
+            auto tileSize = pt.get_child("map.tile_size");
+
+            BOOST_FOREACH(boost::property_tree::ptree::value_type &v, pt.get_child("map.tiles"))
             {
-                ezEngine::Rectangle source{0,0,tilemap->tileSize.x,tilemap->tileSize.y};
-
-                char ch;
-                mapFile.get(ch);
-                source.y =  atoi(&ch) * tilemap->tileSize.y;
-
-                mapFile.get(ch);
-                source.x = atoi(&ch) * tilemap->tileSize.x;
-
-                ezEngine::Rectangle destination{
-                    x*tilemap->tileSize.x*tilemap->scale,
-                    y*tilemap->tileSize.y*tilemap->scale,
-                    tilemap->tileSize.x*tilemap->scale,
-                    tilemap->tileSize.y*tilemap->scale
-                    };
-
-                auto newTile = this->AddEntity();
-                ezEngine::Sprite::Create(newTile, tilemap->textureId, source, destination, ezEngine::Sprite::Flip::none, ezEngine::Sprite::Layer::layer_0);
-                                
-                mapFile.get(ch);
-                mapFile.ignore();
+                assert(v.first.empty());
+                AddTile(v.second, tileSize.get_value<int>(), tilemap->textureId);
             }
         }
-        mapFile.close();
+        catch (std::exception const& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+
+    }
 
 
+    void AddTile(boost::property_tree::ptree const& pt, const int tileSize, const std::string& textureId)
+    {
+        using boost::property_tree::ptree;
+
+        
+        auto source_x = pt.get_child("source_x");
+        auto source_y = pt.get_child("source_y");        
+        auto destination_x = pt.get_child("destination_x");
+        auto destination_y = pt.get_child("destination_y");
+        auto scale = pt.get_child("scale");
+
+        ezEngine::Rectangle source {
+            source_x.get_value<int>() * tileSize,
+            source_y.get_value<int>() * tileSize,
+            tileSize,
+            tileSize
+        };
+        
+        ezEngine::Rectangle destination {
+            destination_x.get_value<int>() * tileSize * scale.get_value<int>(),
+            destination_y.get_value<int>() * tileSize * scale.get_value<int>(),
+            tileSize * scale.get_value<int>(),
+            tileSize * scale.get_value<int>()
+        };
+        
+        auto newTile = this->AddEntity();
+        ezEngine::Sprite::Create(newTile, textureId, source, destination, ezEngine::Sprite::Flip::none, ezEngine::Sprite::Layer::layer_0);
     }
 
 };

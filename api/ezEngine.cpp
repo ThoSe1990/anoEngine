@@ -395,10 +395,10 @@ namespace ezEngine {
 
 
     namespace TileMap {
-        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& filePath, const std::string& textureId, const ezEngine::Vector2d& mapSize, const ezEngine::Vector2d& tileSize, const float scale)
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& filePath, const std::string& textureId)
         {
             auto& components = Components::GetInstance();
-            components.TilemapManager->Create(entity, filePath, textureId, mapSize, tileSize, scale);
+            components.TilemapManager->Create(entity, filePath, textureId);
         }
         EZ_ENGINE_PUBLIC void LoadMap(const Entity entity)
         {
