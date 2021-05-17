@@ -181,8 +181,12 @@ Display customized Textlabels. It is mandatory to provide the font (*.ttf) to th
 - Color -> ezEngine::Color with red, green, blue, alpha (each 0-255)
 
 ### TileMapComponent
-to be implemented
-
+With the TileMapComponent a map can be created. First draft of the Tilemap looks like the following. Tilemaps can be created with a json or a lua file (see `./examples/tilemap/assets/map/`)
+  
+**Datafields:**
+- Entity: owner
+- String filePath -> path to the map file
+- String textureId -> textureId for getting the source image from the assetmanager (has to added to assetmanager before adding tilemaps)
  
   
 
