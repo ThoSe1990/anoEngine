@@ -16,6 +16,51 @@ namespace ezEngine {
             v.y += other.y;
             return v;
         }
+        Vector2d operator-(const Vector2d& other)
+        {
+            Vector2d v(*this);
+            v.x -= other.x;
+            v.y -= other.y;
+            return v;
+        }
+        Vector2d operator*(const Vector2d& other)
+        {
+            Vector2d v(*this);
+            v.x *= other.x;
+            v.y *= other.y;
+            return v;
+        }
+        Vector2d operator*(const float value)
+        {
+            Vector2d v(*this);
+            v.x *= value;
+            v.y *= value;
+            return v;
+        }
+        Vector2d operator/(const Vector2d& other)
+        {
+            Vector2d v(*this);
+            v.x /= other.x;
+            v.y /= other.y;
+            return v;
+        }
+        Vector2d operator/(const float rhs)
+        {
+            Vector2d v(*this);
+            v.x /= rhs;
+            v.y /= rhs;
+            return v;
+        }
+        bool operator==(const Vector2d& other)
+        {
+            Vector2d v(*this);
+            return (v.x == other.x && v.y == other.y);
+        }
+        bool operator==(const int rhs)
+        {
+            Vector2d v(*this);
+            return (v.x == rhs && v.y == rhs);
+        }
     };
 
 

@@ -65,6 +65,7 @@ ezPyEngine.AddTexture("background", "./examples/debug_playground/assets/images/b
 ezPyEngine.AddTexture("runningCharacter", "./examples/debug_playground/assets/images/running2.png")
 ezPyEngine.AddTexture("flyingBird", "./examples/debug_playground/assets/images/redBird.png")
 ezPyEngine.AddTexture("greenGuy", "./examples/debug_playground/assets/images/green.png")
+ezPyEngine.AddTexture("virus", "./examples/debug_playground/assets/images/virus.png")
 
 
 ezPyEngine.AddFont("monster_small", "./examples/debug_playground/assets/fonts/monster.ttf", 35)
@@ -119,6 +120,17 @@ greenGuySprites.append(ezPyEngine.Rectangle(0,1250,  350,340))
 greenGuy = MovingCharacter(ezPyEngine.Vector2d(0,0), ezPyEngine.Rectangle(1200,450,350,340), "greenGuy", greenGuySprites)
 ezPyEngine.Collider.Create(greenGuy.entity, 0.5, "greenGuy", 1)
 
+
+virus = ezPyEngine.CreateEntity()
+ezPyEngine.Sprite.Create(virus, "virus", ezPyEngine.Rectangle(0,0, 2500,2500), ezPyEngine.Rectangle(1000,1000, 100,100), ezPyEngine.Sprite.Flip.none, ezPyEngine.Sprite.Layer.layer_1)
+ezPyEngine.Transform.Create(virus, ezPyEngine.Rectangle(1000,1000, 100,100), ezPyEngine.Vector2d(0,0), 1)
+ezPyEngine.Position.Create(virus, 
+                        ezPyEngine.Vector2d(10,10),
+                        ezPyEngine.Vector2d(500,500), 
+                        ezPyEngine.Vector2d(2,2),
+                        ezPyEngine.Vector2d(10,10),
+                        ezPyEngine.Vector2d(0,0)
+                        )
 
 while ezPyEngine.IsRunning():
     ezPyEngine.ProcessInput()

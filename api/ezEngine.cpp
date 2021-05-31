@@ -169,10 +169,10 @@ namespace ezEngine {
     namespace Position {
 
 
-        EZ_ENGINE_PUBLIC void Create(const Entity entity, Vector2d setPosition, Vector2d velocity)
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const Vector2d& setPosition, const Vector2d& maxVelocity, const Vector2d& kp, const Vector2d& ki, const Vector2d& kd)
         {
             auto& components = Components::GetInstance();
-            components.PositionManager->Create(entity, setPosition, velocity);
+            components.PositionManager->Create(entity, setPosition, maxVelocity, kp, ki, kd);
         }
         EZ_ENGINE_PUBLIC const PositionComponent GetComponent(const Entity entity)
         {
@@ -180,17 +180,17 @@ namespace ezEngine {
             auto& position = components.PositionManager->GetComponent(entity);
             return *position.get();
         }
-        EZ_ENGINE_PUBLIC void SetPosition(const Entity entity, Vector2d position)
+        EZ_ENGINE_PUBLIC void SetPosition(const Entity entity, const Vector2d& position)
         {
             auto& components = Components::GetInstance();
             auto positionComponent = components.PositionManager->GetComponent(entity);
             positionComponent->setPosition = position;
         }
-        EZ_ENGINE_PUBLIC void SetVelocity(const Entity entity, Vector2d velocity)
+        EZ_ENGINE_PUBLIC void SetMaxVelocity(const Entity entity, const Vector2d& maxVelocity)
         {
             auto& components = Components::GetInstance();
             auto position = components.PositionManager->GetComponent(entity);
-            position->velocity = velocity;
+            position->maxVelocity = maxVelocity;
         }
         EZ_ENGINE_PUBLIC void Remove(const Entity entity)
         {

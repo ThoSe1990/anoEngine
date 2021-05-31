@@ -62,7 +62,11 @@ BOOST_PYTHON_MODULE(ezPyEngine)
     class_<PositionComponent>("Postion", init<>())
         .add_property("entity", &PositionComponent::owner)
         .add_property("setPosition", &PositionComponent::setPosition)
-        .add_property("velocity", &PositionComponent::velocity)
+        .add_property("maxVelocity", &PositionComponent::maxVelocity)
+        .add_property("kp", &PositionComponent::kp)
+        .add_property("ki", &PositionComponent::ki)
+        .add_property("kd", &PositionComponent::kd)
+        .add_property("inPosition", &PositionComponent::inPosition)
         ;
 
     class_<UserInputComponent>("UserInput", init<>())
@@ -131,7 +135,7 @@ BOOST_PYTHON_MODULE(ezPyEngine)
         scope s = class_<dummyPosition>("Position");
         def("Create", ezEngine::Position::Create);
         def("SetPosition", ezEngine::Position::SetPosition);
-        def("SetVelocity", ezEngine::Position::SetVelocity);
+        def("SetMaxVelocity", ezEngine::Position::SetMaxVelocity);
         def("Remove", ezEngine::Position::Remove);
     }
 

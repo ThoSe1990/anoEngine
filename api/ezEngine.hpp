@@ -51,10 +51,10 @@ namespace ezEngine
 
 
     namespace Position {
-        void Create(const Entity entity, Vector2d setPosition, Vector2d velocity);
+        void Create(const Entity entity, const Vector2d& setPosition, const Vector2d& maxVelocity, const Vector2d& kp, const Vector2d& ki, const Vector2d& kd);
         const PositionComponent GetComponent(const Entity entity);
-        void SetPosition(const Entity entity, Vector2d position);
-        void SetVelocity(const Entity entity, Vector2d velocity);
+        void SetPosition(const Entity entity, const Vector2d& position);
+        void SetMaxVelocity(const Entity entity, const Vector2d& maxVelocity);
         void Remove(const Entity entity);
 
     }

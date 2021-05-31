@@ -21,6 +21,7 @@ public:
     static const std::string invalid_square;
 
     static int chespieces_velocity;
+    static int chespieces_acceleration;
     static int chessboard_offset;
 };
 

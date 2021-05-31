@@ -17,6 +17,7 @@ const std::string Constants::color_black = "black";
 const std::string Constants::invalid_square = "00";
 
 int Constants::chespieces_velocity = 500;
+int Constants::chespieces_acceleration = 1000;
 int Constants::chessboard_offset = 40;
 
 const int Movements::up = 1;

@@ -138,7 +138,10 @@ void Chess::loadPieces()
         );
         ezEngine::Position::Create(newEntity,
             ezEngine::Vector2d{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y)},
-            ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity}
+            ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
+            ezEngine::Vector2d{10, 10},
+            ezEngine::Vector2d{10, 10},
+            ezEngine::Vector2d{0, 0}
         );
         ezEngine::Sprite::Create(newEntity,
             asset_id.str(),
