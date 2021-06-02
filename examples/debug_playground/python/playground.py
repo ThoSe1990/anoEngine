@@ -74,7 +74,7 @@ anoPyEngine.AddFont("monster_big", "./examples/debug_playground/assets/fonts/mon
 textlabel_1 = anoPyEngine.CreateEntity()
 anoPyEngine.Textlabel.Create(textlabel_1, "Welcome to anoEngine", anoPyEngine.Rectangle(100,150,200,50), "monster_big", anoPyEngine.Color(255,255,255,255))
 textlabel_2 = anoPyEngine.CreateEntity()
-anoPyEngine.Textlabel.Create(textlabel_2, "a pretty easy 2d game engine for fun", anoPyEngine.Rectangle(1200,350,200,50), "monster_small", anoPyEngine.Color(255,255,255,255))
+anoPyEngine.Textlabel.Create(textlabel_2, "just another 2d game engine for fun", anoPyEngine.Rectangle(1200,350,200,50), "monster_small", anoPyEngine.Color(255,255,255,255))
 textlabel_3 = anoPyEngine.CreateEntity()
 anoPyEngine.Textlabel.Create(textlabel_3, "give it a try and be creative!", anoPyEngine.Rectangle(1200,150,200,50), "monster_mid", anoPyEngine.Color(255,255,255,255))
 
