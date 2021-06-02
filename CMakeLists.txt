@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(ezEngine)
+project(anoEngine)
 
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -17,7 +17,7 @@ find_package(Boost COMPONENTS log log_setup system thread REQUIRED)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(ezEngine_ROOT_DIR ${PROJECT_SOURCE_DIR})
+set(anoEngine_ROOT_DIR ${PROJECT_SOURCE_DIR})
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/src)
 add_subdirectory(${PROJECT_SOURCE_DIR}/api)

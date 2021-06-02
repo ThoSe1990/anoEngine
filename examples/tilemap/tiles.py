@@ -1,27 +1,27 @@
 #!/usr/bin/python3.8
 
-import ezPyEngine
+import anoPyEngine
 import time
 
 
-tilesize = ezPyEngine.Vector2d(32,32)
-mapsize = ezPyEngine.Vector2d(16,16)
+tilesize = anoPyEngine.Vector2d(32,32)
+mapsize = anoPyEngine.Vector2d(16,16)
 
-ezPyEngine.Initialize()
+anoPyEngine.Initialize()
 
-ezPyEngine.AddTexture("mymap", "./examples/tilemap/assets/images/32x32_map_tile v3.1.png")
+anoPyEngine.AddTexture("mymap", "./examples/tilemap/assets/images/32x32_map_tile v3.1.png")
 
-map = ezPyEngine.CreateEntity()
-ezPyEngine.Tilemap.Create(map, "./examples/tilemap/assets/map/tilemap.lua", "mymap")
+map = anoPyEngine.CreateEntity()
+anoPyEngine.Tilemap.Create(map, "./examples/tilemap/assets/map/tilemap.lua", "mymap")
 
-ezPyEngine.Tilemap.LoadMap(map)
+anoPyEngine.Tilemap.LoadMap(map)
 
-while ezPyEngine.IsRunning():
-    ezPyEngine.ProcessInput()
-    ezPyEngine.Update()
-    ezPyEngine.Render()
+while anoPyEngine.IsRunning():
+    anoPyEngine.ProcessInput()
+    anoPyEngine.Update()
+    anoPyEngine.Render()
 
 
-ezPyEngine.Destroy()
+anoPyEngine.Destroy()
 
 

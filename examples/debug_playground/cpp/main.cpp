@@ -1,34 +1,34 @@
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 
 int main(int argc, char* argv[]) 
 {
-    ezEngine::Initialize();
+    anoEngine::Initialize();
 
-    ezEngine::AddTexture("background", "./examples/debug_playground/assets/images/background.jpg");
-    ezEngine::AddTexture("runningCharacter", "./examples/debug_playground/assets/images/running.png");
+    anoEngine::AddTexture("background", "./examples/debug_playground/assets/images/background.jpg");
+    anoEngine::AddTexture("runningCharacter", "./examples/debug_playground/assets/images/running.png");
 
 
-    auto background = ezEngine::CreateEntity();
-    ezEngine::Sprite::Create(background, "background", ezEngine::Rectangle{0,0,2560,1440}, ezEngine::Rectangle{0,0,1920,1080}, ezEngine::Sprite::Layer::layer_0);
-
-    
-    ezEngine::AddFont("font", "./examples/debug_playground/assets/fonts/charriot.ttf", 25);
-    auto textlabel = ezEngine::CreateEntity();
-    ezEngine::Textlabel::Create(textlabel, "some text here ... ", ezEngine::Rectangle{10,10,200,50}, "font", ezEngine::Color{255,255,255,255} );
+    auto background = anoEngine::CreateEntity();
+    anoEngine::Sprite::Create(background, "background", anoEngine::Rectangle{0,0,2560,1440}, anoEngine::Rectangle{0,0,1920,1080}, anoEngine::Sprite::Layer::layer_0);
 
     
-    auto runningCharacter = ezEngine::CreateEntity();
-    ezEngine::Sprite::Create(runningCharacter, "runningCharacter", ezEngine::Rectangle{0,0,1200,1000}, ezEngine::Rectangle{800,10,120,100}, ezEngine::Sprite::Layer::layer_0);
+    anoEngine::AddFont("font", "./examples/debug_playground/assets/fonts/charriot.ttf", 25);
+    auto textlabel = anoEngine::CreateEntity();
+    anoEngine::Textlabel::Create(textlabel, "some text here ... ", anoEngine::Rectangle{10,10,200,50}, "font", anoEngine::Color{255,255,255,255} );
 
-    while (ezEngine::IsRunning()) 
+    
+    auto runningCharacter = anoEngine::CreateEntity();
+    anoEngine::Sprite::Create(runningCharacter, "runningCharacter", anoEngine::Rectangle{0,0,1200,1000}, anoEngine::Rectangle{800,10,120,100}, anoEngine::Sprite::Layer::layer_0);
+
+    while (anoEngine::IsRunning()) 
     {
-        ezEngine::ProcessInput();
-        ezEngine::Update();
-        ezEngine::Render();
+        anoEngine::ProcessInput();
+        anoEngine::Update();
+        anoEngine::Render();
     }
 
-    ezEngine::Destroy();
+    anoEngine::Destroy();
 
     return 0;
 }

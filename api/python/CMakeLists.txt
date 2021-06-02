@@ -1,5 +1,5 @@
 
-set(target ezPyEngine)
+set(target anoPyEngine)
 
 project(${target})
 
@@ -20,16 +20,16 @@ set_property(TARGET ${target} PROPERTY VISIBILITY_INLINES_HIDDEN ON)
 
 
 target_include_directories(${target} PUBLIC
-    ${ezEngine_ROOT_DIR}/api
-    ${ezEngine_ROOT_DIR}/lib
+    ${anoEngine_ROOT_DIR}/api
+    ${anoEngine_ROOT_DIR}/lib
     ${Python3_INCLUDE_DIRS}
 )
 
 
 link_directories(${CMAKE_BINARY_DIR}/lib)
 target_link_libraries(${target} PUBLIC
-    ezEngine_api
-    ezEngine_core
+    anoEngine_api
+    anoEngine_core
     Boost::python38
     ${Python3_LIBRARY}
 )

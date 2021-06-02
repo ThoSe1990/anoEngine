@@ -1,5 +1,5 @@
-#ifndef _API_EZENGINE_HPP_
-#define _API_EZENGINE_HPP_
+#ifndef _API_anoEngine_HPP_
+#define _API_anoEngine_HPP_
 
 #include <string>
 #include<algorithm>
@@ -15,7 +15,7 @@ struct UserInputComponent;
 
 #include "types/types.hpp"
 
-namespace ezEngine
+namespace anoEngine
 {
     void Initialize();
     bool IsRunning();
@@ -120,7 +120,7 @@ namespace ezEngine
 
 
     namespace Textlabel {
-        void Create(const Entity entity, const std::string& text, const ezEngine::Rectangle& position, const std::string& fontId, const ezEngine::Color& color);
+        void Create(const Entity entity, const std::string& text, const anoEngine::Rectangle& position, const std::string& fontId, const anoEngine::Color& color);
     }
 
 

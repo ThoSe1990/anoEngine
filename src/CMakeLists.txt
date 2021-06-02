@@ -1,5 +1,5 @@
 
-set(target ezEngine_core)
+set(target anoEngine_core)
 
 project(${target})
 
@@ -15,11 +15,11 @@ set_property(TARGET ${target} PROPERTY C_VISIBILITY_PRESET hidden)
 set_property(TARGET ${target} PROPERTY VISIBILITY_INLINES_HIDDEN ON)
 
 target_include_directories(${target} PUBLIC
-	${ezEngine_ROOT_DIR}/examples/Chess/src
-	${ezEngine_ROOT_DIR}/api
-	${ezEngine_ROOT_DIR}/src
-	${ezEngine_ROOT_DIR}/lib
-	${ezEngine_ROOT_DIR}/src/lua
+	${anoEngine_ROOT_DIR}/examples/Chess/src
+	${anoEngine_ROOT_DIR}/api
+	${anoEngine_ROOT_DIR}/src
+	${anoEngine_ROOT_DIR}/lib
+	${anoEngine_ROOT_DIR}/src/lua
 )
 
 target_link_libraries(${target} PUBLIC

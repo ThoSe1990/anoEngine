@@ -14,7 +14,7 @@ public:
     {
         auto& components = Components::GetInstance();
 
-        for (const auto& layer : ezEngine::Sprite::Layer())
+        for (const auto& layer : anoEngine::Sprite::Layer())
             components.SpriteManagers.emplace(layer, std::make_unique<ComponentManager<SpriteComponent>>());
 
     }

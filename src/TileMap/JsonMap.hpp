@@ -55,22 +55,22 @@ private:
         auto destination_y = pt.get_child("destination_y");
         auto scale = pt.get_child("scale");
 
-        ezEngine::Rectangle source {
+        anoEngine::Rectangle source {
             source_x.get_value<int>() * tileSize,
             source_y.get_value<int>() * tileSize,
             tileSize,
             tileSize
         };
         
-        ezEngine::Rectangle destination {
+        anoEngine::Rectangle destination {
             destination_x.get_value<int>() * tileSize * scale.get_value<int>(),
             destination_y.get_value<int>() * tileSize * scale.get_value<int>(),
             tileSize * scale.get_value<int>(),
             tileSize * scale.get_value<int>()
         };
         
-        auto newTile =  ezEngine::CreateEntity();
-        ezEngine::Sprite::Create(newTile, textureId, source, destination, ezEngine::Sprite::Flip::none, ezEngine::Sprite::Layer::layer_0);
+        auto newTile =  anoEngine::CreateEntity();
+        anoEngine::Sprite::Create(newTile, textureId, source, destination, anoEngine::Sprite::Flip::none, anoEngine::Sprite::Layer::layer_0);
     }
 
 };

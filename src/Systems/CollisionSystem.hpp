@@ -55,7 +55,7 @@ public:
 
 private:
 
-    bool checkCollision(const ezEngine::Rectangle& rectangleA, const ezEngine::Rectangle& rectangleB) 
+    bool checkCollision(const anoEngine::Rectangle& rectangleA, const anoEngine::Rectangle& rectangleB) 
     {
         return (
             rectangleA.x + rectangleA.w >= rectangleB.x &&

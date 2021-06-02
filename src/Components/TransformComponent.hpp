@@ -2,19 +2,19 @@
 #ifndef _COMPONENTS_TRANSFORMCOMPONENT_HPP_
 #define _COMPONENTS_TRANSFORMCOMPONENT_HPP_
 
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 struct TransformComponent
 {
     TransformComponent () {}
-    TransformComponent (Entity Owner, const ezEngine::Rectangle& rectangle, const ezEngine::Vector2d& velocity, int scale) :
+    TransformComponent (Entity Owner, const anoEngine::Rectangle& rectangle, const anoEngine::Vector2d& velocity, int scale) :
     owner(Owner), rectangle(rectangle), velocity(velocity), scale(scale)
     { }
     
     Entity owner;
 
-    ezEngine::Rectangle rectangle;
-    ezEngine::Vector2d velocity;
+    anoEngine::Rectangle rectangle;
+    anoEngine::Vector2d velocity;
 
     int scale;  
 };

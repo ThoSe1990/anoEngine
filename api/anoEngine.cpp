@@ -27,7 +27,7 @@
 #include <SDL2/SDL_image.h>
 
 
-#include "ezEngine.hpp"    
+#include "anoEngine.hpp"    
 #include "UserInputs.hpp"
 #include "Components/Components.hpp"
 #include "Systems/TextlabelSystem.hpp"
@@ -36,7 +36,7 @@
 #include "Game.hpp"
 
 
-namespace ezEngine {
+namespace anoEngine {
 
 
     EZ_ENGINE_PUBLIC void Initialize ()
@@ -251,7 +251,7 @@ namespace ezEngine {
 
 
 
-        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& textureId, ezEngine::Rectangle source, ezEngine::Rectangle destination, Flip flip, Layer layer)
+        EZ_ENGINE_PUBLIC void Create(const Entity entity, const std::string& textureId, anoEngine::Rectangle source, anoEngine::Rectangle destination, Flip flip, Layer layer)
         {
             auto& components = Components::GetInstance();
             components.SpriteManagers.at(layer)->Create(entity,

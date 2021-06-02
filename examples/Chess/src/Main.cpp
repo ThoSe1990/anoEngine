@@ -1,6 +1,6 @@
 
 
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 #include "Chess.hpp"
 
@@ -10,14 +10,14 @@ int main(int argc, char* argv[])
     Chess chess;
     chess.Initialize();
 
-    while (ezEngine::IsRunning()) 
+    while (anoEngine::IsRunning()) 
     {
-        ezEngine::ProcessInput();
+        anoEngine::ProcessInput();
         chess.Update();
-        ezEngine::Render();
+        anoEngine::Render();
     }
 
-    ezEngine::Destroy();
+    anoEngine::Destroy();
 
     return 0;
 }

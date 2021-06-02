@@ -2,7 +2,7 @@
 #define CHESS_CONSTANTS_H
 
 #include <string>
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 class Constants
 {
@@ -10,7 +10,7 @@ public:
     static const int chesspiece_sidelength;
     static const int square_sidelength;
     static const int offset_figures_squares;
-    static const ezEngine::Vector2d offset_figures_squares_vec2;
+    static const anoEngine::Vector2d offset_figures_squares_vec2;
     static const int number_of_squares_per_row;
     static const int number_of_squares_per_col;
     static const int scale;

@@ -1,6 +1,6 @@
-[![Build Status](https://dev.azure.com/thomassedlmair/ezEngine/_apis/build/status/ThoSe1990.ezEngine?branchName=master)](https://dev.azure.com/thomassedlmair/ezEngine/_build/latest?definitionId=6&branchName=master)
+[![Build Status](https://dev.azure.com/thomassedlmair/anoEngine/_apis/build/status/ThoSe1990.anoEngine?branchName=master)](https://dev.azure.com/thomassedlmair/anoEngine/_build/latest?definitionId=6&branchName=master)
 
-# ezEngine - 2D Game Engine
+# anoEngine - Just Another 2D Game Engine
   
 Welcome to my 2D Game Engine! This game engine is still under development. The long term goal is to create different games by using different interfaces. Aside there will be an artificial intelligence which learns how to play chess (therefore i started implementing a chess game) against human players or another AI. Before starting with AI this will be a coding playground. first of all this will be a independent 2D game engine with an different interfaces (dll, python, lua) and an implemented chess game.
   
@@ -8,7 +8,7 @@ Welcome to my 2D Game Engine! This game engine is still under development. The l
 ![playground](./screenshots/playground.png)
   
   
-## ezEngine Documentation
+## anoEngine Documentation
 
 This engine works with an Entity-Component-System which is illustrated below (simplified). 
 
@@ -23,7 +23,7 @@ This engine works with an Entity-Component-System which is illustrated below (si
 ![ecs](./screenshots/ecs.png)
 
   
-All given API function are defined in `./api/ezEngine.hpp`. A description will follow. For now see the two examples, this readme or the function singatures how to use.
+All given API function are defined in `./api/anoEngine.hpp`. A description will follow. For now see the two examples, this readme or the function singatures how to use.
   
   
 To create a game there is only the api needed. For instance we want to create an Entity and assign some components like:  
@@ -32,12 +32,12 @@ To create a game there is only the api needed. For instance we want to create an
 C++ :
 ```cpp
 // create an entity
-auto newEntity = ezEngine::CreateEntity();
+auto newEntity = anoEngine::CreateEntity();
 
 // add one or more components to it 
-ezEngine::Sprite::Create(...);
-ezEngine::Transform::Create(...);
-ezEngine::Collider::Create(...);
+anoEngine::Sprite::Create(...);
+anoEngine::Transform::Create(...);
+anoEngine::Collider::Create(...);
 
 ```
   
@@ -45,13 +45,13 @@ Python :
 ```python
 ...
 #create an entity
-newEntity = ezPyEngine.CreateEntity()
+newEntity = anoPyEngine.CreateEntity()
 
 # add some components to the entity
-ezPyEngine.SpriteComponent.Create(...)
-ezPyEngine.TransformComponent.Create(...)
-ezPyEngine.UserInputComponent.Create(...)
-ezPyEngine.ColliderComponent.Create(...)
+anoPyEngine.SpriteComponent.Create(...)
+anoPyEngine.TransformComponent.Create(...)
+anoPyEngine.UserInputComponent.Create(...)
+anoPyEngine.ColliderComponent.Create(...)
 
 ```
 
@@ -63,30 +63,30 @@ Any component can created by the corresponding Create() function on the api. So 
 
 ```cpp
 // add your sprite 
-ezEngine::AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE");
+anoEngine::AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE");
 
 // create an enttiy
-auto newEntity = ezEngine::CreateEntity();
+auto newEntity = anoEngine::CreateEntity();
 
 // create a sprite component
-ezEngine::Sprite::Create(
+anoEngine::Sprite::Create(
     newEntity,
     "YOUR_ID",
-    ezEngine::Rectangle{...}, // source position in given sprite file
-    ezEngine::Rectangle{...}, // destination position in game
-    ezEngine::Sprite::Flip::none, 
-    ezEngine::Sprite::Layer::layer_0 
+    anoEngine::Rectangle{...}, // source position in given sprite file
+    anoEngine::Rectangle{...}, // destination position in game
+    anoEngine::Sprite::Flip::none, 
+    anoEngine::Sprite::Layer::layer_0 
 );
 ```
 
 ```python
-ezPyEngine.AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE")
+anoPyEngine.AddTexture("YOUR_ID", "PATH_TO_THE_IMAGE")
 # add your sprite
 
 # create Entity
-newEntity = ezPyEngine.CreateEntity()
+newEntity = anoPyEngine.CreateEntity()
 # create a entity
-ezPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", ezPyEngine.Rectangle(source position), ezPyEngine.Rectangle(destination position in game), ezPyEngine.Sprite.Layer.layer_0)
+anoPyEngine.SpriteComponent.Create(newEntity, "YOUR_ID", anoPyEngine.Rectangle(source position), anoPyEngine.Rectangle(destination position in game), anoPyEngine.Sprite.Layer.layer_0)
 
 ```
   
@@ -171,14 +171,14 @@ Colliders are checking if transform components colliding with each other.
 - String: collisionWithType -> holds the type of a collided component in case of a collision
   
 ### TextlabelComponent
-Display customized Textlabels. It is mandatory to provide the font (*.ttf) to the assetmanager. Use the api function `ezEngine::AddFont(fontId, filePath, fontSize)`. The textlabel components itself looks like the following.
+Display customized Textlabels. It is mandatory to provide the font (*.ttf) to the assetmanager. Use the api function `anoEngine::AddFont(fontId, filePath, fontSize)`. The textlabel components itself looks like the following.
   
 **Datafields:**
 - Entity: owner
 - Rectangle position
 - String text -> displayed text
 - String fontId -> which was passed to the assetmanager
-- Color -> ezEngine::Color with red, green, blue, alpha (each 0-255)
+- Color -> anoEngine::Color with red, green, blue, alpha (each 0-255)
 
 ### TileMapComponent
 With the TileMapComponent a map can be created. First draft of the Tilemap looks like the following. Tilemaps can be created with a json or a lua file (see `./examples/tilemap/assets/map/`)
@@ -223,7 +223,7 @@ On the current state of this project there are two examples.
 
 ### Chess Example
 
-By running `make run_chess` the Chessgame starts. It's a C++ implementation which uses the ezEngine. All game rules aren' implemented. A running game looks like:
+By running `make run_chess` the Chessgame starts. It's a C++ implementation which uses the anoEngine. All game rules aren' implemented. A running game looks like:
 
 ![first setup](./screenshots/default_setup.PNG)
 ![game running](./screenshots/chessgame.PNG)

@@ -1,5 +1,5 @@
 
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 #include "Chess.hpp"
 #include "Chessboard.hpp"
@@ -13,7 +13,7 @@ std::shared_ptr<Chesspiece> Chess::selectedPiece;
 
 void Chess::Initialize()
 {
-    ezEngine::Initialize();
+    anoEngine::Initialize();
     
     initializeLua();
     loadAssets();
@@ -55,21 +55,21 @@ void Chess::loadAssets()
         {
             std::string id = asset["id"];
             std::string file = asset["file"];  
-            ezEngine::AddTexture(id, file.c_str());
+            anoEngine::AddTexture(id, file.c_str());
         }
         index++;
     }
 }
 void Chess::Update()
 {
-    if (ezEngine::Inputs::MouseButtonLeftClick())
+    if (anoEngine::Inputs::MouseButtonLeftClick())
     {               
         auto next = this->currentState->UpdateGame();
         SetState(std::move(next));
         updateValidation();
         updatePieces();
     }
-    ezEngine::Update();
+    anoEngine::Update();
 
 }
 
@@ -127,28 +127,28 @@ void Chess::loadPieces()
 
 
         auto coordinates = Chessboard::GetCoordinatesFromSquare(position);
-        auto newEntity = ezEngine::CreateEntity();
-        ezEngine::Transform::Create(newEntity, 
+        auto newEntity = anoEngine::CreateEntity();
+        anoEngine::Transform::Create(newEntity, 
             coordinates.x,
             coordinates.y,
             Constants::chesspiece_sidelength,
             Constants::chesspiece_sidelength,
-            ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
+            anoEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
             Constants::scale
         );
-        ezEngine::Position::Create(newEntity,
-            ezEngine::Vector2d{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y)},
-            ezEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
-            ezEngine::Vector2d{10, 10},
-            ezEngine::Vector2d{10, 10},
-            ezEngine::Vector2d{0, 0}
+        anoEngine::Position::Create(newEntity,
+            anoEngine::Vector2d{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y)},
+            anoEngine::Vector2d{Constants::chespieces_velocity,Constants::chespieces_velocity},
+            anoEngine::Vector2d{10, 10},
+            anoEngine::Vector2d{10, 10},
+            anoEngine::Vector2d{0, 0}
         );
-        ezEngine::Sprite::Create(newEntity,
+        anoEngine::Sprite::Create(newEntity,
             asset_id.str(),
-            ezEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
-            ezEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
-            ezEngine::Sprite::Flip::none,
-            ezEngine::Sprite::Layer::layer_1 
+            anoEngine::Rectangle{0, 0, Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
+            anoEngine::Rectangle{static_cast<int>(coordinates.x), static_cast<int>(coordinates.y), Constants::chesspiece_sidelength, Constants::chesspiece_sidelength},
+            anoEngine::Sprite::Flip::none,
+            anoEngine::Sprite::Layer::layer_1 
         );
         
         
@@ -164,14 +164,14 @@ void Chess::updatePieces()
     for (const auto& piece : AllPieces)
     {
         auto position = Chessboard::GetCoordinatesFromSquare(piece->square);
-        ezEngine::Position::SetPosition(piece->owner, position);
+        anoEngine::Position::SetPosition(piece->owner, position);
     }     
 }
 
 void Chess::updateValidation()
 {
     for (const auto& e : validMoves)
-        ezEngine::Sprite::Remove(e.second);
+        anoEngine::Sprite::Remove(e.second);
 
     validMoves.clear();
 
@@ -228,8 +228,8 @@ void Chess::captureOpponent(const std::string& square)
 
     if (!opponent) return;
 
-    ezEngine::Sprite::Remove(opponent->owner);
-    ezEngine::Transform::Remove(opponent->owner);
+    anoEngine::Sprite::Remove(opponent->owner);
+    anoEngine::Transform::Remove(opponent->owner);
 
     auto it = std::find_if(AllPieces.begin(), AllPieces.end(), [&opponent](const auto& current){
         return opponent->owner == current->owner;

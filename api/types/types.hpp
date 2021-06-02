@@ -2,7 +2,7 @@
 #define _API_TYPES_TYPES_HPP_
 
 
-namespace ezEngine {
+namespace anoEngine {
 
     struct Vector2d {
         Vector2d() {}

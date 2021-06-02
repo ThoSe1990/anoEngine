@@ -2,21 +2,21 @@
 #ifndef _COMPONENTS_TEXTLABELCOMPONENT_HPP_
 #define _COMPONENTS_TEXTLABELCOMPONENT_HPP_
 
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 struct TextlabelComponent
 {
 
     TextlabelComponent () {}
-    TextlabelComponent (Entity owner, const std::string& text, const ezEngine::Rectangle& position, const std::string& fontId, const ezEngine::Color& color) :
+    TextlabelComponent (Entity owner, const std::string& text, const anoEngine::Rectangle& position, const std::string& fontId, const anoEngine::Color& color) :
     owner(owner), text(text), position(position), fontId(fontId), color(color) { }
     
     Entity owner;
 
-    ezEngine::Rectangle position;
+    anoEngine::Rectangle position;
     std::string text;
     std::string fontId;
-    ezEngine::Color color;
+    anoEngine::Color color;
 
 };
 

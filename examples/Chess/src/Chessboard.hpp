@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "ezEngine.hpp"
+#include "anoEngine.hpp"
 
 #include "Constants.hpp"
 
@@ -18,10 +18,10 @@ public:
     const int blackSquare = 0;
     const int whiteSquare = 1;
     
-    static std::map<std::string, ezEngine::Vector2d> squareCoordinates;
+    static std::map<std::string, anoEngine::Vector2d> squareCoordinates;
 
-    static std::string GetSquareTitleByCoordinates(ezEngine::Vector2d coordinates);
-    static ezEngine::Vector2d GetCoordinatesFromSquare(const std::string& title);
+    static std::string GetSquareTitleByCoordinates(anoEngine::Vector2d coordinates);
+    static anoEngine::Vector2d GetCoordinatesFromSquare(const std::string& title);
     static bool IsValidSquare(const std::string& square);
     void Init();
 

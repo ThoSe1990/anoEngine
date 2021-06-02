@@ -13,7 +13,7 @@ void TextureManager::Draw(SDL_Texture* texture, SDL_Rect sourceRectangle, SDL_Re
     SDL_RenderCopyEx(Game::renderer, texture, &sourceRectangle, &destinationRectangle, 0.0, NULL, flip);
 }
 
-void TextureManager::Draw(const std::string& textureId, const ezEngine::Rectangle& source, const ezEngine::Rectangle& destination, const ezEngine::Sprite::Flip& flip)
+void TextureManager::Draw(const std::string& textureId, const anoEngine::Rectangle& source, const anoEngine::Rectangle& destination, const anoEngine::Sprite::Flip& flip)
 {
     SDL_Rect source_{source.x, source.y, source.w, source.h};
     SDL_Rect destination_{destination.x, destination.y, destination.w, destination.h};

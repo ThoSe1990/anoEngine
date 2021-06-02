@@ -46,22 +46,22 @@ public:
             int destination_y = tile["destination_y"];
             int scale = tile["scale"];
             
-            ezEngine::Rectangle source {
+            anoEngine::Rectangle source {
                 source_x * tileSize,
                 source_y * tileSize,
                 tileSize,
                 tileSize
             };
             
-            ezEngine::Rectangle destination {
+            anoEngine::Rectangle destination {
                 destination_x * tileSize * scale,
                 destination_y * tileSize * scale,
                 tileSize * scale,
                 tileSize * scale
             };
             
-            auto newTile =  ezEngine::CreateEntity();
-            ezEngine::Sprite::Create(newTile, tm->textureId, source, destination, ezEngine::Sprite::Flip::none, ezEngine::Sprite::Layer::layer_0);
+            auto newTile =  anoEngine::CreateEntity();
+            anoEngine::Sprite::Create(newTile, tm->textureId, source, destination, anoEngine::Sprite::Flip::none, anoEngine::Sprite::Layer::layer_0);
 
             index++;
         }

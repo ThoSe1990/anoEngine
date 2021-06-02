@@ -1,4 +1,4 @@
-set(target ezEngine_api)
+set(target anoEngine_api)
 
 project(${target})
 
@@ -16,13 +16,13 @@ set_property(TARGET ${target} PROPERTY C_VISIBILITY_PRESET hidden)
 set_property(TARGET ${target} PROPERTY VISIBILITY_INLINES_HIDDEN ON)
 
 target_include_directories(${target} PUBLIC
-    ${ezEngine_ROOT_DIR}/api
-    ${ezEngine_ROOT_DIR}/src
-    ${ezEngine_ROOT_DIR}/lib
+    ${anoEngine_ROOT_DIR}/api
+    ${anoEngine_ROOT_DIR}/src
+    ${anoEngine_ROOT_DIR}/lib
 )
 
 target_link_libraries(${target} PUBLIC
-    ezEngine_core
+    anoEngine_core
     ${SDL2_LIBRARIES} 
     ${SDL2_IMAGE_LIBRARIES}
     ${SDL2_MIXER_LIBRARIES}

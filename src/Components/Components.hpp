@@ -47,7 +47,7 @@ public:
     std::unique_ptr<ComponentManager<ColliderComponent>> CollisionManager = std::make_unique<ComponentManager<ColliderComponent>>();
     std::unique_ptr<ComponentManager<TextlabelComponent>> TextlabelManager = std::make_unique<ComponentManager<TextlabelComponent>>();
 
-    std::map<ezEngine::Sprite::Layer, std::unique_ptr<ComponentManager<SpriteComponent>>> SpriteManagers;
+    std::map<anoEngine::Sprite::Layer, std::unique_ptr<ComponentManager<SpriteComponent>>> SpriteManagers;
 
 private:
     Components() { }
